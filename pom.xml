@@ -6,7 +6,7 @@
     <groupId>com.ahau</groupId>
     <artifactId>bambootattan_server</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
 
     <name>bambootattan_server</name>
     <description>Demo project for Spring Boot</description>
