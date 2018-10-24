@@ -1,6 +1,16 @@
 package com.ahau.entity;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Genus {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
     /* 中文名称 */
     private String genusNameCh;
     /* 中文名称（模糊查询） */
@@ -20,11 +30,20 @@ public class Genus {
     /* 描述 */
     private String genusDesc;
     /* 排序序号 */
+
     private Integer sortNum;
     /* 排序序号（查询上限） */
     private Integer beginSortNum;
     /* 排序序号（查询下限） */
     private Integer endSortNum;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getGenusNameCh() {
         return genusNameCh;
@@ -125,7 +144,8 @@ public class Genus {
     @Override
     public String toString() {
         return "Genus{" +
-                "genusNameCh='" + genusNameCh + '\'' +
+                "id=" + id +
+                ", genusNameCh='" + genusNameCh + '\'' +
                 ", genusNameChLike='" + genusNameChLike + '\'' +
                 ", genusNameEn='" + genusNameEn + '\'' +
                 ", genusNameEnLike='" + genusNameEnLike + '\'' +
