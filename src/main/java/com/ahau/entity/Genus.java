@@ -5,6 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+/**
+ * 实体类：（属表）
+ * Created by: 张理
+ * 2018-10-26 12：00
+ */
 @Entity
 public class Genus {
     @Id
