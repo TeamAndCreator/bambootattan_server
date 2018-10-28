@@ -22,7 +22,7 @@ public class AreaSmall {
     /* 名称 */
     private String areaName;
 
-//    private List<AreaSmall> sonArea;
+//    private List<AreaSmall> sonArea; 需改错
 
     public String getId() {
         return id;

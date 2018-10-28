@@ -31,7 +31,7 @@ public class AreaTable {
     /*父区域名称*/
     private String parAreaName;
 
-//    private List<AreaTable> sonArea;
+//    private List<AreaTable> sonArea;需改错
 
     public String getId() {
         return id;
