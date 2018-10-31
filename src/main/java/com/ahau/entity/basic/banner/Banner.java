@@ -1,10 +1,9 @@
 package com.ahau.entity.basic.banner;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Objects;
+
 
 /**
  * 实体类：（Banner）
@@ -12,46 +11,29 @@ import java.util.Date;
  * 2018-10-30 21：10
  */
 @Entity
+@Table(name = "aau_basic_banner_table", schema = "bambootattan", catalog = "")
 public class Banner {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 标题 */
+    private String bannerId;
     private String bannerTitle;
-    /* 图片地址 */
     private String bannerIcon;
-    /* 排序 */
     private String orderBy;
-    /*  */
     private String bannerUrl;
-    /* 可用标记 1-可用 2-不可用 */
-    private Integer bannerFlag;
-    /* 可用标记 1-可用 2-不可用（查询上限）*/
-    private Integer beginBannerFlag;
-    /* 可用标记 1-可用 2-不可用（查询下限）*/
-    private Integer endBannerFlag;
-    /*  */
-    private java.util.Date addTime;
-    /* （查询上限）*/
-    private java.util.Date beginAddTime;
-    /* （查询下限）*/
-    private java.util.Date endAddTime;
-    /* 类型 1-首页Banner 2-欢迎页 */
-    private Integer bannerType;
-    /* 类型 1-首页Banner 2-欢迎页（查询上限）*/
-    private Integer beginBannerType;
-    /* 类型 1-首页Banner 2-欢迎页（查询下限）*/
-    private Integer endBannerType;
+    private byte bannerFlag;
+    private Timestamp addTime;
+    private byte bannerType;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "BANNER_ID")
+    public String getBannerId() {
+        return bannerId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setBannerId(String bannerId) {
+        this.bannerId = bannerId;
     }
 
+    @Basic
+    @Column(name = "BANNER_TITLE")
     public String getBannerTitle() {
         return bannerTitle;
     }
@@ -60,6 +42,8 @@ public class Banner {
         this.bannerTitle = bannerTitle;
     }
 
+    @Basic
+    @Column(name = "BANNER_ICON")
     public String getBannerIcon() {
         return bannerIcon;
     }
@@ -68,6 +52,8 @@ public class Banner {
         this.bannerIcon = bannerIcon;
     }
 
+    @Basic
+    @Column(name = "ORDER_BY")
     public String getOrderBy() {
         return orderBy;
     }
@@ -76,6 +62,8 @@ public class Banner {
         this.orderBy = orderBy;
     }
 
+    @Basic
+    @Column(name = "BANNER_URL")
     public String getBannerUrl() {
         return bannerUrl;
     }
@@ -84,75 +72,53 @@ public class Banner {
         this.bannerUrl = bannerUrl;
     }
 
-    public Integer getBannerFlag() {
+    @Basic
+    @Column(name = "BANNER_FLAG")
+    public byte getBannerFlag() {
         return bannerFlag;
     }
 
-    public void setBannerFlag(Integer bannerFlag) {
+    public void setBannerFlag(byte bannerFlag) {
         this.bannerFlag = bannerFlag;
     }
 
-    public Integer getBeginBannerFlag() {
-        return beginBannerFlag;
-    }
-
-    public void setBeginBannerFlag(Integer beginBannerFlag) {
-        this.beginBannerFlag = beginBannerFlag;
-    }
-
-    public Integer getEndBannerFlag() {
-        return endBannerFlag;
-    }
-
-    public void setEndBannerFlag(Integer endBannerFlag) {
-        this.endBannerFlag = endBannerFlag;
-    }
-
-    public Date getAddTime() {
+    @Basic
+    @Column(name = "ADD_TIME")
+    public Timestamp getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Date addTime) {
+    public void setAddTime(Timestamp addTime) {
         this.addTime = addTime;
     }
 
-    public Date getBeginAddTime() {
-        return beginAddTime;
-    }
-
-    public void setBeginAddTime(Date beginAddTime) {
-        this.beginAddTime = beginAddTime;
-    }
-
-    public Date getEndAddTime() {
-        return endAddTime;
-    }
-
-    public void setEndAddTime(Date endAddTime) {
-        this.endAddTime = endAddTime;
-    }
-
-    public Integer getBannerType() {
+    @Basic
+    @Column(name = "BANNER_TYPE")
+    public byte getBannerType() {
         return bannerType;
     }
 
-    public void setBannerType(Integer bannerType) {
+    public void setBannerType(byte bannerType) {
         this.bannerType = bannerType;
     }
 
-    public Integer getBeginBannerType() {
-        return beginBannerType;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Banner that = (Banner) o;
+        return bannerFlag == that.bannerFlag &&
+                bannerType == that.bannerType &&
+                Objects.equals(bannerId, that.bannerId) &&
+                Objects.equals(bannerTitle, that.bannerTitle) &&
+                Objects.equals(bannerIcon, that.bannerIcon) &&
+                Objects.equals(orderBy, that.orderBy) &&
+                Objects.equals(bannerUrl, that.bannerUrl) &&
+                Objects.equals(addTime, that.addTime);
     }
 
-    public void setBeginBannerType(Integer beginBannerType) {
-        this.beginBannerType = beginBannerType;
-    }
-
-    public Integer getEndBannerType() {
-        return endBannerType;
-    }
-
-    public void setEndBannerType(Integer endBannerType) {
-        this.endBannerType = endBannerType;
+    @Override
+    public int hashCode() {
+        return Objects.hash(bannerId, bannerTitle, bannerIcon, orderBy, bannerUrl, bannerFlag, addTime, bannerType);
     }
 }

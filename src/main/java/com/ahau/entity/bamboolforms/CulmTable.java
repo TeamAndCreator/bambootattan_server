@@ -13,7 +13,7 @@ import javax.persistence.Id;
 @Entity
 public class CulmTable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     /* 种标识 */

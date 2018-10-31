@@ -1,9 +1,7 @@
 package com.ahau.entity.system.param;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类（系统参数）
@@ -11,32 +9,28 @@ import javax.persistence.Id;
  * 2018-10-28 19：30
  */
 @Entity
+@Table(name = "aau_system_param_table", schema = "bambootattan", catalog = "")
 public class ParamTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 所属系统 */
+    private String paramId;
     private String systemName;
-    /* 所属模块 */
     private String moduleName;
-    /* 参数索引 */
     private String paramIndex;
-    /* 参数名称 */
     private String paramName;
-    /* 参数数值 */
     private String paramValue;
-    /* 参数备注 */
     private String paramRemark;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "PARAM_ID")
+    public String getParamId() {
+        return paramId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setParamId(String paramId) {
+        this.paramId = paramId;
     }
 
+    @Basic
+    @Column(name = "SYSTEM_NAME")
     public String getSystemName() {
         return systemName;
     }
@@ -45,6 +39,8 @@ public class ParamTable {
         this.systemName = systemName;
     }
 
+    @Basic
+    @Column(name = "MODULE_NAME")
     public String getModuleName() {
         return moduleName;
     }
@@ -53,6 +49,8 @@ public class ParamTable {
         this.moduleName = moduleName;
     }
 
+    @Basic
+    @Column(name = "PARAM_INDEX")
     public String getParamIndex() {
         return paramIndex;
     }
@@ -61,6 +59,8 @@ public class ParamTable {
         this.paramIndex = paramIndex;
     }
 
+    @Basic
+    @Column(name = "PARAM_NAME")
     public String getParamName() {
         return paramName;
     }
@@ -69,6 +69,8 @@ public class ParamTable {
         this.paramName = paramName;
     }
 
+    @Basic
+    @Column(name = "PARAM_VALUE")
     public String getParamValue() {
         return paramValue;
     }
@@ -77,11 +79,32 @@ public class ParamTable {
         this.paramValue = paramValue;
     }
 
+    @Basic
+    @Column(name = "PARAM_REMARK")
     public String getParamRemark() {
         return paramRemark;
     }
 
     public void setParamRemark(String paramRemark) {
         this.paramRemark = paramRemark;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParamTable that = (ParamTable) o;
+        return Objects.equals(paramId, that.paramId) &&
+                Objects.equals(systemName, that.systemName) &&
+                Objects.equals(moduleName, that.moduleName) &&
+                Objects.equals(paramIndex, that.paramIndex) &&
+                Objects.equals(paramName, that.paramName) &&
+                Objects.equals(paramValue, that.paramValue) &&
+                Objects.equals(paramRemark, that.paramRemark);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(paramId, systemName, moduleName, paramIndex, paramName, paramValue, paramRemark);
     }
 }

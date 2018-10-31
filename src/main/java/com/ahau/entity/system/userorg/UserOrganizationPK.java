@@ -1,22 +1,16 @@
 package com.ahau.entity.system.userorg;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * 实体：（用户-组织机构）
- * created by: 张理
- * 2018-10-29 09：30
- */
-@Entity
-@Table(name = "aau_system_user_org", schema = "bambootattan", catalog = "")
-@IdClass(UserOrganizationPK.class)
-public class UserOrganization {
+public class UserOrganizationPK implements Serializable {
     private String userId;
     private String orgId;
 
-    @Id
     @Column(name = "USER_ID")
+    @Id
     public String getUserId() {
         return userId;
     }
@@ -25,8 +19,8 @@ public class UserOrganization {
         this.userId = userId;
     }
 
-    @Id
     @Column(name = "ORG_ID")
+    @Id
     public String getOrgId() {
         return orgId;
     }
@@ -39,7 +33,7 @@ public class UserOrganization {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserOrganization that = (UserOrganization) o;
+        UserOrganizationPK that = (UserOrganizationPK) o;
         return Objects.equals(userId, that.userId) &&
                 Objects.equals(orgId, that.orgId);
     }

@@ -1,9 +1,7 @@
 package com.ahau.entity.system.organization;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类：（组织机构）
@@ -11,40 +9,29 @@ import javax.persistence.Id;
  * 2018-10-28 19：23
  */
 @Entity
+@Table(name = "aau_system_organization_table", schema = "bambootattan", catalog = "")
 public class OrganizationTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 所属机构 */
+    private String orgId;
     private String parentId;
-    /* 机构名称 */
     private String orgName;
-    /* 机构简称 */
     private String shortName;
-    /* 是否有效 */
-    private Integer activeFlag;
-    /* 是否有效（查询上限） */
-    private Integer beginActiveFlag;
-    /* 是否有效（查询下限） */
-    private Integer endActiveFlag;
-    /* 机构备注 */
+    private byte activeFlag;
     private String orgRemark;
-    /* 排序序号 */
     private Integer orderBy;
-    /* 父组织名称 */
-    private String parentOrgName;
-    /* 企业公章 */
     private String orgSeal;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "ORG_ID")
+    public String getOrgId() {
+        return orgId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
     }
 
+    @Basic
+    @Column(name = "PARENT_ID")
     public String getParentId() {
         return parentId;
     }
@@ -53,6 +40,8 @@ public class OrganizationTable {
         this.parentId = parentId;
     }
 
+    @Basic
+    @Column(name = "ORG_NAME")
     public String getOrgName() {
         return orgName;
     }
@@ -61,6 +50,8 @@ public class OrganizationTable {
         this.orgName = orgName;
     }
 
+    @Basic
+    @Column(name = "SHORT_NAME")
     public String getShortName() {
         return shortName;
     }
@@ -69,30 +60,18 @@ public class OrganizationTable {
         this.shortName = shortName;
     }
 
-    public Integer getActiveFlag() {
+    @Basic
+    @Column(name = "ACTIVE_FLAG")
+    public byte getActiveFlag() {
         return activeFlag;
     }
 
-    public void setActiveFlag(Integer activeFlag) {
+    public void setActiveFlag(byte activeFlag) {
         this.activeFlag = activeFlag;
     }
 
-    public Integer getBeginActiveFlag() {
-        return beginActiveFlag;
-    }
-
-    public void setBeginActiveFlag(Integer beginActiveFlag) {
-        this.beginActiveFlag = beginActiveFlag;
-    }
-
-    public Integer getEndActiveFlag() {
-        return endActiveFlag;
-    }
-
-    public void setEndActiveFlag(Integer endActiveFlag) {
-        this.endActiveFlag = endActiveFlag;
-    }
-
+    @Basic
+    @Column(name = "ORG_REMARK")
     public String getOrgRemark() {
         return orgRemark;
     }
@@ -101,6 +80,8 @@ public class OrganizationTable {
         this.orgRemark = orgRemark;
     }
 
+    @Basic
+    @Column(name = "ORDER_BY")
     public Integer getOrderBy() {
         return orderBy;
     }
@@ -109,19 +90,33 @@ public class OrganizationTable {
         this.orderBy = orderBy;
     }
 
-    public String getParentOrgName() {
-        return parentOrgName;
-    }
-
-    public void setParentOrgName(String parentOrgName) {
-        this.parentOrgName = parentOrgName;
-    }
-
+    @Basic
+    @Column(name = "ORG_SEAL")
     public String getOrgSeal() {
         return orgSeal;
     }
 
     public void setOrgSeal(String orgSeal) {
         this.orgSeal = orgSeal;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OrganizationTable that = (OrganizationTable) o;
+        return activeFlag == that.activeFlag &&
+                Objects.equals(orgId, that.orgId) &&
+                Objects.equals(parentId, that.parentId) &&
+                Objects.equals(orgName, that.orgName) &&
+                Objects.equals(shortName, that.shortName) &&
+                Objects.equals(orgRemark, that.orgRemark) &&
+                Objects.equals(orderBy, that.orderBy) &&
+                Objects.equals(orgSeal, that.orgSeal);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(orgId, parentId, orgName, shortName, activeFlag, orgRemark, orderBy, orgSeal);
     }
 }

@@ -1,10 +1,8 @@
 package com.ahau.entity.system.log;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Objects;
 
 /**
  * 实体类：（日志表）
@@ -12,62 +10,35 @@ import java.util.Date;
  * 2018-10-28 19：00
  */
 @Entity
+@Table(name = "aau_system_log_table", schema = "bambootattan", catalog = "")
 public class LogTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 操作人地址 */
+    private String logId;
     private String optUrl;
-    /* 操作人登录名 */
     private String optUser;
-    /* 操作时间 */
-    private java.util.Date optTime;
-    /* 操作时间（查询上限）*/
-    private java.util.Date beginOptTime;
-    /* 操作时间（查询下限）*/
-    private java.util.Date endOptTime;
-    /* 日志类型 */
-    private Integer logType;
-    /* 日志类型（查询上限）*/
-    private Integer beginLogType;
-    /* 日志类型（查询下限）*/
-    private Integer endLogType;
-    /* 操作系统 */
+    private Timestamp optTime;
+    private byte logType;
     private String optSystem;
-    /* 操作浏览器 */
     private String optBrowser;
-    /* 操作IP地址 */
     private String optIp;
-    /* 操作设备物理地址 */
     private String optMac;
-    /* 执行时间 */
     private Integer executeTime;
-    /* 执行时间（查询上限）*/
-    private Integer beginExecuteTime;
-    /* 执行时间（查询下限）*/
-    private Integer endExecuteTime;
-    /* 操作描述 */
     private String optDesc;
-    /* 请求参数 */
     private String requestParam;
-    /* 操作来源 1-后台 2-android端 3-ios端 */
-    private Integer logResource;
-    /* 操作来源 1-后台 2-android端 3-ios端（查询上限）*/
-    private Integer beginLogResource;
-    /* 操作来源 1-后台 2-android端 3-ios端（查询下限）*/
-    private Integer endLogResource;
-    /* 异常信息 */
+    private byte logResource;
     private String exceptionDetail;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "LOG_ID")
+    public String getLogId() {
+        return logId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setLogId(String logId) {
+        this.logId = logId;
     }
 
+    @Basic
+    @Column(name = "OPT_URL")
     public String getOptUrl() {
         return optUrl;
     }
@@ -76,6 +47,8 @@ public class LogTable {
         this.optUrl = optUrl;
     }
 
+    @Basic
+    @Column(name = "OPT_USER")
     public String getOptUser() {
         return optUser;
     }
@@ -84,54 +57,28 @@ public class LogTable {
         this.optUser = optUser;
     }
 
-    public Date getOptTime() {
+    @Basic
+    @Column(name = "OPT_TIME")
+    public Timestamp getOptTime() {
         return optTime;
     }
 
-    public void setOptTime(Date optTime) {
+    public void setOptTime(Timestamp optTime) {
         this.optTime = optTime;
     }
 
-    public Date getBeginOptTime() {
-        return beginOptTime;
-    }
-
-    public void setBeginOptTime(Date beginOptTime) {
-        this.beginOptTime = beginOptTime;
-    }
-
-    public Date getEndOptTime() {
-        return endOptTime;
-    }
-
-    public void setEndOptTime(Date endOptTime) {
-        this.endOptTime = endOptTime;
-    }
-
-    public Integer getLogType() {
+    @Basic
+    @Column(name = "LOG_TYPE")
+    public byte getLogType() {
         return logType;
     }
 
-    public void setLogType(Integer logType) {
+    public void setLogType(byte logType) {
         this.logType = logType;
     }
 
-    public Integer getBeginLogType() {
-        return beginLogType;
-    }
-
-    public void setBeginLogType(Integer beginLogType) {
-        this.beginLogType = beginLogType;
-    }
-
-    public Integer getEndLogType() {
-        return endLogType;
-    }
-
-    public void setEndLogType(Integer endLogType) {
-        this.endLogType = endLogType;
-    }
-
+    @Basic
+    @Column(name = "OPT_SYSTEM")
     public String getOptSystem() {
         return optSystem;
     }
@@ -140,6 +87,8 @@ public class LogTable {
         this.optSystem = optSystem;
     }
 
+    @Basic
+    @Column(name = "OPT_BROWSER")
     public String getOptBrowser() {
         return optBrowser;
     }
@@ -148,6 +97,8 @@ public class LogTable {
         this.optBrowser = optBrowser;
     }
 
+    @Basic
+    @Column(name = "OPT_IP")
     public String getOptIp() {
         return optIp;
     }
@@ -156,6 +107,8 @@ public class LogTable {
         this.optIp = optIp;
     }
 
+    @Basic
+    @Column(name = "OPT_MAC")
     public String getOptMac() {
         return optMac;
     }
@@ -164,6 +117,8 @@ public class LogTable {
         this.optMac = optMac;
     }
 
+    @Basic
+    @Column(name = "EXECUTE_TIME")
     public Integer getExecuteTime() {
         return executeTime;
     }
@@ -172,22 +127,8 @@ public class LogTable {
         this.executeTime = executeTime;
     }
 
-    public Integer getBeginExecuteTime() {
-        return beginExecuteTime;
-    }
-
-    public void setBeginExecuteTime(Integer beginExecuteTime) {
-        this.beginExecuteTime = beginExecuteTime;
-    }
-
-    public Integer getEndExecuteTime() {
-        return endExecuteTime;
-    }
-
-    public void setEndExecuteTime(Integer endExecuteTime) {
-        this.endExecuteTime = endExecuteTime;
-    }
-
+    @Basic
+    @Column(name = "OPT_DESC")
     public String getOptDesc() {
         return optDesc;
     }
@@ -196,6 +137,8 @@ public class LogTable {
         this.optDesc = optDesc;
     }
 
+    @Basic
+    @Column(name = "REQUEST_PARAM")
     public String getRequestParam() {
         return requestParam;
     }
@@ -204,35 +147,49 @@ public class LogTable {
         this.requestParam = requestParam;
     }
 
-    public Integer getLogResource() {
+    @Basic
+    @Column(name = "LOG_RESOURCE")
+    public byte getLogResource() {
         return logResource;
     }
 
-    public void setLogResource(Integer logResource) {
+    public void setLogResource(byte logResource) {
         this.logResource = logResource;
     }
 
-    public Integer getBeginLogResource() {
-        return beginLogResource;
-    }
-
-    public void setBeginLogResource(Integer beginLogResource) {
-        this.beginLogResource = beginLogResource;
-    }
-
-    public Integer getEndLogResource() {
-        return endLogResource;
-    }
-
-    public void setEndLogResource(Integer endLogResource) {
-        this.endLogResource = endLogResource;
-    }
-
+    @Basic
+    @Column(name = "EXCEPTION_DETAIL")
     public String getExceptionDetail() {
         return exceptionDetail;
     }
 
     public void setExceptionDetail(String exceptionDetail) {
         this.exceptionDetail = exceptionDetail;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LogTable that = (LogTable) o;
+        return logType == that.logType &&
+                logResource == that.logResource &&
+                Objects.equals(logId, that.logId) &&
+                Objects.equals(optUrl, that.optUrl) &&
+                Objects.equals(optUser, that.optUser) &&
+                Objects.equals(optTime, that.optTime) &&
+                Objects.equals(optSystem, that.optSystem) &&
+                Objects.equals(optBrowser, that.optBrowser) &&
+                Objects.equals(optIp, that.optIp) &&
+                Objects.equals(optMac, that.optMac) &&
+                Objects.equals(executeTime, that.executeTime) &&
+                Objects.equals(optDesc, that.optDesc) &&
+                Objects.equals(requestParam, that.requestParam) &&
+                Objects.equals(exceptionDetail, that.exceptionDetail);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(logId, optUrl, optUser, optTime, logType, optSystem, optBrowser, optIp, optMac, executeTime, optDesc, requestParam, logResource, exceptionDetail);
     }
 }

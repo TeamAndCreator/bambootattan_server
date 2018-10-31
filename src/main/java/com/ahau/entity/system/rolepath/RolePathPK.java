@@ -1,22 +1,21 @@
 package com.ahau.entity.system.rolepath;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
- * 实体类：（角色_路径）
- * created by: 张理
- * 2018-10-28 20：00
+ * 调用类
+ * Created by: 张理
+ * 2018-10-31 20：50
  */
-@Entity
-@Table(name = "aau_system_rolepath_table", schema = "bambootattan", catalog = "")
-@IdClass(RolePathPK.class)
-public class RolePath {
+public class RolePathPK implements Serializable {
     private String roleId;
     private String pathId;
 
-    @Id
     @Column(name = "ROLE_ID")
+    @Id
     public String getRoleId() {
         return roleId;
     }
@@ -25,8 +24,8 @@ public class RolePath {
         this.roleId = roleId;
     }
 
-    @Id
     @Column(name = "PATH_ID")
+    @Id
     public String getPathId() {
         return pathId;
     }
@@ -39,7 +38,7 @@ public class RolePath {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        RolePath that = (RolePath) o;
+        RolePathPK that = (RolePathPK) o;
         return Objects.equals(roleId, that.roleId) &&
                 Objects.equals(pathId, that.pathId);
     }

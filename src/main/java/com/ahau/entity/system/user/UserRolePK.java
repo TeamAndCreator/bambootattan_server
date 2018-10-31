@@ -1,22 +1,16 @@
 package com.ahau.entity.system.user;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import java.io.Serializable;
 import java.util.Objects;
 
-/**
- * 实体类：（用户角色）
- * created by: 张理
- * 2018-10-29 09：40
- */
-@Entity
-@Table(name = "aau_system_user_role", schema = "bambootattan", catalog = "")
-@IdClass(UserRolePK.class)
-public class UserRole {
+public class UserRolePK implements Serializable {
     private String userId;
     private String roleId;
 
-    @Id
     @Column(name = "USER_ID")
+    @Id
     public String getUserId() {
         return userId;
     }
@@ -25,8 +19,8 @@ public class UserRole {
         this.userId = userId;
     }
 
-    @Id
     @Column(name = "ROLE_ID")
+    @Id
     public String getRoleId() {
         return roleId;
     }
@@ -39,7 +33,7 @@ public class UserRole {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        UserRole that = (UserRole) o;
+        UserRolePK that = (UserRolePK) o;
         return Objects.equals(userId, that.userId) &&
                 Objects.equals(roleId, that.roleId);
     }

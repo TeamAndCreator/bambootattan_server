@@ -1,11 +1,7 @@
 package com.ahau.entity.system.path;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.nio.file.Path;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类：（路径表）
@@ -13,54 +9,34 @@ import java.util.List;
  * 2018-10-28 19：40
  */
 @Entity
+@Table(name = "aau_system_path_table", schema = "bambootattan", catalog = "")
 public class PathTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-
-    /* 路径ID */
-    private String id;
-    /* 所属路径 */
+    private String pathId;
     private String parentId;
-    /* 路径名称 */
     private String pathName;
-    private String pathNameStr;
-    /* 路径URL */
     private String pathUrl;
-    /* 路径ICON */
     private String pathIcon;
-    /* dwz框架 用于标识打开页面的类型 dialog-弹出框、navTab-tab页 */
-    private String pathTarget;
-    /* dwz框架 打开的navTab或者dialog的Id */
-    private String pathRel;
-    /* dwz框架 a标签的class */
-    private String pathClass;
-    /* dwz框架 鼠标悬停在按钮上的提示信息 */
-    private String pathTitle;
-    /* dwz框架 删除按钮所提交删除项的标记 string-删除项ID已String方式传至后台、 */
-    private String pathPostType;
-    /* dwz框架 弹出框宽度 */
-    private Integer pathWidth;
-    /* dwz框架 弹出框高度 */
-    private Integer pathHeight;
-    /* 排序序号 */
+    private byte funFlag;
     private String orderBy;
-    /* 是否功能 */
-    private Integer funFlag;
+    private String pathTitle;
+    private String pathTarget;
+    private String pathRel;
+    private String pathClass;
+    private Short pathHeight;
+    private Short pathWidth;
 
-    /* 所属路径名称 */
-    private String parentPathName;
-
-    /* 子菜单 */
-//    private List<Path> sonPathList;
-
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "PATH_ID")
+    public String getPathId() {
+        return pathId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setPathId(String pathId) {
+        this.pathId = pathId;
     }
 
+    @Basic
+    @Column(name = "PARENT_ID")
     public String getParentId() {
         return parentId;
     }
@@ -69,6 +45,8 @@ public class PathTable {
         this.parentId = parentId;
     }
 
+    @Basic
+    @Column(name = "PATH_NAME")
     public String getPathName() {
         return pathName;
     }
@@ -77,14 +55,8 @@ public class PathTable {
         this.pathName = pathName;
     }
 
-    public String getPathNameStr() {
-        return pathNameStr;
-    }
-
-    public void setPathNameStr(String pathNameStr) {
-        this.pathNameStr = pathNameStr;
-    }
-
+    @Basic
+    @Column(name = "PATH_URL")
     public String getPathUrl() {
         return pathUrl;
     }
@@ -93,6 +65,8 @@ public class PathTable {
         this.pathUrl = pathUrl;
     }
 
+    @Basic
+    @Column(name = "PATH_ICON")
     public String getPathIcon() {
         return pathIcon;
     }
@@ -101,62 +75,18 @@ public class PathTable {
         this.pathIcon = pathIcon;
     }
 
-    public String getPathTarget() {
-        return pathTarget;
+    @Basic
+    @Column(name = "FUN_FLAG")
+    public byte getFunFlag() {
+        return funFlag;
     }
 
-    public void setPathTarget(String pathTarget) {
-        this.pathTarget = pathTarget;
+    public void setFunFlag(byte funFlag) {
+        this.funFlag = funFlag;
     }
 
-    public String getPathRel() {
-        return pathRel;
-    }
-
-    public void setPathRel(String pathRel) {
-        this.pathRel = pathRel;
-    }
-
-    public String getPathClass() {
-        return pathClass;
-    }
-
-    public void setPathClass(String pathClass) {
-        this.pathClass = pathClass;
-    }
-
-    public String getPathTitle() {
-        return pathTitle;
-    }
-
-    public void setPathTitle(String pathTitle) {
-        this.pathTitle = pathTitle;
-    }
-
-    public String getPathPostType() {
-        return pathPostType;
-    }
-
-    public void setPathPostType(String pathPostType) {
-        this.pathPostType = pathPostType;
-    }
-
-    public Integer getPathWidth() {
-        return pathWidth;
-    }
-
-    public void setPathWidth(Integer pathWidth) {
-        this.pathWidth = pathWidth;
-    }
-
-    public Integer getPathHeight() {
-        return pathHeight;
-    }
-
-    public void setPathHeight(Integer pathHeight) {
-        this.pathHeight = pathHeight;
-    }
-
+    @Basic
+    @Column(name = "ORDER_BY")
     public String getOrderBy() {
         return orderBy;
     }
@@ -165,27 +95,88 @@ public class PathTable {
         this.orderBy = orderBy;
     }
 
-    public Integer getFunFlag() {
-        return funFlag;
+    @Basic
+    @Column(name = "PATH_TITLE")
+    public String getPathTitle() {
+        return pathTitle;
     }
 
-    public void setFunFlag(Integer funFlag) {
-        this.funFlag = funFlag;
+    public void setPathTitle(String pathTitle) {
+        this.pathTitle = pathTitle;
     }
 
-    public String getParentPathName() {
-        return parentPathName;
+    @Basic
+    @Column(name = "PATH_TARGET")
+    public String getPathTarget() {
+        return pathTarget;
     }
 
-    public void setParentPathName(String parentPathName) {
-        this.parentPathName = parentPathName;
+    public void setPathTarget(String pathTarget) {
+        this.pathTarget = pathTarget;
     }
 
-//    public List<Path> getSonPathList() {
-//        return sonPathList;
-//    }
-//
-//    public void setSonPathList(List<Path> sonPathList) {
-//        this.sonPathList = sonPathList;
-//    }
+    @Basic
+    @Column(name = "PATH_REL")
+    public String getPathRel() {
+        return pathRel;
+    }
+
+    public void setPathRel(String pathRel) {
+        this.pathRel = pathRel;
+    }
+
+    @Basic
+    @Column(name = "PATH_CLASS")
+    public String getPathClass() {
+        return pathClass;
+    }
+
+    public void setPathClass(String pathClass) {
+        this.pathClass = pathClass;
+    }
+
+    @Basic
+    @Column(name = "PATH_HEIGHT")
+    public Short getPathHeight() {
+        return pathHeight;
+    }
+
+    public void setPathHeight(Short pathHeight) {
+        this.pathHeight = pathHeight;
+    }
+
+    @Basic
+    @Column(name = "PATH_WIDTH")
+    public Short getPathWidth() {
+        return pathWidth;
+    }
+
+    public void setPathWidth(Short pathWidth) {
+        this.pathWidth = pathWidth;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PathTable that = (PathTable) o;
+        return funFlag == that.funFlag &&
+                Objects.equals(pathId, that.pathId) &&
+                Objects.equals(parentId, that.parentId) &&
+                Objects.equals(pathName, that.pathName) &&
+                Objects.equals(pathUrl, that.pathUrl) &&
+                Objects.equals(pathIcon, that.pathIcon) &&
+                Objects.equals(orderBy, that.orderBy) &&
+                Objects.equals(pathTitle, that.pathTitle) &&
+                Objects.equals(pathTarget, that.pathTarget) &&
+                Objects.equals(pathRel, that.pathRel) &&
+                Objects.equals(pathClass, that.pathClass) &&
+                Objects.equals(pathHeight, that.pathHeight) &&
+                Objects.equals(pathWidth, that.pathWidth);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pathId, parentId, pathName, pathUrl, pathIcon, funFlag, orderBy, pathTitle, pathTarget, pathRel, pathClass, pathHeight, pathWidth);
+    }
 }

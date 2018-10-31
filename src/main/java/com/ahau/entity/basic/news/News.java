@@ -1,10 +1,9 @@
 package com.ahau.entity.basic.news;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.Date;
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Objects;
+
 
 /**
  * 实体类：（news）
@@ -12,54 +11,32 @@ import java.util.Date;
  * 2018-10-30 21：27
  */
 @Entity
+@Table(name = "aau_basic_news_table", schema = "bambootattan", catalog = "")
 public class News {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 新闻来源 */
+    private String newsId;
     private String newsSource;
-    /* 新闻标题 */
     private String newsTitle;
-    /* 新闻图片 */
     private String newsPict;
-    /* 新闻摘要 */
     private String newsSummaey;
-    /* 新闻内容 */
     private String newsContent;
-    /* 排序 */
     private String orderBy;
-    /* 添加人 */
     private String addUser;
-    /* 添加时间 */
-    private java.util.Date addTime;
-    /* 添加时间（查询上限） */
-    private java.util.Date beginAddTime;
-    /* 添加时间（查询下限） */
-    private java.util.Date endAddTime;
-    /* 浏览量 */
-    private Long readCount;
-    /* 浏览量（查询上限） */
-    private Long beginReadCount;
-    /* 浏览量（查询下限） */
-    private Long endReadCount;
-    /* 新闻类型 1-工会动态 */
-    private Integer newsType;
-    /* 新闻类型 1-工会动态（查询上限） */
-    private Integer beginNewsType;
-    /* 新闻类型 1-工会动态（查询下限） */
-    private Integer endNewsType;
+    private Timestamp addTime;
+    private long readCount;
+    private byte newsType;
 
-    private String addUserName;
-
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "NEWS_ID")
+    public String getNewsId() {
+        return newsId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setNewsId(String newsId) {
+        this.newsId = newsId;
     }
 
+    @Basic
+    @Column(name = "NEWS_SOURCE")
     public String getNewsSource() {
         return newsSource;
     }
@@ -68,6 +45,8 @@ public class News {
         this.newsSource = newsSource;
     }
 
+    @Basic
+    @Column(name = "NEWS_TITLE")
     public String getNewsTitle() {
         return newsTitle;
     }
@@ -76,6 +55,8 @@ public class News {
         this.newsTitle = newsTitle;
     }
 
+    @Basic
+    @Column(name = "NEWS_PICT")
     public String getNewsPict() {
         return newsPict;
     }
@@ -84,6 +65,8 @@ public class News {
         this.newsPict = newsPict;
     }
 
+    @Basic
+    @Column(name = "NEWS_SUMMAEY")
     public String getNewsSummaey() {
         return newsSummaey;
     }
@@ -92,6 +75,8 @@ public class News {
         this.newsSummaey = newsSummaey;
     }
 
+    @Basic
+    @Column(name = "NEWS_CONTENT")
     public String getNewsContent() {
         return newsContent;
     }
@@ -100,6 +85,8 @@ public class News {
         this.newsContent = newsContent;
     }
 
+    @Basic
+    @Column(name = "ORDER_BY")
     public String getOrderBy() {
         return orderBy;
     }
@@ -108,6 +95,8 @@ public class News {
         this.orderBy = orderBy;
     }
 
+    @Basic
+    @Column(name = "ADD_USER")
     public String getAddUser() {
         return addUser;
     }
@@ -116,83 +105,56 @@ public class News {
         this.addUser = addUser;
     }
 
-    public Date getAddTime() {
+    @Basic
+    @Column(name = "ADD_TIME")
+    public Timestamp getAddTime() {
         return addTime;
     }
 
-    public void setAddTime(Date addTime) {
+    public void setAddTime(Timestamp addTime) {
         this.addTime = addTime;
     }
 
-    public Date getBeginAddTime() {
-        return beginAddTime;
-    }
-
-    public void setBeginAddTime(Date beginAddTime) {
-        this.beginAddTime = beginAddTime;
-    }
-
-    public Date getEndAddTime() {
-        return endAddTime;
-    }
-
-    public void setEndAddTime(Date endAddTime) {
-        this.endAddTime = endAddTime;
-    }
-
-    public Long getReadCount() {
+    @Basic
+    @Column(name = "READ_COUNT")
+    public long getReadCount() {
         return readCount;
     }
 
-    public void setReadCount(Long readCount) {
+    public void setReadCount(long readCount) {
         this.readCount = readCount;
     }
 
-    public Long getBeginReadCount() {
-        return beginReadCount;
-    }
-
-    public void setBeginReadCount(Long beginReadCount) {
-        this.beginReadCount = beginReadCount;
-    }
-
-    public Long getEndReadCount() {
-        return endReadCount;
-    }
-
-    public void setEndReadCount(Long endReadCount) {
-        this.endReadCount = endReadCount;
-    }
-
-    public Integer getNewsType() {
+    @Basic
+    @Column(name = "NEWS_TYPE")
+    public byte getNewsType() {
         return newsType;
     }
 
-    public void setNewsType(Integer newsType) {
+    public void setNewsType(byte newsType) {
         this.newsType = newsType;
     }
 
-    public Integer getBeginNewsType() {
-        return beginNewsType;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        News that = (News) o;
+        return readCount == that.readCount &&
+                newsType == that.newsType &&
+                Objects.equals(newsId, that.newsId) &&
+                Objects.equals(newsSource, that.newsSource) &&
+                Objects.equals(newsTitle, that.newsTitle) &&
+                Objects.equals(newsPict, that.newsPict) &&
+                Objects.equals(newsSummaey, that.newsSummaey) &&
+                Objects.equals(newsContent, that.newsContent) &&
+                Objects.equals(orderBy, that.orderBy) &&
+                Objects.equals(addUser, that.addUser) &&
+                Objects.equals(addTime, that.addTime);
     }
 
-    public void setBeginNewsType(Integer beginNewsType) {
-        this.beginNewsType = beginNewsType;
-    }
-
-    public Integer getEndNewsType() {
-        return endNewsType;
-    }
-
-    public void setEndNewsType(Integer endNewsType) {
-        this.endNewsType = endNewsType;
-    }
-
-    public String getAddUserName() {
-        return addUserName;
-    }
-
-    public void setAddUserName(String addUserName) {
-        this.addUserName = addUserName;
+    @Override
+    public int hashCode() {
+        return Objects.hash(newsId, newsSource, newsTitle, newsPict, newsSummaey, newsContent, orderBy, addUser, addTime, readCount, newsType);
     }
 }

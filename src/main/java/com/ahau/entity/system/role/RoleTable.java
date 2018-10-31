@@ -1,12 +1,7 @@
 package com.ahau.entity.system.role;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类：（role table）
@@ -14,76 +9,26 @@ import java.util.List;
  * 2018-10-28 19：50
  */
 @Entity
+@Table(name = "aau_system_role_table", schema = "bambootattan", catalog = "")
 public class RoleTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-//    private List<SecurityProperties.User> userList;
-
-//    private List<RolePath> permList;
-
-    /* 标识 用户是否具有此角色 */
-    private boolean flag;
-
-    public boolean isFlag() {
-        return flag;
-    }
-
-    public void setFlag(boolean flag) {
-        this.flag = flag;
-    }
-
-    public static final String TABLE_CACHE_PREFIX = "ANDJI_SYSTEM_ROLE_BASE-";
-    /* 角色名称 */
+    private String roleId;
     private String roleName;
-    /* 角色名称（模糊查询） */
-    private String roleNameLike;
-    /* 备注 */
     private String remark;
-    /* 备注（模糊查询） */
-    private String remarkLike;
-    /* 排序序号 */
     private Integer sortNum;
-    /* 排序序号（查询上限） */
-    private Integer beginSortNum;
-    /* 排序序号（查询下限） */
-    private Integer endSortNum;
-    /* 是否能删除 */
-    private Integer canDel;
-    /* 是否能删除（查询上限） */
-    private Integer beginCanDel;
-    /* 是否能删除（查询下限） */
-    private Integer endCanDel;
+    private Byte canDel;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "ROLE_ID")
+    public String getRoleId() {
+        return roleId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
-//    public List<SecurityProperties.User> getUserList() {
-//        return userList;
-//    }
-
-//    public void setUserList(List<SecurityProperties.User> userList) {
-//        this.userList = userList;
-//    }
-//
-//    public List<RolePath> getPermList() {
-//        return permList;
-//    }
-
-//    public void setPermList(List<RolePath> permList) {
-//        this.permList = permList;
-//    }
-
-    public static String getTableCachePrefix() {
-        return TABLE_CACHE_PREFIX;
-    }
-
+    @Basic
+    @Column(name = "ROLE_NAME")
     public String getRoleName() {
         return roleName;
     }
@@ -92,14 +37,8 @@ public class RoleTable {
         this.roleName = roleName;
     }
 
-    public String getRoleNameLike() {
-        return roleNameLike;
-    }
-
-    public void setRoleNameLike(String roleNameLike) {
-        this.roleNameLike = roleNameLike;
-    }
-
+    @Basic
+    @Column(name = "REMARK")
     public String getRemark() {
         return remark;
     }
@@ -108,14 +47,8 @@ public class RoleTable {
         this.remark = remark;
     }
 
-    public String getRemarkLike() {
-        return remarkLike;
-    }
-
-    public void setRemarkLike(String remarkLike) {
-        this.remarkLike = remarkLike;
-    }
-
+    @Basic
+    @Column(name = "SORT_NUM")
     public Integer getSortNum() {
         return sortNum;
     }
@@ -124,43 +57,30 @@ public class RoleTable {
         this.sortNum = sortNum;
     }
 
-    public Integer getBeginSortNum() {
-        return beginSortNum;
-    }
-
-    public void setBeginSortNum(Integer beginSortNum) {
-        this.beginSortNum = beginSortNum;
-    }
-
-    public Integer getEndSortNum() {
-        return endSortNum;
-    }
-
-    public void setEndSortNum(Integer endSortNum) {
-        this.endSortNum = endSortNum;
-    }
-
-    public Integer getCanDel() {
+    @Basic
+    @Column(name = "CAN_DEL")
+    public Byte getCanDel() {
         return canDel;
     }
 
-    public void setCanDel(Integer canDel) {
+    public void setCanDel(Byte canDel) {
         this.canDel = canDel;
     }
 
-    public Integer getBeginCanDel() {
-        return beginCanDel;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RoleTable that = (RoleTable) o;
+        return Objects.equals(roleId, that.roleId) &&
+                Objects.equals(roleName, that.roleName) &&
+                Objects.equals(remark, that.remark) &&
+                Objects.equals(sortNum, that.sortNum) &&
+                Objects.equals(canDel, that.canDel);
     }
 
-    public void setBeginCanDel(Integer beginCanDel) {
-        this.beginCanDel = beginCanDel;
-    }
-
-    public Integer getEndCanDel() {
-        return endCanDel;
-    }
-
-    public void setEndCanDel(Integer endCanDel) {
-        this.endCanDel = endCanDel;
+    @Override
+    public int hashCode() {
+        return Objects.hash(roleId, roleName, remark, sortNum, canDel);
     }
 }

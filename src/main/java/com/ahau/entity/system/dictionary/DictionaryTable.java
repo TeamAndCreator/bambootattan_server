@@ -1,9 +1,8 @@
 package com.ahau.entity.system.dictionary;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
+
 
 /**
  * 实体类：（数据字典）
@@ -11,34 +10,29 @@ import javax.persistence.Id;
  * 2018-10-27 16：00
  */
 @Entity
+@Table(name = "aau_system_dictionary_table", schema = "bambootattan", catalog = "")
 public class DictionaryTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 拼音索引 */
+    private String dictId;
     private String indexPinyin;
-    /* 索引名称 */
     private String indexName;
-    /* 字典内容 */
     private String dictCont;
-    /* 字典备注 */
     private String dictRemark;
-    /* 字典预留 */
     private String dictReser;
-    /* 排序序号 */
     private String orderBy;
-    /* 内容索引 */
     private String contIndex;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "DICT_ID")
+    public String getDictId() {
+        return dictId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setDictId(String dictId) {
+        this.dictId = dictId;
     }
 
+    @Basic
+    @Column(name = "INDEX_PINYIN")
     public String getIndexPinyin() {
         return indexPinyin;
     }
@@ -47,6 +41,8 @@ public class DictionaryTable {
         this.indexPinyin = indexPinyin;
     }
 
+    @Basic
+    @Column(name = "INDEX_NAME")
     public String getIndexName() {
         return indexName;
     }
@@ -55,6 +51,8 @@ public class DictionaryTable {
         this.indexName = indexName;
     }
 
+    @Basic
+    @Column(name = "DICT_CONT")
     public String getDictCont() {
         return dictCont;
     }
@@ -63,6 +61,8 @@ public class DictionaryTable {
         this.dictCont = dictCont;
     }
 
+    @Basic
+    @Column(name = "DICT_REMARK")
     public String getDictRemark() {
         return dictRemark;
     }
@@ -71,6 +71,8 @@ public class DictionaryTable {
         this.dictRemark = dictRemark;
     }
 
+    @Basic
+    @Column(name = "DICT_RESER")
     public String getDictReser() {
         return dictReser;
     }
@@ -79,6 +81,8 @@ public class DictionaryTable {
         this.dictReser = dictReser;
     }
 
+    @Basic
+    @Column(name = "ORDER_BY")
     public String getOrderBy() {
         return orderBy;
     }
@@ -87,11 +91,33 @@ public class DictionaryTable {
         this.orderBy = orderBy;
     }
 
+    @Basic
+    @Column(name = "CONT_INDEX")
     public String getContIndex() {
         return contIndex;
     }
 
     public void setContIndex(String contIndex) {
         this.contIndex = contIndex;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DictionaryTable that = (DictionaryTable) o;
+        return Objects.equals(dictId, that.dictId) &&
+                Objects.equals(indexPinyin, that.indexPinyin) &&
+                Objects.equals(indexName, that.indexName) &&
+                Objects.equals(dictCont, that.dictCont) &&
+                Objects.equals(dictRemark, that.dictRemark) &&
+                Objects.equals(dictReser, that.dictReser) &&
+                Objects.equals(orderBy, that.orderBy) &&
+                Objects.equals(contIndex, that.contIndex);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(dictId, indexPinyin, indexName, dictCont, dictRemark, dictReser, orderBy, contIndex);
     }
 }

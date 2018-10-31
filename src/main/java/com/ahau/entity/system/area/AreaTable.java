@@ -1,46 +1,36 @@
 package com.ahau.entity.system.area;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类：（行政区域）
+ * Created by: 张理
+ * 2018-10-31 19：00
  */
 @Entity
+@Table(name = "aau_system_area_table", schema = "bambootattan", catalog = "")
 public class AreaTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
-    private String id;
-
-    /* 所属编号 */
+    private String areaId;
     private String parArearId;
-    /* 名称 */
     private String areaName;
-    /* 行政区域简称 */
     private String shortName;
-    /* 拼音索引 */
     private String areaIndex;
-    /* 简介 */
     private String areaDescr;
-    /* 排序序号 */
     private String orderBy;
-    /*父区域名称*/
-    private String parAreaName;
 
-//    private List<AreaTable> sonArea;需改错
-
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "AREA_ID")
+    public String getAreaId() {
+        return areaId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setAreaId(String areaId) {
+        this.areaId = areaId;
     }
 
+    @Basic
+    @Column(name = "PAR_AREAR_ID")
     public String getParArearId() {
         return parArearId;
     }
@@ -49,6 +39,8 @@ public class AreaTable {
         this.parArearId = parArearId;
     }
 
+    @Basic
+    @Column(name = "AREA_NAME")
     public String getAreaName() {
         return areaName;
     }
@@ -57,6 +49,8 @@ public class AreaTable {
         this.areaName = areaName;
     }
 
+    @Basic
+    @Column(name = "SHORT_NAME")
     public String getShortName() {
         return shortName;
     }
@@ -65,6 +59,8 @@ public class AreaTable {
         this.shortName = shortName;
     }
 
+    @Basic
+    @Column(name = "AREA_INDEX")
     public String getAreaIndex() {
         return areaIndex;
     }
@@ -73,6 +69,8 @@ public class AreaTable {
         this.areaIndex = areaIndex;
     }
 
+    @Basic
+    @Column(name = "AREA_DESCR")
     public String getAreaDescr() {
         return areaDescr;
     }
@@ -81,6 +79,8 @@ public class AreaTable {
         this.areaDescr = areaDescr;
     }
 
+    @Basic
+    @Column(name = "ORDER_BY")
     public String getOrderBy() {
         return orderBy;
     }
@@ -89,19 +89,22 @@ public class AreaTable {
         this.orderBy = orderBy;
     }
 
-    public String getParAreaName() {
-        return parAreaName;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AreaTable that = (AreaTable) o;
+        return Objects.equals(areaId, that.areaId) &&
+                Objects.equals(parArearId, that.parArearId) &&
+                Objects.equals(areaName, that.areaName) &&
+                Objects.equals(shortName, that.shortName) &&
+                Objects.equals(areaIndex, that.areaIndex) &&
+                Objects.equals(areaDescr, that.areaDescr) &&
+                Objects.equals(orderBy, that.orderBy);
     }
 
-    public void setParAreaName(String parAreaName) {
-        this.parAreaName = parAreaName;
+    @Override
+    public int hashCode() {
+        return Objects.hash(areaId, parArearId, areaName, shortName, areaIndex, areaDescr, orderBy);
     }
-
-//    public List<AreaTable> getSonArea() {
-//        return sonArea;
-//    }
-//
-//    public void setSonArea(List<AreaTable> sonArea) {
-//        this.sonArea = sonArea;
-//    }
 }
