@@ -1,9 +1,7 @@
 package com.ahau.entity.bamboolforms;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类：（箨片表）
@@ -11,58 +9,31 @@ import javax.persistence.Id;
  * 2018-10-26 19：00
  */
 @Entity
+@Table(name = "aau_bam_sheathshell_table", schema = "bambootattan", catalog = "")
 public class SheathshellTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 种标识 */
+    private String sheShellId;
     private String specId;
-    /* 种标识（模糊查询） */
-    private String specIdLike;
-    /* 箨片形状 */
     private String sheathShellShape;
-    /* 箨片形状（模糊查询） */
-    private String sheathShellShapeLike;
-    /* 箨片颜色 */
     private String sheathShellColor;
-    /* 箨片颜色（模糊查询） */
-    private String sheathShellColorLike;
-    /* 箨片是否易脱落 */
     private String sheathShellFall;
-    /* 箨片是否易脱落（模糊查询） */
-    private String sheathShellFallLike;
-    /* 箨片先端形 */
     private String sheathShellTopShape;
-    /* 箨片先端形（模糊查询） */
-    private String sheathShellTopShapeLike;
-    /* 箨片基部形状 */
     private String sheathShellBaseShape;
-    /* 箨片基部形状（模糊查询） */
-    private String sheathShellBaseShapeLike;
-    /* 箨片边缘形态 */
     private String sheathShellMargin;
-    /* 箨片边缘形态（模糊查询） */
-    private String sheathShellMarginLike;
-    /* 箨片背面被毛被粉 */
     private String sheathShellBackPowder;
-    /* 箨片背面被毛被粉（模糊查询） */
-    private String sheathShellBackPowderLike;
-    /* 箨片基底与箨鞘宽度之比 */
     private Double sheathRatioOf;
-    /* 箨片基底与箨鞘宽度之比（查询上限） */
-    private Double beginSheathRatioOf;
-    /* 箨片基底与箨鞘宽度之比（查询下限） */
-    private Double endSheathRatioOf;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "SHE_SHELL_ID")
+    public String getSheShellId() {
+        return sheShellId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSheShellId(String sheShellId) {
+        this.sheShellId = sheShellId;
     }
 
+    @Basic
+    @Column(name = "SPEC_ID")
     public String getSpecId() {
         return specId;
     }
@@ -71,14 +42,8 @@ public class SheathshellTable {
         this.specId = specId;
     }
 
-    public String getSpecIdLike() {
-        return specIdLike;
-    }
-
-    public void setSpecIdLike(String specIdLike) {
-        this.specIdLike = specIdLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_SHELL_SHAPE")
     public String getSheathShellShape() {
         return sheathShellShape;
     }
@@ -87,14 +52,8 @@ public class SheathshellTable {
         this.sheathShellShape = sheathShellShape;
     }
 
-    public String getSheathShellShapeLike() {
-        return sheathShellShapeLike;
-    }
-
-    public void setSheathShellShapeLike(String sheathShellShapeLike) {
-        this.sheathShellShapeLike = sheathShellShapeLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_SHELL_COLOR")
     public String getSheathShellColor() {
         return sheathShellColor;
     }
@@ -103,14 +62,8 @@ public class SheathshellTable {
         this.sheathShellColor = sheathShellColor;
     }
 
-    public String getSheathShellColorLike() {
-        return sheathShellColorLike;
-    }
-
-    public void setSheathShellColorLike(String sheathShellColorLike) {
-        this.sheathShellColorLike = sheathShellColorLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_SHELL_FALL")
     public String getSheathShellFall() {
         return sheathShellFall;
     }
@@ -119,14 +72,8 @@ public class SheathshellTable {
         this.sheathShellFall = sheathShellFall;
     }
 
-    public String getSheathShellFallLike() {
-        return sheathShellFallLike;
-    }
-
-    public void setSheathShellFallLike(String sheathShellFallLike) {
-        this.sheathShellFallLike = sheathShellFallLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_SHELL_TOP_SHAPE")
     public String getSheathShellTopShape() {
         return sheathShellTopShape;
     }
@@ -135,14 +82,8 @@ public class SheathshellTable {
         this.sheathShellTopShape = sheathShellTopShape;
     }
 
-    public String getSheathShellTopShapeLike() {
-        return sheathShellTopShapeLike;
-    }
-
-    public void setSheathShellTopShapeLike(String sheathShellTopShapeLike) {
-        this.sheathShellTopShapeLike = sheathShellTopShapeLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_SHELL_BASE_SHAPE")
     public String getSheathShellBaseShape() {
         return sheathShellBaseShape;
     }
@@ -151,14 +92,8 @@ public class SheathshellTable {
         this.sheathShellBaseShape = sheathShellBaseShape;
     }
 
-    public String getSheathShellBaseShapeLike() {
-        return sheathShellBaseShapeLike;
-    }
-
-    public void setSheathShellBaseShapeLike(String sheathShellBaseShapeLike) {
-        this.sheathShellBaseShapeLike = sheathShellBaseShapeLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_SHELL_MARGIN")
     public String getSheathShellMargin() {
         return sheathShellMargin;
     }
@@ -167,14 +102,8 @@ public class SheathshellTable {
         this.sheathShellMargin = sheathShellMargin;
     }
 
-    public String getSheathShellMarginLike() {
-        return sheathShellMarginLike;
-    }
-
-    public void setSheathShellMarginLike(String sheathShellMarginLike) {
-        this.sheathShellMarginLike = sheathShellMarginLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_SHELL_BACK_POWDER")
     public String getSheathShellBackPowder() {
         return sheathShellBackPowder;
     }
@@ -183,14 +112,8 @@ public class SheathshellTable {
         this.sheathShellBackPowder = sheathShellBackPowder;
     }
 
-    public String getSheathShellBackPowderLike() {
-        return sheathShellBackPowderLike;
-    }
-
-    public void setSheathShellBackPowderLike(String sheathShellBackPowderLike) {
-        this.sheathShellBackPowderLike = sheathShellBackPowderLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_RATIO_OF")
     public Double getSheathRatioOf() {
         return sheathRatioOf;
     }
@@ -199,19 +122,25 @@ public class SheathshellTable {
         this.sheathRatioOf = sheathRatioOf;
     }
 
-    public Double getBeginSheathRatioOf() {
-        return beginSheathRatioOf;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SheathshellTable that = (SheathshellTable) o;
+        return Objects.equals(sheShellId, that.sheShellId) &&
+                Objects.equals(specId, that.specId) &&
+                Objects.equals(sheathShellShape, that.sheathShellShape) &&
+                Objects.equals(sheathShellColor, that.sheathShellColor) &&
+                Objects.equals(sheathShellFall, that.sheathShellFall) &&
+                Objects.equals(sheathShellTopShape, that.sheathShellTopShape) &&
+                Objects.equals(sheathShellBaseShape, that.sheathShellBaseShape) &&
+                Objects.equals(sheathShellMargin, that.sheathShellMargin) &&
+                Objects.equals(sheathShellBackPowder, that.sheathShellBackPowder) &&
+                Objects.equals(sheathRatioOf, that.sheathRatioOf);
     }
 
-    public void setBeginSheathRatioOf(Double beginSheathRatioOf) {
-        this.beginSheathRatioOf = beginSheathRatioOf;
-    }
-
-    public Double getEndSheathRatioOf() {
-        return endSheathRatioOf;
-    }
-
-    public void setEndSheathRatioOf(Double endSheathRatioOf) {
-        this.endSheathRatioOf = endSheathRatioOf;
+    @Override
+    public int hashCode() {
+        return Objects.hash(sheShellId, specId, sheathShellShape, sheathShellColor, sheathShellFall, sheathShellTopShape, sheathShellBaseShape, sheathShellMargin, sheathShellBackPowder, sheathRatioOf);
     }
 }

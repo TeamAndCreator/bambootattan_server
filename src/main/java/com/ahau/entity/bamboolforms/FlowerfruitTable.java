@@ -1,9 +1,7 @@
 package com.ahau.entity.bamboolforms;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类：（花果形态表）
@@ -11,45 +9,138 @@ import javax.persistence.Id;
  * 2018-10-26 19：30
  */
 @Entity
+@Table(name = "aau_bam_flowerfruit_table", schema = "bambootattan", catalog = "")
 public class FlowerfruitTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 种标识 */
+    private String floFruitId;
     private String specId;
-    /* 种标识（模糊查询） */
-    private String specIdLike;
-    /* 小穗形态 */
     private String spikeletShape;
-    /* 小穗形态（模糊查询） */
-    private String spikeletShapeLike;
-    /* 小穗被毛 */
     private String spikeletBack;
-    /* 小穗被毛（模糊查询） */
-    private String spikeletBackLike;
-    /* 小穗含花朵数 */
     private String spikeletFloret;
-    /* 小穗含花朵数（模糊查询） */
-    private String spikeletFloretLike;
-    /* 雄蕊数目 */
     private String stamenNum;
-    /* 雄蕊数目（模糊查询） */
-    private String stamenNumLike;
-    /* 颖片 */
     private String glume;
-    /* 颖片（模糊查询） */
-    private String glumeLike;
-    /* 鳞被 */
     private String lodicule;
-    /* 鳞被（模糊查询） */
-    private String lodiculeLike;
-    /* 内稃 */
     private String palea;
-    /* 内稃（模糊查询） */
-    private String paleaLike;
-    /* 外稃 */
     private String lemma;
-    /* 外稃（模糊查询） */
-    private String lemmaLike;
+
+    @Id
+    @Column(name = "FLO_FRUIT_ID")
+    public String getFloFruitId() {
+        return floFruitId;
+    }
+
+    public void setFloFruitId(String floFruitId) {
+        this.floFruitId = floFruitId;
+    }
+
+    @Basic
+    @Column(name = "SPEC_ID")
+    public String getSpecId() {
+        return specId;
+    }
+
+    public void setSpecId(String specId) {
+        this.specId = specId;
+    }
+
+    @Basic
+    @Column(name = "SPIKELET_SHAPE")
+    public String getSpikeletShape() {
+        return spikeletShape;
+    }
+
+    public void setSpikeletShape(String spikeletShape) {
+        this.spikeletShape = spikeletShape;
+    }
+
+    @Basic
+    @Column(name = "SPIKELET_BACK")
+    public String getSpikeletBack() {
+        return spikeletBack;
+    }
+
+    public void setSpikeletBack(String spikeletBack) {
+        this.spikeletBack = spikeletBack;
+    }
+
+    @Basic
+    @Column(name = "SPIKELET_FLORET")
+    public String getSpikeletFloret() {
+        return spikeletFloret;
+    }
+
+    public void setSpikeletFloret(String spikeletFloret) {
+        this.spikeletFloret = spikeletFloret;
+    }
+
+    @Basic
+    @Column(name = "STAMEN_NUM")
+    public String getStamenNum() {
+        return stamenNum;
+    }
+
+    public void setStamenNum(String stamenNum) {
+        this.stamenNum = stamenNum;
+    }
+
+    @Basic
+    @Column(name = "GLUME")
+    public String getGlume() {
+        return glume;
+    }
+
+    public void setGlume(String glume) {
+        this.glume = glume;
+    }
+
+    @Basic
+    @Column(name = "LODICULE")
+    public String getLodicule() {
+        return lodicule;
+    }
+
+    public void setLodicule(String lodicule) {
+        this.lodicule = lodicule;
+    }
+
+    @Basic
+    @Column(name = "PALEA")
+    public String getPalea() {
+        return palea;
+    }
+
+    public void setPalea(String palea) {
+        this.palea = palea;
+    }
+
+    @Basic
+    @Column(name = "LEMMA")
+    public String getLemma() {
+        return lemma;
+    }
+
+    public void setLemma(String lemma) {
+        this.lemma = lemma;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        FlowerfruitTable that = (FlowerfruitTable) o;
+        return Objects.equals(floFruitId, that.floFruitId) &&
+                Objects.equals(specId, that.specId) &&
+                Objects.equals(spikeletShape, that.spikeletShape) &&
+                Objects.equals(spikeletBack, that.spikeletBack) &&
+                Objects.equals(spikeletFloret, that.spikeletFloret) &&
+                Objects.equals(stamenNum, that.stamenNum) &&
+                Objects.equals(glume, that.glume) &&
+                Objects.equals(lodicule, that.lodicule) &&
+                Objects.equals(palea, that.palea) &&
+                Objects.equals(lemma, that.lemma);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(floFruitId, specId, spikeletShape, spikeletBack, spikeletFloret, stamenNum, glume, lodicule, palea, lemma);
+    }
 }

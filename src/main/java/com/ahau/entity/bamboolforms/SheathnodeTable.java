@@ -1,9 +1,7 @@
 package com.ahau.entity.bamboolforms;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类：（箨环表）
@@ -11,32 +9,25 @@ import javax.persistence.Id;
  * 2018-10-26 17：00
  */
 @Entity
+@Table(name = "aau_bam_sheathnode_table", schema = "bambootattan", catalog = "")
 public class SheathnodeTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 种标识 */
+    private String sheNodeId;
     private String specId;
-    /* 种标识（模糊查询） */
-    private String specIdLike;
-    /* 箨环是否隆起 */
     private String sheathNode;
-    /* 箨环是否隆起（模糊查询） */
-    private String sheathNodeLike;
-    /* 箨环被毛 */
     private String sheathNodeBack;
-    /* 箨环被毛（模糊查询） */
-    private String sheathNodeBackLike;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "SHE_NODE_ID")
+    public String getSheNodeId() {
+        return sheNodeId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSheNodeId(String sheNodeId) {
+        this.sheNodeId = sheNodeId;
     }
 
+    @Basic
+    @Column(name = "SPEC_ID")
     public String getSpecId() {
         return specId;
     }
@@ -45,14 +36,8 @@ public class SheathnodeTable {
         this.specId = specId;
     }
 
-    public String getSpecIdLike() {
-        return specIdLike;
-    }
-
-    public void setSpecIdLike(String specIdLike) {
-        this.specIdLike = specIdLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_NODE")
     public String getSheathNode() {
         return sheathNode;
     }
@@ -61,14 +46,8 @@ public class SheathnodeTable {
         this.sheathNode = sheathNode;
     }
 
-    public String getSheathNodeLike() {
-        return sheathNodeLike;
-    }
-
-    public void setSheathNodeLike(String sheathNodeLike) {
-        this.sheathNodeLike = sheathNodeLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_NODE_BACK")
     public String getSheathNodeBack() {
         return sheathNodeBack;
     }
@@ -77,11 +56,19 @@ public class SheathnodeTable {
         this.sheathNodeBack = sheathNodeBack;
     }
 
-    public String getSheathNodeBackLike() {
-        return sheathNodeBackLike;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SheathnodeTable that = (SheathnodeTable) o;
+        return Objects.equals(sheNodeId, that.sheNodeId) &&
+                Objects.equals(specId, that.specId) &&
+                Objects.equals(sheathNode, that.sheathNode) &&
+                Objects.equals(sheathNodeBack, that.sheathNodeBack);
     }
 
-    public void setSheathNodeBackLike(String sheathNodeBackLike) {
-        this.sheathNodeBackLike = sheathNodeBackLike;
+    @Override
+    public int hashCode() {
+        return Objects.hash(sheNodeId, specId, sheathNode, sheathNodeBack);
     }
 }

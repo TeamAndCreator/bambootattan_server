@@ -1,9 +1,7 @@
 package com.ahau.entity.bamboolforms;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类：（箨鞘表）
@@ -11,44 +9,28 @@ import javax.persistence.Id;
  * 2018-10-26 17：10
  */
 @Entity
+@Table(name = "aau_bam_sheath_table", schema = "bambootattan", catalog = "")
 public class SheathTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 种标识 */
+    private String sheId;
     private String specId;
-    /* 种标识（模糊查询） */
-    private String specIdLike;
-    /* 箨鞘早落 */
     private String sheathShedTime;
-    /* 箨鞘早落（模糊查询） */
-    private String sheathShedTimeLike;
-    /* 箨鞘质地 */
     private String sheathChar;
-    /* 箨鞘质地（模糊查询） */
-    private String sheathCharLike;
-    /* 箨鞘先端形状 */
     private String sheathTopForm;
-    /* 箨鞘先端形状（模糊查询） */
-    private String sheathTopFormLike;
-    /* 箨鞘背面被毛被粉 */
     private String sheathBackPowder;
-    /* 箨鞘背面被毛被粉（模糊查询） */
-    private String sheathBackPowderLike;
-    /* 箨鞘边缘形状 */
     private String sheathMarginForm;
-    /* 箨鞘边缘形状（模糊查询） */
-    private String sheathMarginFormLike;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "SHE_ID")
+    public String getSheId() {
+        return sheId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSheId(String sheId) {
+        this.sheId = sheId;
     }
 
+    @Basic
+    @Column(name = "SPEC_ID")
     public String getSpecId() {
         return specId;
     }
@@ -57,14 +39,8 @@ public class SheathTable {
         this.specId = specId;
     }
 
-    public String getSpecIdLike() {
-        return specIdLike;
-    }
-
-    public void setSpecIdLike(String specIdLike) {
-        this.specIdLike = specIdLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_SHED_TIME")
     public String getSheathShedTime() {
         return sheathShedTime;
     }
@@ -73,14 +49,8 @@ public class SheathTable {
         this.sheathShedTime = sheathShedTime;
     }
 
-    public String getSheathShedTimeLike() {
-        return sheathShedTimeLike;
-    }
-
-    public void setSheathShedTimeLike(String sheathShedTimeLike) {
-        this.sheathShedTimeLike = sheathShedTimeLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_CHAR")
     public String getSheathChar() {
         return sheathChar;
     }
@@ -89,14 +59,8 @@ public class SheathTable {
         this.sheathChar = sheathChar;
     }
 
-    public String getSheathCharLike() {
-        return sheathCharLike;
-    }
-
-    public void setSheathCharLike(String sheathCharLike) {
-        this.sheathCharLike = sheathCharLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_TOP_FORM")
     public String getSheathTopForm() {
         return sheathTopForm;
     }
@@ -105,14 +69,8 @@ public class SheathTable {
         this.sheathTopForm = sheathTopForm;
     }
 
-    public String getSheathTopFormLike() {
-        return sheathTopFormLike;
-    }
-
-    public void setSheathTopFormLike(String sheathTopFormLike) {
-        this.sheathTopFormLike = sheathTopFormLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_BACK_POWDER")
     public String getSheathBackPowder() {
         return sheathBackPowder;
     }
@@ -121,14 +79,8 @@ public class SheathTable {
         this.sheathBackPowder = sheathBackPowder;
     }
 
-    public String getSheathBackPowderLike() {
-        return sheathBackPowderLike;
-    }
-
-    public void setSheathBackPowderLike(String sheathBackPowderLike) {
-        this.sheathBackPowderLike = sheathBackPowderLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_MARGIN_FORM")
     public String getSheathMarginForm() {
         return sheathMarginForm;
     }
@@ -137,11 +89,22 @@ public class SheathTable {
         this.sheathMarginForm = sheathMarginForm;
     }
 
-    public String getSheathMarginFormLike() {
-        return sheathMarginFormLike;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SheathTable that = (SheathTable) o;
+        return Objects.equals(sheId, that.sheId) &&
+                Objects.equals(specId, that.specId) &&
+                Objects.equals(sheathShedTime, that.sheathShedTime) &&
+                Objects.equals(sheathChar, that.sheathChar) &&
+                Objects.equals(sheathTopForm, that.sheathTopForm) &&
+                Objects.equals(sheathBackPowder, that.sheathBackPowder) &&
+                Objects.equals(sheathMarginForm, that.sheathMarginForm);
     }
 
-    public void setSheathMarginFormLike(String sheathMarginFormLike) {
-        this.sheathMarginFormLike = sheathMarginFormLike;
+    @Override
+    public int hashCode() {
+        return Objects.hash(sheId, specId, sheathShedTime, sheathChar, sheathTopForm, sheathBackPowder, sheathMarginForm);
     }
 }

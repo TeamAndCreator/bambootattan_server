@@ -1,9 +1,7 @@
 package com.ahau.entity.bamboolforms;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类：（地下茎表）
@@ -11,28 +9,24 @@ import javax.persistence.Id;
  * 2018-10-26 15：10
  */
 @Entity
+@Table(name = "aau_bam_understem_table", schema = "bambootattan", catalog = "")
 public class UnderstemTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
-    /* 种标识 */
+    private String underStemId;
     private String specId;
-    /* 种标识（模糊查询） */
-    private String specIdLike;
-    /* 地下茎类型 */
     private String underStem;
-    /* 地下茎类型（模糊查询） */
-    private String underStemLike;
 
-    public Integer getId() {
-        return id;
+    @Id
+    @Column(name = "UNDER_STEM_ID")
+    public String getUnderStemId() {
+        return underStemId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUnderStemId(String underStemId) {
+        this.underStemId = underStemId;
     }
 
+    @Basic
+    @Column(name = "SPEC_ID")
     public String getSpecId() {
         return specId;
     }
@@ -41,14 +35,8 @@ public class UnderstemTable {
         this.specId = specId;
     }
 
-    public String getSpecIdLike() {
-        return specIdLike;
-    }
-
-    public void setSpecIdLike(String specIdLike) {
-        this.specIdLike = specIdLike;
-    }
-
+    @Basic
+    @Column(name = "UNDER_STEM")
     public String getUnderStem() {
         return underStem;
     }
@@ -57,11 +45,18 @@ public class UnderstemTable {
         this.underStem = underStem;
     }
 
-    public String getUnderStemLike() {
-        return underStemLike;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        UnderstemTable that = (UnderstemTable) o;
+        return Objects.equals(underStemId, that.underStemId) &&
+                Objects.equals(specId, that.specId) &&
+                Objects.equals(underStem, that.underStem);
     }
 
-    public void setUnderStemLike(String underStemLike) {
-        this.underStemLike = underStemLike;
+    @Override
+    public int hashCode() {
+        return Objects.hash(underStemId, specId, underStem);
     }
 }

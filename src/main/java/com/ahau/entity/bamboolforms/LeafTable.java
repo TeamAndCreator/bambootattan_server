@@ -1,9 +1,7 @@
 package com.ahau.entity.bamboolforms;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  *实体类：（竹叶表）
@@ -11,68 +9,34 @@ import javax.persistence.Id;
  * 2018-10-26 19：30
  */
 @Entity
+@Table(name = "aau_bam_leaf_table", schema = "bambootattan", catalog = "")
 public class LeafTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 种标识 */
+    private String leafId;
     private String specId;
-    /* 种标识（模糊查询） */
-    private String specIdLike;
-    /* 叶片形状 */
     private String leafShape;
-    /* 叶片形状（模糊查询） */
-    private String leafShapeLike;
-    /* 叶片长度 */
     private String leafLength;
-    /* 叶片长度（模糊查询） */
-    private String leafLengthLike;
-    /* 叶片宽度 */
     private String leafWidth;
-    /* 叶片宽度（模糊查询） */
-    private String leafWidthLike;
-    /* 每小枝具叶片数目 */
     private String leafNum;
-    /* 每小枝具叶片数目（模糊查询） */
-    private String leafNumLike;
-    /* 叶片背面被毛 */
     private String leafBack;
-    /* 叶片背面被毛（模糊查询） */
-    private String leafBackLike;
-    /* 叶片边缘锯齿 */
     private String leafMargin;
-    /* 叶片边缘锯齿（模糊查询） */
-    private String leafMarginLike;
-    /* 叶舌形状 */
     private String leafTongueShape;
-    /* 叶舌形状（模糊查询） */
-    private String leafTongueShapeLike;
-    /* 叶舌高度 */
     private String leafTongueHeight;
-    /* 叶舌高度（模糊查询） */
-    private String leafTongueHeightLike;
-    /* 叶柄长度 */
     private String leafStalkLength;
-    /* 叶柄长度（模糊查询） */
-    private String leafStalkLengthLike;
-    /* 叶片基部形状 */
     private String leafBaseShape;
-    /* 叶片基部形状（模糊查询） */
-    private String leafBaseShapeLike;
-    /* 叶尖形态 */
     private String leafTopShape;
-    /* 叶尖形态（模糊查询） */
-    private String leafTopShapeLike;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "LEAF_ID")
+    public String getLeafId() {
+        return leafId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setLeafId(String leafId) {
+        this.leafId = leafId;
     }
 
+    @Basic
+    @Column(name = "SPEC_ID")
     public String getSpecId() {
         return specId;
     }
@@ -81,14 +45,8 @@ public class LeafTable {
         this.specId = specId;
     }
 
-    public String getSpecIdLike() {
-        return specIdLike;
-    }
-
-    public void setSpecIdLike(String specIdLike) {
-        this.specIdLike = specIdLike;
-    }
-
+    @Basic
+    @Column(name = "LEAF_SHAPE")
     public String getLeafShape() {
         return leafShape;
     }
@@ -97,14 +55,8 @@ public class LeafTable {
         this.leafShape = leafShape;
     }
 
-    public String getLeafShapeLike() {
-        return leafShapeLike;
-    }
-
-    public void setLeafShapeLike(String leafShapeLike) {
-        this.leafShapeLike = leafShapeLike;
-    }
-
+    @Basic
+    @Column(name = "LEAF_LENGTH")
     public String getLeafLength() {
         return leafLength;
     }
@@ -113,14 +65,8 @@ public class LeafTable {
         this.leafLength = leafLength;
     }
 
-    public String getLeafLengthLike() {
-        return leafLengthLike;
-    }
-
-    public void setLeafLengthLike(String leafLengthLike) {
-        this.leafLengthLike = leafLengthLike;
-    }
-
+    @Basic
+    @Column(name = "LEAF_WIDTH")
     public String getLeafWidth() {
         return leafWidth;
     }
@@ -129,14 +75,8 @@ public class LeafTable {
         this.leafWidth = leafWidth;
     }
 
-    public String getLeafWidthLike() {
-        return leafWidthLike;
-    }
-
-    public void setLeafWidthLike(String leafWidthLike) {
-        this.leafWidthLike = leafWidthLike;
-    }
-
+    @Basic
+    @Column(name = "LEAF_NUM")
     public String getLeafNum() {
         return leafNum;
     }
@@ -145,14 +85,8 @@ public class LeafTable {
         this.leafNum = leafNum;
     }
 
-    public String getLeafNumLike() {
-        return leafNumLike;
-    }
-
-    public void setLeafNumLike(String leafNumLike) {
-        this.leafNumLike = leafNumLike;
-    }
-
+    @Basic
+    @Column(name = "LEAF_BACK")
     public String getLeafBack() {
         return leafBack;
     }
@@ -161,14 +95,8 @@ public class LeafTable {
         this.leafBack = leafBack;
     }
 
-    public String getLeafBackLike() {
-        return leafBackLike;
-    }
-
-    public void setLeafBackLike(String leafBackLike) {
-        this.leafBackLike = leafBackLike;
-    }
-
+    @Basic
+    @Column(name = "LEAF_MARGIN")
     public String getLeafMargin() {
         return leafMargin;
     }
@@ -177,14 +105,8 @@ public class LeafTable {
         this.leafMargin = leafMargin;
     }
 
-    public String getLeafMarginLike() {
-        return leafMarginLike;
-    }
-
-    public void setLeafMarginLike(String leafMarginLike) {
-        this.leafMarginLike = leafMarginLike;
-    }
-
+    @Basic
+    @Column(name = "LEAF_TONGUE_SHAPE")
     public String getLeafTongueShape() {
         return leafTongueShape;
     }
@@ -193,14 +115,8 @@ public class LeafTable {
         this.leafTongueShape = leafTongueShape;
     }
 
-    public String getLeafTongueShapeLike() {
-        return leafTongueShapeLike;
-    }
-
-    public void setLeafTongueShapeLike(String leafTongueShapeLike) {
-        this.leafTongueShapeLike = leafTongueShapeLike;
-    }
-
+    @Basic
+    @Column(name = "LEAF_TONGUE_HEIGHT")
     public String getLeafTongueHeight() {
         return leafTongueHeight;
     }
@@ -209,14 +125,8 @@ public class LeafTable {
         this.leafTongueHeight = leafTongueHeight;
     }
 
-    public String getLeafTongueHeightLike() {
-        return leafTongueHeightLike;
-    }
-
-    public void setLeafTongueHeightLike(String leafTongueHeightLike) {
-        this.leafTongueHeightLike = leafTongueHeightLike;
-    }
-
+    @Basic
+    @Column(name = "LEAF_STALK_LENGTH")
     public String getLeafStalkLength() {
         return leafStalkLength;
     }
@@ -225,14 +135,8 @@ public class LeafTable {
         this.leafStalkLength = leafStalkLength;
     }
 
-    public String getLeafStalkLengthLike() {
-        return leafStalkLengthLike;
-    }
-
-    public void setLeafStalkLengthLike(String leafStalkLengthLike) {
-        this.leafStalkLengthLike = leafStalkLengthLike;
-    }
-
+    @Basic
+    @Column(name = "LEAF_BASE_SHAPE")
     public String getLeafBaseShape() {
         return leafBaseShape;
     }
@@ -241,14 +145,8 @@ public class LeafTable {
         this.leafBaseShape = leafBaseShape;
     }
 
-    public String getLeafBaseShapeLike() {
-        return leafBaseShapeLike;
-    }
-
-    public void setLeafBaseShapeLike(String leafBaseShapeLike) {
-        this.leafBaseShapeLike = leafBaseShapeLike;
-    }
-
+    @Basic
+    @Column(name = "LEAF_TOP_SHAPE")
     public String getLeafTopShape() {
         return leafTopShape;
     }
@@ -257,11 +155,28 @@ public class LeafTable {
         this.leafTopShape = leafTopShape;
     }
 
-    public String getLeafTopShapeLike() {
-        return leafTopShapeLike;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LeafTable that = (LeafTable) o;
+        return Objects.equals(leafId, that.leafId) &&
+                Objects.equals(specId, that.specId) &&
+                Objects.equals(leafShape, that.leafShape) &&
+                Objects.equals(leafLength, that.leafLength) &&
+                Objects.equals(leafWidth, that.leafWidth) &&
+                Objects.equals(leafNum, that.leafNum) &&
+                Objects.equals(leafBack, that.leafBack) &&
+                Objects.equals(leafMargin, that.leafMargin) &&
+                Objects.equals(leafTongueShape, that.leafTongueShape) &&
+                Objects.equals(leafTongueHeight, that.leafTongueHeight) &&
+                Objects.equals(leafStalkLength, that.leafStalkLength) &&
+                Objects.equals(leafBaseShape, that.leafBaseShape) &&
+                Objects.equals(leafTopShape, that.leafTopShape);
     }
 
-    public void setLeafTopShapeLike(String leafTopShapeLike) {
-        this.leafTopShapeLike = leafTopShapeLike;
+    @Override
+    public int hashCode() {
+        return Objects.hash(leafId, specId, leafShape, leafLength, leafWidth, leafNum, leafBack, leafMargin, leafTongueShape, leafTongueHeight, leafStalkLength, leafBaseShape, leafTopShape);
     }
 }

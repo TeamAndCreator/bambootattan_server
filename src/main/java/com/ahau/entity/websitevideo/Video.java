@@ -1,10 +1,9 @@
 package com.ahau.entity.websitevideo;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * 实体类：（上传视频存放地）
@@ -12,52 +11,29 @@ import java.util.Date;
  * 2018-10-29 10：30
  */
 @Entity
+@Table(name = "aau_website_video_table", schema = "bambootattan", catalog = "")
 public class Video {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 视频名称 */
+    private String videoId;
     private String videoTitle;
-    /* 视频名称（模糊查询）*/
-    private String videoTitleLike;
-    /* 文件名称 */
     private String fileName;
-    /* 文件名称（模糊查询）*/
-    private String fileNameLike;
-    /* 视频截图 */
     private String videoPicture;
-    /* 视频截图（模糊查询）*/
-    private String videoPictureLike;
-    /* 视频描述 */
     private String videoDesc;
-    /* 视频描述（模糊查询）*/
-    private String videoDescLike;
-    /* 是否有效  1-有效 2-无效 */
-    private Integer displayFlag;
-    /* 是否有效  1-有效 2-无效（查询上限）*/
-    private Integer beginDisplayFlag;
-    /* 是否有效  1-有效 2-无效（查询下限）*/
-    private Integer endDisplayFlag;
-    /* 视频上传时间 */
-    private java.util.Date videoUptime;
-    /* 视频上传时间（查询上限）*/
-    private java.util.Date beginVideoUptime;
-    /* 视频上传时间（查询下限）*/
-    private java.util.Date endVideoUptime;
-    /* 关联项目的id */
+    private Byte displayFlag;
+    private Timestamp videoUptime;
     private String loanId;
-    /* 关联项目的id（模糊查询）*/
-    private String loanIdLike;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "VIDEO_ID")
+    public String getVideoId() {
+        return videoId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
     }
 
+    @Basic
+    @Column(name = "VIDEO_TITLE")
     public String getVideoTitle() {
         return videoTitle;
     }
@@ -66,14 +42,8 @@ public class Video {
         this.videoTitle = videoTitle;
     }
 
-    public String getVideoTitleLike() {
-        return videoTitleLike;
-    }
-
-    public void setVideoTitleLike(String videoTitleLike) {
-        this.videoTitleLike = videoTitleLike;
-    }
-
+    @Basic
+    @Column(name = "FILE_NAME")
     public String getFileName() {
         return fileName;
     }
@@ -82,14 +52,8 @@ public class Video {
         this.fileName = fileName;
     }
 
-    public String getFileNameLike() {
-        return fileNameLike;
-    }
-
-    public void setFileNameLike(String fileNameLike) {
-        this.fileNameLike = fileNameLike;
-    }
-
+    @Basic
+    @Column(name = "VIDEO_PICTURE")
     public String getVideoPicture() {
         return videoPicture;
     }
@@ -98,14 +62,8 @@ public class Video {
         this.videoPicture = videoPicture;
     }
 
-    public String getVideoPictureLike() {
-        return videoPictureLike;
-    }
-
-    public void setVideoPictureLike(String videoPictureLike) {
-        this.videoPictureLike = videoPictureLike;
-    }
-
+    @Basic
+    @Column(name = "VIDEO_DESC")
     public String getVideoDesc() {
         return videoDesc;
     }
@@ -114,62 +72,28 @@ public class Video {
         this.videoDesc = videoDesc;
     }
 
-    public String getVideoDescLike() {
-        return videoDescLike;
-    }
-
-    public void setVideoDescLike(String videoDescLike) {
-        this.videoDescLike = videoDescLike;
-    }
-
-    public Integer getDisplayFlag() {
+    @Basic
+    @Column(name = "DISPLAY_FLAG")
+    public Byte getDisplayFlag() {
         return displayFlag;
     }
 
-    public void setDisplayFlag(Integer displayFlag) {
+    public void setDisplayFlag(Byte displayFlag) {
         this.displayFlag = displayFlag;
     }
 
-    public Integer getBeginDisplayFlag() {
-        return beginDisplayFlag;
-    }
-
-    public void setBeginDisplayFlag(Integer beginDisplayFlag) {
-        this.beginDisplayFlag = beginDisplayFlag;
-    }
-
-    public Integer getEndDisplayFlag() {
-        return endDisplayFlag;
-    }
-
-    public void setEndDisplayFlag(Integer endDisplayFlag) {
-        this.endDisplayFlag = endDisplayFlag;
-    }
-
-    public Date getVideoUptime() {
+    @Basic
+    @Column(name = "VIDEO_UPTIME")
+    public Timestamp getVideoUptime() {
         return videoUptime;
     }
 
-    public void setVideoUptime(Date videoUptime) {
+    public void setVideoUptime(Timestamp videoUptime) {
         this.videoUptime = videoUptime;
     }
 
-    public Date getBeginVideoUptime() {
-        return beginVideoUptime;
-    }
-
-    public void setBeginVideoUptime(Date beginVideoUptime) {
-        this.beginVideoUptime = beginVideoUptime;
-    }
-
-    public Date getEndVideoUptime() {
-        return endVideoUptime;
-    }
-
-    public void setEndVideoUptime(Date endVideoUptime) {
-        this.endVideoUptime = endVideoUptime;
-    }
-
+    @Basic
+    @Column(name = "LOAN_ID")
     public String getLoanId() {
         return loanId;
     }
@@ -178,11 +102,23 @@ public class Video {
         this.loanId = loanId;
     }
 
-    public String getLoanIdLike() {
-        return loanIdLike;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Video that = (Video) o;
+        return Objects.equals(videoId, that.videoId) &&
+                Objects.equals(videoTitle, that.videoTitle) &&
+                Objects.equals(fileName, that.fileName) &&
+                Objects.equals(videoPicture, that.videoPicture) &&
+                Objects.equals(videoDesc, that.videoDesc) &&
+                Objects.equals(displayFlag, that.displayFlag) &&
+                Objects.equals(videoUptime, that.videoUptime) &&
+                Objects.equals(loanId, that.loanId);
     }
 
-    public void setLoanIdLike(String loanIdLike) {
-        this.loanIdLike = loanIdLike;
+    @Override
+    public int hashCode() {
+        return Objects.hash(videoId, videoTitle, fileName, videoPicture, videoDesc, displayFlag, videoUptime, loanId);
     }
 }

@@ -1,9 +1,7 @@
 package com.ahau.entity.bamboolforms;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类：（竹秆表）
@@ -11,76 +9,36 @@ import javax.persistence.Id;
  * 2018-10-26 15：30
  */
 @Entity
+@Table(name = "aau_bam_culm_table", schema = "bambootattan", catalog = "")
 public class CulmTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
-
-    /* 种标识 */
+    private String culmId;
     private String specId;
-    /* 种标识（模糊查询） */
-    private String specIdLike;
-    /* 竿高度 */
     private String culmHeight;
-    /* 竿高度（模糊查询） */
-    private String culmHeightLike;
-    /* 竿直径 */
     private String culmDiameter;
-    /* 竿直径（模糊查询） */
-    private String culmDiameterLike;
-    /* 竿颜色 */
     private String culmColor;
-    /* 竿颜色（模糊查询） */
-    private String culmColorLike;
-    /* 竿稍头 */
     private String culmTop;
-    /* 竿稍头（模糊查询） */
-    private String culmTopLike;
-    /* 竿身形态 */
     private String culmStem;
-    /* 竿身形态（模糊查询） */
-    private String culmStemLike;
-    /* 节间长度 */
     private String internodeLength;
-    /* 节间长度（模糊查询） */
-    private String internodeLengthLike;
-    /* 节间形状 */
     private String internodeShape;
-    /* 节间形状（模糊查询） */
-    private String internodeShapeLike;
-    /* 节间有无气生根 */
     private String internodeAerialRoot;
-    /* 节间有无气生根（模糊查询） */
-    private String internodeAerialRootLike;
-    /* 节间被毛 */
     private String internodeBack;
-    /* 节间被毛（模糊查询） */
-    private String internodeBackLike;
-    /* 节间竿壁厚 */
     private String internodeCulmWall;
-    /* 节间竿壁厚（模糊查询） */
-    private String internodeCulmWallLike;
-    /* 幼时竿被毛 */
     private String youngStemBack;
-    /* 幼时竿被毛（模糊查询） */
-    private String youngStemBackLike;
-    /* 幼时竿被粉 */
     private String youngStemPowder;
-    /* 幼时竿被粉（模糊查询） */
-    private String youngStemPowderLike;
-    /* 竿环是否隆起 */
     private String culmNode;
-    /* 竿环是否隆起（模糊查询） */
-    private String culmNodeLike;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "CULM_ID")
+    public String getCulmId() {
+        return culmId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setCulmId(String culmId) {
+        this.culmId = culmId;
     }
 
+    @Basic
+    @Column(name = "SPEC_ID")
     public String getSpecId() {
         return specId;
     }
@@ -89,14 +47,8 @@ public class CulmTable {
         this.specId = specId;
     }
 
-    public String getSpecIdLike() {
-        return specIdLike;
-    }
-
-    public void setSpecIdLike(String specIdLike) {
-        this.specIdLike = specIdLike;
-    }
-
+    @Basic
+    @Column(name = "CULM_HEIGHT")
     public String getCulmHeight() {
         return culmHeight;
     }
@@ -105,14 +57,8 @@ public class CulmTable {
         this.culmHeight = culmHeight;
     }
 
-    public String getCulmHeightLike() {
-        return culmHeightLike;
-    }
-
-    public void setCulmHeightLike(String culmHeightLike) {
-        this.culmHeightLike = culmHeightLike;
-    }
-
+    @Basic
+    @Column(name = "CULM_DIAMETER")
     public String getCulmDiameter() {
         return culmDiameter;
     }
@@ -121,14 +67,8 @@ public class CulmTable {
         this.culmDiameter = culmDiameter;
     }
 
-    public String getCulmDiameterLike() {
-        return culmDiameterLike;
-    }
-
-    public void setCulmDiameterLike(String culmDiameterLike) {
-        this.culmDiameterLike = culmDiameterLike;
-    }
-
+    @Basic
+    @Column(name = "CULM_COLOR")
     public String getCulmColor() {
         return culmColor;
     }
@@ -137,14 +77,8 @@ public class CulmTable {
         this.culmColor = culmColor;
     }
 
-    public String getCulmColorLike() {
-        return culmColorLike;
-    }
-
-    public void setCulmColorLike(String culmColorLike) {
-        this.culmColorLike = culmColorLike;
-    }
-
+    @Basic
+    @Column(name = "CULM_TOP")
     public String getCulmTop() {
         return culmTop;
     }
@@ -153,14 +87,8 @@ public class CulmTable {
         this.culmTop = culmTop;
     }
 
-    public String getCulmTopLike() {
-        return culmTopLike;
-    }
-
-    public void setCulmTopLike(String culmTopLike) {
-        this.culmTopLike = culmTopLike;
-    }
-
+    @Basic
+    @Column(name = "CULM_STEM")
     public String getCulmStem() {
         return culmStem;
     }
@@ -169,14 +97,8 @@ public class CulmTable {
         this.culmStem = culmStem;
     }
 
-    public String getCulmStemLike() {
-        return culmStemLike;
-    }
-
-    public void setCulmStemLike(String culmStemLike) {
-        this.culmStemLike = culmStemLike;
-    }
-
+    @Basic
+    @Column(name = "INTERNODE_LENGTH")
     public String getInternodeLength() {
         return internodeLength;
     }
@@ -185,14 +107,8 @@ public class CulmTable {
         this.internodeLength = internodeLength;
     }
 
-    public String getInternodeLengthLike() {
-        return internodeLengthLike;
-    }
-
-    public void setInternodeLengthLike(String internodeLengthLike) {
-        this.internodeLengthLike = internodeLengthLike;
-    }
-
+    @Basic
+    @Column(name = "INTERNODE_SHAPE")
     public String getInternodeShape() {
         return internodeShape;
     }
@@ -201,14 +117,8 @@ public class CulmTable {
         this.internodeShape = internodeShape;
     }
 
-    public String getInternodeShapeLike() {
-        return internodeShapeLike;
-    }
-
-    public void setInternodeShapeLike(String internodeShapeLike) {
-        this.internodeShapeLike = internodeShapeLike;
-    }
-
+    @Basic
+    @Column(name = "INTERNODE_AERIAL_ROOT")
     public String getInternodeAerialRoot() {
         return internodeAerialRoot;
     }
@@ -217,14 +127,8 @@ public class CulmTable {
         this.internodeAerialRoot = internodeAerialRoot;
     }
 
-    public String getInternodeAerialRootLike() {
-        return internodeAerialRootLike;
-    }
-
-    public void setInternodeAerialRootLike(String internodeAerialRootLike) {
-        this.internodeAerialRootLike = internodeAerialRootLike;
-    }
-
+    @Basic
+    @Column(name = "INTERNODE_BACK")
     public String getInternodeBack() {
         return internodeBack;
     }
@@ -233,14 +137,8 @@ public class CulmTable {
         this.internodeBack = internodeBack;
     }
 
-    public String getInternodeBackLike() {
-        return internodeBackLike;
-    }
-
-    public void setInternodeBackLike(String internodeBackLike) {
-        this.internodeBackLike = internodeBackLike;
-    }
-
+    @Basic
+    @Column(name = "INTERNODE_CULM_WALL")
     public String getInternodeCulmWall() {
         return internodeCulmWall;
     }
@@ -249,14 +147,8 @@ public class CulmTable {
         this.internodeCulmWall = internodeCulmWall;
     }
 
-    public String getInternodeCulmWallLike() {
-        return internodeCulmWallLike;
-    }
-
-    public void setInternodeCulmWallLike(String internodeCulmWallLike) {
-        this.internodeCulmWallLike = internodeCulmWallLike;
-    }
-
+    @Basic
+    @Column(name = "YOUNG_STEM_BACK")
     public String getYoungStemBack() {
         return youngStemBack;
     }
@@ -265,14 +157,8 @@ public class CulmTable {
         this.youngStemBack = youngStemBack;
     }
 
-    public String getYoungStemBackLike() {
-        return youngStemBackLike;
-    }
-
-    public void setYoungStemBackLike(String youngStemBackLike) {
-        this.youngStemBackLike = youngStemBackLike;
-    }
-
+    @Basic
+    @Column(name = "YOUNG_STEM_POWDER")
     public String getYoungStemPowder() {
         return youngStemPowder;
     }
@@ -281,14 +167,8 @@ public class CulmTable {
         this.youngStemPowder = youngStemPowder;
     }
 
-    public String getYoungStemPowderLike() {
-        return youngStemPowderLike;
-    }
-
-    public void setYoungStemPowderLike(String youngStemPowderLike) {
-        this.youngStemPowderLike = youngStemPowderLike;
-    }
-
+    @Basic
+    @Column(name = "CULM_NODE")
     public String getCulmNode() {
         return culmNode;
     }
@@ -297,11 +177,30 @@ public class CulmTable {
         this.culmNode = culmNode;
     }
 
-    public String getCulmNodeLike() {
-        return culmNodeLike;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        CulmTable that = (CulmTable) o;
+        return Objects.equals(culmId, that.culmId) &&
+                Objects.equals(specId, that.specId) &&
+                Objects.equals(culmHeight, that.culmHeight) &&
+                Objects.equals(culmDiameter, that.culmDiameter) &&
+                Objects.equals(culmColor, that.culmColor) &&
+                Objects.equals(culmTop, that.culmTop) &&
+                Objects.equals(culmStem, that.culmStem) &&
+                Objects.equals(internodeLength, that.internodeLength) &&
+                Objects.equals(internodeShape, that.internodeShape) &&
+                Objects.equals(internodeAerialRoot, that.internodeAerialRoot) &&
+                Objects.equals(internodeBack, that.internodeBack) &&
+                Objects.equals(internodeCulmWall, that.internodeCulmWall) &&
+                Objects.equals(youngStemBack, that.youngStemBack) &&
+                Objects.equals(youngStemPowder, that.youngStemPowder) &&
+                Objects.equals(culmNode, that.culmNode);
     }
 
-    public void setCulmNodeLike(String culmNodeLike) {
-        this.culmNodeLike = culmNodeLike;
+    @Override
+    public int hashCode() {
+        return Objects.hash(culmId, specId, culmHeight, culmDiameter, culmColor, culmTop, culmStem, internodeLength, internodeShape, internodeAerialRoot, internodeBack, internodeCulmWall, youngStemBack, youngStemPowder, culmNode);
     }
 }

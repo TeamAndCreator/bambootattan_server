@@ -1,9 +1,7 @@
 package com.ahau.entity.bamboolforms;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.Objects;
 
 /**
  * 实体类：（箨耳表）
@@ -11,36 +9,26 @@ import javax.persistence.Id;
  * 2018-10-26 17：20
  */
 @Entity
+@Table(name = "aau_bam_sheathear_table", schema = "bambootattan", catalog = "")
 public class SheathearTable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
-
-    /* 种标识 */
+    private String sheEarId;
     private String specId;
-    /* 种标识（模糊查询） */
-    private String specIdLike;
-    /* 箨耳发达情况 */
     private String sheathEarDev;
-    /* 箨耳发达情况（模糊查询） */
-    private String sheathEarDevLike;
-    /* 箨耳形状 */
     private String sheathEarShape;
-    /* 箨耳形状（模糊查询） */
-    private String sheathEarShapeLike;
-    /* 箨耳边缘繸毛 */
     private String sheathEarMargin;
-    /* 箨耳边缘繸毛（模糊查询） */
-    private String sheathEarMarginLike;
 
-    public String getId() {
-        return id;
+    @Id
+    @Column(name = "SHE_EAR_ID")
+    public String getSheEarId() {
+        return sheEarId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setSheEarId(String sheEarId) {
+        this.sheEarId = sheEarId;
     }
 
+    @Basic
+    @Column(name = "SPEC_ID")
     public String getSpecId() {
         return specId;
     }
@@ -49,14 +37,8 @@ public class SheathearTable {
         this.specId = specId;
     }
 
-    public String getSpecIdLike() {
-        return specIdLike;
-    }
-
-    public void setSpecIdLike(String specIdLike) {
-        this.specIdLike = specIdLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_EAR_DEV")
     public String getSheathEarDev() {
         return sheathEarDev;
     }
@@ -65,14 +47,8 @@ public class SheathearTable {
         this.sheathEarDev = sheathEarDev;
     }
 
-    public String getSheathEarDevLike() {
-        return sheathEarDevLike;
-    }
-
-    public void setSheathEarDevLike(String sheathEarDevLike) {
-        this.sheathEarDevLike = sheathEarDevLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_EAR_SHAPE")
     public String getSheathEarShape() {
         return sheathEarShape;
     }
@@ -81,14 +57,8 @@ public class SheathearTable {
         this.sheathEarShape = sheathEarShape;
     }
 
-    public String getSheathEarShapeLike() {
-        return sheathEarShapeLike;
-    }
-
-    public void setSheathEarShapeLike(String sheathEarShapeLike) {
-        this.sheathEarShapeLike = sheathEarShapeLike;
-    }
-
+    @Basic
+    @Column(name = "SHEATH_EAR_MARGIN")
     public String getSheathEarMargin() {
         return sheathEarMargin;
     }
@@ -97,11 +67,20 @@ public class SheathearTable {
         this.sheathEarMargin = sheathEarMargin;
     }
 
-    public String getSheathEarMarginLike() {
-        return sheathEarMarginLike;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SheathearTable that = (SheathearTable) o;
+        return Objects.equals(sheEarId, that.sheEarId) &&
+                Objects.equals(specId, that.specId) &&
+                Objects.equals(sheathEarDev, that.sheathEarDev) &&
+                Objects.equals(sheathEarShape, that.sheathEarShape) &&
+                Objects.equals(sheathEarMargin, that.sheathEarMargin);
     }
 
-    public void setSheathEarMarginLike(String sheathEarMarginLike) {
-        this.sheathEarMarginLike = sheathEarMarginLike;
+    @Override
+    public int hashCode() {
+        return Objects.hash(sheEarId, specId, sheathEarDev, sheathEarShape, sheathEarMargin);
     }
 }
