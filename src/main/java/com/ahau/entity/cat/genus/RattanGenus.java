@@ -6,11 +6,11 @@ import java.util.Objects;
 /**
  * 实体类：（属表）
  * Created by: 张理
- * 2018-10-26 12：00
+ * 2018-11-1 14：14
  */
 @Entity
-@Table(name = "aau_cat_genus_table", schema = "bambootattan", catalog = "")
-public class Genus {
+@Table(name = "aau_cat_rattangenus_table", schema = "bambootattan", catalog = "")
+public class RattanGenus {
     private String genusId;
     private String genusNameCh;
     private String genusNameEn;
@@ -93,7 +93,7 @@ public class Genus {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Genus that = (Genus) o;
+        RattanGenus that = (RattanGenus) o;
         return sortNum == that.sortNum &&
                 Objects.equals(genusId, that.genusId) &&
                 Objects.equals(genusNameCh, that.genusNameCh) &&

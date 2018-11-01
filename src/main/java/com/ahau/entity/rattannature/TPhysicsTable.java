@@ -1,16 +1,16 @@
-package com.ahau.entity.bamboonature;
+package com.ahau.entity.rattannature;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * 实体类：（物理性质表）
- * created by: 张理
- * 2018-10-26 21：00
+ * Created by: 张理
+ * 2018-11-1 16：36
  */
 @Entity
-@Table(name = "aau_physics_table", schema = "bambootattan", catalog = "")
-public class PhysicsTable {
+@Table(name = "aau_tphysics_table", schema = "bambootattan", catalog = "")
+public class TPhysicsTable {
     private String phyId;
     private String specId;
     private Double phyRelativeUnitPercent;
@@ -247,7 +247,7 @@ public class PhysicsTable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PhysicsTable that = (PhysicsTable) o;
+        TPhysicsTable that = (TPhysicsTable) o;
         return Objects.equals(phyId, that.phyId) &&
                 Objects.equals(specId, that.specId) &&
                 Objects.equals(phyRelativeUnitPercent, that.phyRelativeUnitPercent) &&

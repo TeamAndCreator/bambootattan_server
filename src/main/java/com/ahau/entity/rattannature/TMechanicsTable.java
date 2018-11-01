@@ -1,16 +1,16 @@
-package com.ahau.entity.bamboonature;
+package com.ahau.entity.rattannature;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * 实体类：（力学性质表）
- * created by: 张理
- * 2018-10-26 21：35
+ * Created by: 张理
+ * 2018-11-1 16：31
  */
 @Entity
-@Table(name = "aau_mechanics_table", schema = "bambootattan", catalog = "")
-public class MechanicsTable {
+@Table(name = "aau_tmechanics_table", schema = "bambootattan", catalog = "")
+public class TMechanicsTable {
     private String mechId;
     private String specId;
     private Double mechBendingModulusElastictyUnitGPa;
@@ -115,7 +115,7 @@ public class MechanicsTable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        MechanicsTable that = (MechanicsTable) o;
+        TMechanicsTable that = (TMechanicsTable) o;
         return Objects.equals(mechId, that.mechId) &&
                 Objects.equals(specId, that.specId) &&
                 Objects.equals(mechBendingModulusElastictyUnitGPa, that.mechBendingModulusElastictyUnitGPa) &&

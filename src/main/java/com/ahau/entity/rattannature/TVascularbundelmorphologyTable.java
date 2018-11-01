@@ -1,16 +1,16 @@
-package com.ahau.entity.bamboonature;
+package com.ahau.entity.rattannature;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * 实体类：（解剖性质_维管束形态特征表）
- * created by: 张理
- * 2018-10-26 21：42
+ * Created by: 张理
+ * 2018-11-1 16：50
  */
 @Entity
-@Table(name = "aau_vascularbundelmorphology_table", schema = "bambootattan", catalog = "")
-public class VascularbundelmorphologyTable {
+@Table(name = "aau_tvascularbundelmorphology_table", schema = "bambootattan", catalog = "")
+public class TVascularbundelmorphologyTable {
     private String vbmId;
     private String specId;
     private Double vbmRadialDiameterUnitMicrom;
@@ -71,7 +71,7 @@ public class VascularbundelmorphologyTable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        VascularbundelmorphologyTable that = (VascularbundelmorphologyTable) o;
+        TVascularbundelmorphologyTable that = (TVascularbundelmorphologyTable) o;
         return Objects.equals(vbmId, that.vbmId) &&
                 Objects.equals(specId, that.specId) &&
                 Objects.equals(vbmRadialDiameterUnitMicrom, that.vbmRadialDiameterUnitMicrom) &&

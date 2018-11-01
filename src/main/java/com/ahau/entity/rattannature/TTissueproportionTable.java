@@ -1,16 +1,16 @@
-package com.ahau.entity.bamboonature;
+package com.ahau.entity.rattannature;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * 实体类：（解剖性质_组织比量表）
- * created by: 张理
- * 2018-10-26 21：55
+ * Created by: 张理
+ * 2018-11-1 16：45
  */
 @Entity
-@Table(name = "aau_tissueproportion_table", schema = "bambootattan", catalog = "")
-public class TissueproportionTable {
+@Table(name = "aau_ttissueproportion_table", schema = "bambootattan", catalog = "")
+public class TTissueproportionTable {
     private String tpId;
     private String specId;
     private Double tpFiberPeoportionUnitPercent;
@@ -82,7 +82,7 @@ public class TissueproportionTable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TissueproportionTable that = (TissueproportionTable) o;
+        TTissueproportionTable that = (TTissueproportionTable) o;
         return Objects.equals(tpId, that.tpId) &&
                 Objects.equals(specId, that.specId) &&
                 Objects.equals(tpFiberPeoportionUnitPercent, that.tpFiberPeoportionUnitPercent) &&

@@ -1,16 +1,16 @@
-package com.ahau.entity.bamboonature;
+package com.ahau.entity.rattannature;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 /**
- *实体类：（解剖性质_纤维形态特征表）
- * created by: 张理
- * 2018-10-26 22：00
+ * 实体类：（解剖性质_纤维形态特征表）
+ * Created by: 张理
+ * 2018-11-1 16：24
  */
 @Entity
-@Table(name = "aau_fibermorphology_table", schema = "bambootattan", catalog = "")
-public class FibermorphologyTable {
+@Table(name = "aau_tfibermorphology_table", schema = "bamboo_rattan", catalog = "")
+public class TFibermorphologyTable {
     private String fmId;
     private String specId;
     private Double fmLengthUnitMicron;
@@ -115,7 +115,7 @@ public class FibermorphologyTable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        FibermorphologyTable that = (FibermorphologyTable) o;
+        TFibermorphologyTable that = (TFibermorphologyTable) o;
         return Objects.equals(fmId, that.fmId) &&
                 Objects.equals(specId, that.specId) &&
                 Objects.equals(fmLengthUnitMicron, that.fmLengthUnitMicron) &&

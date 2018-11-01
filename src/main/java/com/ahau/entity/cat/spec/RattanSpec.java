@@ -5,12 +5,12 @@ import java.util.Objects;
 
 /**
  * 实体类：（种表）
- * Created by 张理
- * 2018-10-26 15：00
+ * Created by: 张理
+ * 2018-11-1 14：21
  */
 @Entity
-@Table(name = "aau_cat_spec_table", schema = "bambootattan", catalog = "")
-public class Spec {
+@Table(name = "aau_cat_rattanspec_table", schema = "bambootattan", catalog = "")
+public class RattanSpec {
     private String specId;
     private String genusId;
     private String specNameCh;
@@ -181,7 +181,7 @@ public class Spec {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Spec that = (Spec) o;
+        RattanSpec that = (RattanSpec) o;
         return specSortNum == that.specSortNum &&
                 Objects.equals(specId, that.specId) &&
                 Objects.equals(genusId, that.genusId) &&

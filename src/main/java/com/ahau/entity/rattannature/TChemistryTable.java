@@ -1,16 +1,16 @@
-package com.ahau.entity.bamboonature;
+package com.ahau.entity.rattannature;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * 实体类（化学性质表）
- * created by: 张理
- * 2018-10-26 21：28
+ * 实体类：（化学性质表）
+ * Created by: 张理
+ * 2018-11-1 16：15
  */
 @Entity
-@Table(name = "aau_chemistry_table", schema = "bambootattan", catalog = "")
-public class ChemistryTable {
+@Table(name = "aau_tchemistry_table", schema = "bambootattan", catalog = "")
+public class TChemistryTable {
     private String chemId;
     private String specId;
     private Double chemHolocelluloseUnitPercent;
@@ -137,7 +137,7 @@ public class ChemistryTable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ChemistryTable that = (ChemistryTable) o;
+        TChemistryTable that = (TChemistryTable) o;
         return Objects.equals(chemId, that.chemId) &&
                 Objects.equals(specId, that.specId) &&
                 Objects.equals(chemHolocelluloseUnitPercent, that.chemHolocelluloseUnitPercent) &&

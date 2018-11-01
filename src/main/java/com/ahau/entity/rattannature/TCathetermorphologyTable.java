@@ -1,16 +1,16 @@
-package com.ahau.entity.bamboonature;
+package com.ahau.entity.rattannature;
 
 import javax.persistence.*;
 import java.util.Objects;
 
 /**
  * 实体类：（解剖性质_导管形态特征表）
- * created by: 张理
- * 2018-10-26 21：48
+ * Created by: 张理
+ * 2018-11-1 15：55
  */
 @Entity
-@Table(name = "aau_cathetermorphology_table", schema = "bambootattan", catalog = "")
-public class CathetermorphologyTable {
+@Table(name = "aau_tcathetermorphology_table", schema = "bambootattan", catalog = "")
+public class TCathetermorphologyTable {
     private String chmId;
     private String specId;
     private Double chmCatheterLenghtUnitMicrom;
@@ -82,7 +82,7 @@ public class CathetermorphologyTable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CathetermorphologyTable that = (CathetermorphologyTable) o;
+        TCathetermorphologyTable that = (TCathetermorphologyTable) o;
         return Objects.equals(chmId, that.chmId) &&
                 Objects.equals(specId, that.specId) &&
                 Objects.equals(chmCatheterLenghtUnitMicrom, that.chmCatheterLenghtUnitMicrom) &&
