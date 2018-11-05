@@ -36,10 +36,24 @@ public class GenusServiceTest {
 
     @Test
     public void findById() {
-    }
+            Genus genus= genusService.findById(1L);
+            System.out.println(genus);
+        }
+
+     @Test
+     public void update() {
+         genus.setGenusId(3L);
+         genusService.save(genus);
+     }
+
 
     @Test
     public void save() {
         genusService.save(genus);
+    }
+
+    @Test
+    public void delete() {
+        genusService.delete(6L);
     }
 }

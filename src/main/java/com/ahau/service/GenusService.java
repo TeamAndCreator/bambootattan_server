@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 描述：用户服务层接口
@@ -29,9 +30,20 @@ public class GenusService {
         return genusRepository.findAll();
     }
 
-    public Genus findById(Long id) {
-        return genusRepository.getOne(id);
+    public Genus findById(Long id){
+
+        Optional<Genus> genusOptional = genusRepository.findById(id);
+        Genus genus = new Genus();
+        if (genusOptional.isPresent()) {
+            genus= genusOptional.get();
+        } else {
+            // handle not found, return null or throw
+            System.out.println("no exit!");
+        }
+        return genus;
     }
+
+
 
     public Genus save(Genus genus) {
         return genusRepository.save(genus);
