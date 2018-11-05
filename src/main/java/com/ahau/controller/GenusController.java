@@ -27,6 +27,40 @@ public class GenusController {
         return genusService.findAll();
     }
 
+    /**
+     * 查询一个属
+     * @param id
+     * @return
+     */
+    @GetMapping("find_by_id")
+    public Genus findById(Long id) {
+        return genusService.findById(id);
+    }
+
+    /**
+     * 更新
+     * @param genus
+     * @return
+     */
+    @PutMapping("update")
+    public Genus genusUpdate(Genus genus) {
+        return genusService.save(genus);
+    }
+
+    /**
+     * 删除
+     * @param id
+     */
+    @DeleteMapping("delete")
+    public void delete(Long id) {
+        genusService.delete(id);
+    }
+
+    /**
+     * 添加一个属
+     * @param genus
+     * @return
+     */
     @PostMapping("save")
     public Genus genusAdd(Genus genus) {
         return genusService.save(genus);
