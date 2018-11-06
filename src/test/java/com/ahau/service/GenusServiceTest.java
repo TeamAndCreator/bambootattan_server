@@ -8,10 +8,9 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.List;
 
-import static org.junit.Assert.*;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class GenusServiceTest {
@@ -37,10 +36,24 @@ public class GenusServiceTest {
 
     @Test
     public void findById() {
-    }
+            Genus genus= genusService.findById(1L);
+            System.out.println(genus);
+        }
+
+     @Test
+     public void update() {
+         genus.setGenusId(3L);
+         genusService.save(genus);
+     }
+
 
     @Test
     public void save() {
         genusService.save(genus);
+    }
+
+    @Test
+    public void delete() {
+        genusService.delete(6L);
     }
 }
