@@ -94,7 +94,7 @@
                 <artifactId>docker-maven-plugin</artifactId>
                 <version>0.4.11</version>
                 <configuration>
-                    <imageName>zhaoliu/${project.artifactId}</imageName>
+                    <imageName>zhaoliu09/${project.artifactId}</imageName>
                     <imageTags>
                         <imageTag>${project.version}</imageTag>
                         <imageTag>latest</imageTag>
