@@ -97,7 +97,7 @@
                     <imageName>zhaoliu09/${project.artifactId}</imageName>
                     <imageTags>
                         <imageTag>${project.version}</imageTag>
-                        <imageTag>latest</imageTag>
+                        <!--<imageTag>latest</imageTag>-->
                     </imageTags>
                     <baseImage>java:8</baseImage>
                     <exposes>8080</exposes>
