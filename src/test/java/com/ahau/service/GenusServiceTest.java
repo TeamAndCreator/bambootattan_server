@@ -36,7 +36,7 @@ public class GenusServiceTest {
 
     @Test
     public void findById() {
-            Genus genus= genusService.findById(1L);
+            Genus genus = genusService.findById(1L);
             System.out.println(genus);
         }
 
