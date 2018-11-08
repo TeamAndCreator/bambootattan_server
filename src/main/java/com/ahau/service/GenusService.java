@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 描述：用户服务层接口
+ * 描述：服务层接口
  *
  * @author 张理
  * 2018-11-3 19:22
@@ -26,10 +26,19 @@ public class GenusService {
         this.genusRepository = genusRepository;
     }
 
+    /**
+     * 查询所有属
+     * @return
+     */
     public List<Genus> findAll() {
         return genusRepository.findAll();
     }
 
+    /**
+     * 查询一个属
+     * @param id
+     * @return
+     */
     public Genus findById(Long id){
 
         Optional<Genus> genusOptional = genusRepository.findById(id);
@@ -43,12 +52,29 @@ public class GenusService {
         return genus;
     }
 
+    /**
+     * 更新
+     * @param genus
+     * @return
+     */
+    public Genus update(Genus genus) {
+        genusRepository.save(genus);
+        return genus;
+    }
 
-
+    /**
+     * 添加一个属
+     * @param genus
+     * @return
+     */
     public Genus save(Genus genus) {
         return genusRepository.save(genus);
     }
 
+    /**
+     * 删除
+     * @param id
+     */
     public void delete(Long id) {
         genusRepository.deleteById(id);
     }
