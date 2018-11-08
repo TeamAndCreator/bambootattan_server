@@ -32,7 +32,7 @@ public class GenusControllerTest {
     }
 
     @Test
-    public void findById(Long id) {
+    public void findById() {
     }
 
     @Test
