@@ -33,6 +33,7 @@ public class SwaggerConfig {
                 .description("竹藤数据信息管理系统api")
                 .termsOfServiceUrl("https://github.com/TeamAndCreator/bambootattan_server.git")
                 .contact(new Contact("Zhaoliu","","liulianjushi@126.com"))
+                .termsOfServiceUrl("http://47.104.26.79:8081/swagger-ui.html#/")
                 .version("v1.0")
                 .build();
     }
