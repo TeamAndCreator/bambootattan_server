@@ -1,6 +1,5 @@
 package com.ahau.configs;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -30,8 +29,8 @@ public class SwaggerConfig {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("bambootarran")
-                .description("××管理系统api")
+                .title("竹藤种质资源数据管理平台（BambooRattan）")
+                .description("竹藤数据信息管理系统api")
                 .termsOfServiceUrl("https://github.com/TeamAndCreator/bambootattan_server.git")
                 .contact(new Contact("Zhaoliu","","liulianjushi@126.com"))
                 .version("v1.0")
