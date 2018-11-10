@@ -26,6 +26,7 @@ public class GenusController {
      * @return
      */
     @ApiOperation(value = "获取所有属列表", notes = "获取所有属列表")
+    @ApiImplicitParam(name = "genus", value = "属详细实体genus", required = true, dataType = "Genus")
     @GetMapping("findAll")
     public Result findAll(){
         return ResultUtil.success(genusService.findAll());
@@ -33,13 +34,14 @@ public class GenusController {
 
     /**
      * 查询一个属
-     * @param id
+     * @param genusId
      * @returnR
      */
     @ApiOperation(value = "获取属详细信息", notes = "根据url的id来获取属详细信息")
-    @GetMapping("findId/{id}")
-    public Result findById(@PathVariable("id") Long id) {
-        return ResultUtil.success(genusService.findById(id));
+    @ApiImplicitParam(name = "genusId", value = "属ID", required = true, dataType = "Long", paramType = "path")
+    @GetMapping("findId/{genusId}")
+    public Result findById(@PathVariable("genusId") Long genusId) {
+        return ResultUtil.success(genusService.findById(genusId));
     }
 
     /**
@@ -48,6 +50,7 @@ public class GenusController {
      * @return
      */
     @ApiOperation(value = "更新属信息", notes = "根据url的id来指定更新属信息")
+    @ApiImplicitParam(name = "genus", value = "属详细实体genus", required = true, dataType = "Genus")
     @PutMapping("update")
     public Result genusUpdate(@RequestBody Genus genus) {
         return ResultUtil.success(genusService.save(genus));
@@ -55,13 +58,13 @@ public class GenusController {
 
     /**
      * 删除
-     * @param id
+     * @param genusId
      */
     @ApiOperation(value = "删除属", notes = "根据url的id来指定删除属")
     @ApiImplicitParam(name = "genusId", value = "属ID", required = true, dataType = "Long", paramType = "path")
-    @DeleteMapping("delete/{id}")
-    public Result delete(@PathVariable("id") Long id) {
-        genusService.delete(id);
+    @DeleteMapping("delete/{genusId}")
+    public Result delete(@PathVariable("genusId") Long genusId) {
+        genusService.delete(genusId);
         return ResultUtil.success();
     }
 
