@@ -8,6 +8,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -78,5 +79,23 @@ public class GenusController {
     @PostMapping("save")
     public Result genusAdd(@RequestBody Genus genus) {
         return ResultUtil.success(genusService.save(genus));
+    }
+
+
+    @PostMapping("findAllNoQuery/{page}/{size}")
+    public Result findGenusNoQuery(@PathVariable("page") Integer page,@PathVariable("size") Integer size){
+
+        Page<Genus> genusPage=genusService.findGenusNoQuery(page,size);
+
+        return ResultUtil.success(genusPage);
+    }
+
+
+    @PostMapping("findAllQuery/{page}/{size}")
+    public Result findGenusQuery(@PathVariable("page") Integer page,@PathVariable("size") Integer size,@RequestBody Genus genus){
+
+        Page<Genus> genusPage=genusService.findGenusQuery(page,size,genus);
+
+        return ResultUtil.success(genusPage);
     }
 }
