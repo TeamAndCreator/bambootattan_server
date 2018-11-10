@@ -108,7 +108,7 @@
                         <imageTag>latest</imageTag>
                     </imageTags>
                     <forceTags>true</forceTags><!--覆盖构建相同标签的镜像-->
-                    <pushImage>true</pushImage><!--build 完成后 push 镜像-->
+                    <!--<pushImage>true</pushImage> build 完成后 push 镜像-->
                     <env>
                         <TZ>Asia/Shanghai</TZ>
                     </env>
