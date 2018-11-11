@@ -6,14 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,7 +89,12 @@ public class GenusService {
         genusRepository.deleteById(id);
     }
 
-
+    /**
+     * 分页无条件查找
+     * @param page
+     * @param size
+     * @return
+     */
     public Page<Genus> findGenusNoQuery(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
 
@@ -105,6 +105,13 @@ public class GenusService {
 
     }
 
+    /**
+     * 分页有条件查找
+     * @param page
+     * @param size
+     * @param genus
+     * @return
+     */
     public Page<Genus> findGenusQuery(Integer page, Integer size, final Genus genus) {
         Pageable pageable = PageRequest.of(page, size);
         return genusRepository.findAll((Specification<Genus>) (root, criteriaQuery, criteriaBuilder) -> {
@@ -118,6 +125,14 @@ public class GenusService {
             Predicate[] p = new Predicate[list.size()];
             return criteriaBuilder.and(list.toArray(p));
         },pageable);
+    }
+
+    /**
+     * 批量删除
+     * @param ids
+     */
+    public  void  deleteByIds(List<Long> ids){
+        genusRepository.deleteByGenusIdIn(ids);
     }
 
 }

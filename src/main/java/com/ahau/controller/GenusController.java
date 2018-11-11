@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/genus")
 @Api(description = "属")
@@ -81,8 +83,15 @@ public class GenusController {
         return ResultUtil.success(genusService.save(genus));
     }
 
-
-    @PostMapping("findAllNoQuery/{page}/{size}")
+    /**
+     * 分页无条件查找
+     * @param page
+     * @param size
+     * @return
+     */
+    @ApiOperation(value = "分页无条件查找", notes = "分页无条件查找")
+    @ApiImplicitParam(name = "genus", value = "属详细实体genus", required = true, dataType = "Genus")
+    @GetMapping("findAllNoQuery/{page}/{size}")
     public Result findGenusNoQuery(@PathVariable("page") Integer page,@PathVariable("size") Integer size){
 
         Page<Genus> genusPage=genusService.findGenusNoQuery(page,size);
@@ -90,12 +99,33 @@ public class GenusController {
         return ResultUtil.success(genusPage);
     }
 
-
-    @PostMapping("findAllQuery/{page}/{size}")
+    /**
+     * 分页有条件查找
+     * @param page
+     * @param size
+     * @param genus
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找",notes = "分页有条件查找")
+    @ApiImplicitParam(name = "genus", value = "属详细实体genus", required = true, dataType = "Genus")
+    @GetMapping("findAllQuery/{page}/{size}")
     public Result findGenusQuery(@PathVariable("page") Integer page,@PathVariable("size") Integer size,@RequestBody Genus genus){
 
         Page<Genus> genusPage=genusService.findGenusQuery(page,size,genus);
 
         return ResultUtil.success(genusPage);
+    }
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    @ApiOperation(value = "批量删除", notes = "根据url的id来批量删除属")
+    @ApiImplicitParam(name = "genusId", value = "属ID", required = true, dataType = "Long", paramType = "path")
+    @DeleteMapping("deleteByIds")
+    public Result deleteByIds(@RequestParam List<Long> ids) {
+        genusService.deleteByIds(ids);
+        return ResultUtil.success();
     }
 }
