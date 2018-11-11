@@ -97,9 +97,6 @@ public class GenusService {
      */
     public Page<Genus> findGenusNoQuery(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-
-
-
         return genusRepository.findAll(pageable);
 
 
