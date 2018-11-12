@@ -116,6 +116,6 @@ public class FlowerfruitService {
      * @param ids
      */
     public void deleteByIds(List<Long> ids){
-        flowerfruitRepository.deleteByfloFruitIdIn(ids);
+        flowerfruitRepository.deleteByFloFruitIdIn(ids);
     }
 }

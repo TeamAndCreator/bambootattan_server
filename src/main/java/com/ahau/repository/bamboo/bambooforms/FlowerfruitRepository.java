@@ -12,6 +12,6 @@ import java.util.List;
  * 2018-11-12
  */
 public interface FlowerfruitRepository extends JpaRepository<Flowerfruit, Long>, JpaSpecificationExecutor<Flowerfruit> {
-    void deleteByfloFruitIdIn(List<Long> ids);
-    void findByFlofruitIdIn(List<Long> ids);
+    void deleteByFloFruitIdIn(List<Long> ids);
+    List<Flowerfruit> findByFloFruitIdIn(List<Long> ids);
 }

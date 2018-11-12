@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  * 竹种控制层接口
@@ -28,10 +29,13 @@ public class SpecController {
     private final SpecService specService;
 
     @Autowired
-    public SpecController(SpecService specService) {this.specService = specService;}
+    public SpecController(SpecService specService) {
+        this.specService = specService;
+    }
 
     /**
      * 查询所有种列表
+     *
      * @return
      */
     @ApiOperation(value = "获取所有种列表", notes = "获取所有种列表")
@@ -42,6 +46,7 @@ public class SpecController {
 
     /**
      * 查询一个种列表
+     *
      * @param specId
      * @return
      */
@@ -53,6 +58,7 @@ public class SpecController {
 
     /**
      * 更新
+     *
      * @param spec
      * @return
      */
@@ -65,6 +71,7 @@ public class SpecController {
 
     /**
      * 删除
+     *
      * @param specId
      * @return
      */
@@ -78,6 +85,7 @@ public class SpecController {
 
     /**
      * 添加一个种
+     *
      * @param spec
      * @return
      */
@@ -89,6 +97,7 @@ public class SpecController {
 
     /**
      * 分页无条件查找
+     *
      * @param page
      * @param size
      * @return
@@ -108,6 +117,7 @@ public class SpecController {
 
     /**
      * 分页有条件查找
+     *
      * @param page
      * @param size
      * @param spec
@@ -128,6 +138,7 @@ public class SpecController {
 
     /**
      * 批量删除
+     *
      * @param ids
      * @return
      */
@@ -140,33 +151,41 @@ public class SpecController {
 
     /**
      * 上传文件
+     *
      * @param file
      * @return
      */
     @PostMapping("upload")
-    public String upload(@RequestParam("bambooFile")MultipartFile file) {
+    public String upload(@RequestParam("bambooFile") MultipartFile file) {
         if (file.isEmpty()) {
             return "文件为空";
         }
-        Logger logger = (Logger) LoggerFactory.getLogger(SpecController.class);
         //获取文件名
-        String fileName = file.getOriginalFilename(); logger.info("上传的文件名为：" + fileName);
+        String fileName = file.getOriginalFilename();
+        System.out.println("上传的文件名为：" + fileName);
         //获取文件的后缀名
+        assert fileName != null;
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        logger.info("上传的后缀名为：" + suffixName);
+        System.out.println("上传的后缀名为：" + suffixName);
         //文件上传路径
         String filePath = "d:/bamboo/video/";
+        String osName = System.getProperty("os.name");
+        if (Pattern.matches("Linux.*", osName)) {
+            filePath = "/root/bamboo/video/";
+        } else if (Pattern.matches("Mac.*", osName)) {
+            filePath = "/Users/james/bamboo/video/";
+        }
         File dest = new File(filePath + fileName);
         //检测是否存在目录
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
         }
         try {
-            file.transferTo(dest); return "上传成功";
-        } catch (IllegalStateException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+            file.transferTo(dest);
+            return "上传成功";
+        } catch (IllegalStateException | IOException e) {
             e.printStackTrace();
         }
-        return "上传失败"; }
+        return "上传失败";
+    }
 }
