@@ -1,4 +1,4 @@
-package com.ahau.repository;
+package com.ahau.repository.bamboo.base;
 
 import com.ahau.entity.bamboo.base.Genus;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,5 +16,4 @@ public interface GenusRepository extends JpaRepository<Genus, Long>, JpaSpecific
 
     void deleteByGenusIdIn(List<Long> ids);
     void findByGenusIdIn(List<Long> ids);
-
 }
