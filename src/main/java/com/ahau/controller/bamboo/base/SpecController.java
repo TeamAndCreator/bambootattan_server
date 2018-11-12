@@ -5,11 +5,16 @@ import com.ahau.entity.bamboo.base.Spec;
 import com.ahau.service.bamboo.base.SpecService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * 竹种控制层接口
@@ -132,4 +137,36 @@ public class SpecController {
         specService.deleteByIds(ids);
         return ResultUtil.success();
     }
+
+    /**
+     * 上传文件
+     * @param file
+     * @return
+     */
+    @PostMapping("upload")
+    public String upload(@RequestParam("bambooFile")MultipartFile file) {
+        if (file.isEmpty()) {
+            return "文件为空";
+        }
+        Logger logger = (Logger) LoggerFactory.getLogger(SpecController.class);
+        //获取文件名
+        String fileName = file.getOriginalFilename(); logger.info("上传的文件名为：" + fileName);
+        //获取文件的后缀名
+        String suffixName = fileName.substring(fileName.lastIndexOf("."));
+        logger.info("上传的后缀名为：" + suffixName);
+        //文件上传路径
+        String filePath = "d:/bamboo/video/";
+        File dest = new File(filePath + fileName);
+        //检测是否存在目录
+        if (!dest.getParentFile().exists()) {
+            dest.getParentFile().mkdirs();
+        }
+        try {
+            file.transferTo(dest); return "上传成功";
+        } catch (IllegalStateException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "上传失败"; }
 }
