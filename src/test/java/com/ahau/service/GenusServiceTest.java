@@ -1,6 +1,7 @@
 package com.ahau.service;
 
 import com.ahau.entity.bamboo.base.Genus;
+import com.ahau.service.bamboo.base.GenusService;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

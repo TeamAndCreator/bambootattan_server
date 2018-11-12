@@ -1,7 +1,7 @@
-package com.ahau.service;
+package com.ahau.service.bamboo.base;
 
 import com.ahau.entity.bamboo.base.Genus;
-import com.ahau.repository.GenusRepository;
+import com.ahau.repository.bamboo.base.GenusRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 描述：服务层接口
+ * 描述：竹属服务层接口
  *
  * @author 张理
  * 2018-11-3 19:22
@@ -98,8 +98,6 @@ public class GenusService {
     public Page<Genus> findGenusNoQuery(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         return genusRepository.findAll(pageable);
-
-
     }
 
     /**
@@ -131,5 +129,4 @@ public class GenusService {
     public  void  deleteByIds(List<Long> ids){
         genusRepository.deleteByGenusIdIn(ids);
     }
-
 }

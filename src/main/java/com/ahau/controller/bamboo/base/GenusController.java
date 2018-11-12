@@ -1,8 +1,8 @@
-package com.ahau.controller;
+package com.ahau.controller.bamboo.base;
 
 import com.ahau.entity.bamboo.base.Genus;
 import com.ahau.entity.bamboo.base.Result;
-import com.ahau.service.GenusService;
+import com.ahau.service.bamboo.base.GenusService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
