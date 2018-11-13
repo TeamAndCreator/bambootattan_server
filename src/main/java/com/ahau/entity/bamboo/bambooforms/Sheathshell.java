@@ -5,7 +5,7 @@ import com.ahau.entity.bamboo.base.Spec;
 import javax.persistence.*;
 
 /**
- * 实体类：（箨环表）
+ * 实体类：（箨片表）
  * Created by: 张理
  * 2018-11-3 10：48
  */

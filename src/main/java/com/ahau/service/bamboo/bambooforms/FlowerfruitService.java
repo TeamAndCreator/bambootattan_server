@@ -70,7 +70,7 @@ public class FlowerfruitService {
     }
 
     /**
-     * 添加一个种
+     * 添加一个花果形态
      * @param flowerfruit
      * @return
      */

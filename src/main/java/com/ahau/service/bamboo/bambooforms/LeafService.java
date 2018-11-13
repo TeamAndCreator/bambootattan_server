@@ -70,7 +70,7 @@ public class LeafService {
     }
 
     /**
-     * 添加一个种
+     * 添加一个竹叶
      * @param leaf
      * @return
      */

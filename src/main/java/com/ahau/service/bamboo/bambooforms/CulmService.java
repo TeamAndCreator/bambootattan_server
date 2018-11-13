@@ -70,7 +70,7 @@ public class CulmService {
     }
 
     /**
-     * 添加一个种
+     * 添加一个竹秆
      * @param culm
      * @return
      */
