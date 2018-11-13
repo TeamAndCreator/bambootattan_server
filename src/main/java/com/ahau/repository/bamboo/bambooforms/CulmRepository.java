@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import java.util.List;
 
 /**
- * 竹秆表Repository
+ * 竹秆Repository
  * Created by: 张理
  * 2018-11-12
  */
