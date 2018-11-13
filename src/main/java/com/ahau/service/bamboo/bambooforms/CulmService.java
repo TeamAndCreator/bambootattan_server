@@ -1,7 +1,7 @@
-package com.ahau.service.bamboo.base;
+package com.ahau.service.bamboo.bambooforms;
 
-import com.ahau.entity.bamboo.base.Spec;
-import com.ahau.repository.bamboo.base.SpecRepository;
+import com.ahau.entity.bamboo.bambooforms.Culm;
+import com.ahau.repository.bamboo.bambooforms.CulmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,50 +16,49 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * 竹种服务层接口
+ * 竹秆服务层接口
  * Created by: 张理
  * 2018-11-12
  */
 @Transactional
 @Service
-public class SpecService {
-
-    private final SpecRepository specRepository;
+public class CulmService {
+    private final CulmRepository culmRepository;
 
     @Autowired
-    public SpecService(SpecRepository specRepository) {this.specRepository = specRepository;}
+    public CulmService(CulmRepository culmRepository) {this.culmRepository = culmRepository;}
 
     /**
-     * 查询所有种列表
+     * 查询所有竹秆列表
      * @return
      */
-    public List<Spec> findAll() {return specRepository.findAll();}
+    public List<Culm> findAll() {return culmRepository.findAll();}
 
     /**
-     * 查询一个种
+     * 查询一个竹秆
      * @param id
      * @return
      */
-    public Spec findById(Long id) {
-        Optional<Spec> specOptional = specRepository.findById(id);
-        Spec spec = new Spec();
-        if (specOptional.isPresent()) {
-            spec = specOptional.get();
+    public Culm findById(Long id) {
+        Optional<Culm> culmOptional = culmRepository.findById(id);
+        Culm culm = new Culm();
+        if (culmOptional.isPresent()) {
+            culm = culmOptional.get();
         } else {
             // handle not found, return null or throw
             System.out.println("no exit!");
         }
-        return spec;
+        return culm;
     }
 
     /**
      * 更新
-     * @param spec
+     * @param culm
      * @return
      */
-    public Spec update(Spec spec) {
-        specRepository.save(spec);
-        return spec;
+    public Culm update(Culm culm) {
+        culmRepository.save(culm);
+        return culm;
     }
 
     /**
@@ -67,16 +66,16 @@ public class SpecService {
      * @param id
      */
     public void delete(Long id) {
-        specRepository.deleteById(id);
+        culmRepository.deleteById(id);
     }
 
     /**
      * 添加一个种
-     * @param spec
+     * @param culm
      * @return
      */
-    public Spec save(Spec spec) {
-        return specRepository.save(spec);
+    public Culm save(Culm culm) {
+        return culmRepository.save(culm);
     }
 
     /**
@@ -85,26 +84,26 @@ public class SpecService {
      * @param size
      * @return
      */
-    public Page<Spec> findSpecNoQuery(Integer page, Integer size) {
+    public Page<Culm> findCulmNoQuery(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
-        return specRepository.findAll(pageable);
+        return culmRepository.findAll(pageable);
     }
 
     /**
      * 分页有条件查找
      * @param page
      * @param size
-     * @param spec
+     * @param culm
      * @return
      */
-    public Page<Spec> findSpecQuery(Integer page, Integer size, final Spec spec) {
+    public Page<Culm> findCulmQuery(Integer page, Integer size, final Culm culm) {
         Pageable pageable = PageRequest.of(page, size);
-        return specRepository.findAll((Specification<Spec>) (root, criteriaQuery, criteriaBuilder) -> {
+        return culmRepository.findAll((Specification<Culm>) (root, criteriaQuery, criteriaBuilder) -> {
 
             //用于暂时存放查询条件的集合
             List<Predicate> list = new ArrayList<>();
-            if (null != spec.getSpecNameCh() && !"".equals(spec.getSpecNameCh())) {
-                list.add(criteriaBuilder.equal(root.get("specNameCh").as(String.class), spec.getSpecNameCh()));
+            if (null != culm.getCulmHeight() && !"".equals(culm.getCulmHeight())) {
+                list.add(criteriaBuilder.equal(root.get("culmHeight").as(String.class), culm.getCulmHeight()));
             }
 
             Predicate[] p = new Predicate[list.size()];
@@ -117,6 +116,6 @@ public class SpecService {
      * @param ids
      */
     public  void  deleteByIds(List<Long> ids){
-        specRepository.deleteBySpecIdIn(ids);
+        culmRepository.deleteByCulmIdIn(ids);
     }
 }
