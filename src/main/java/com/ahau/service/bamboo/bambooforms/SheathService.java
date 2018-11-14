@@ -70,7 +70,7 @@ public class SheathService {
     }
 
     /**
-     * 添加一个种
+     * 添加一个箨鞘
      * @param sheath
      * @return
      */

@@ -70,7 +70,7 @@ public class SheathearService {
     }
 
     /**
-     * 添加一个种
+     * 添加一个箨耳
      * @param sheathear
      * @return
      */

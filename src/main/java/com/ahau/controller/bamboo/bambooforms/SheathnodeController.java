@@ -37,14 +37,14 @@ public class SheathnodeController {
 
     /**
      * 查询一个箨环列表
-     * @param flofruitId
+     * @param shenodeId
      * @return
      */
     @ApiOperation(value = "获取箨环详细信息", notes = "根据url的id来获取箨环详细信息")
-    @GetMapping("findId/{flofruitId}")
-    public Result findById(@ApiParam(name = "flofruitId", value = "需要查找的箨环的id", required = true)
-                           @PathVariable("flofruitId") Long flofruitId) {
-        return ResultUtil.success(sheathnodeService.findById(flofruitId));
+    @GetMapping("findId/{shenodeId}")
+    public Result findById(@ApiParam(name = "shenodeId", value = "需要查找的箨环的id", required = true)
+                           @PathVariable("shenodeId") Long shenodeId) {
+        return ResultUtil.success(sheathnodeService.findById(shenodeId));
     }
 
     /**
@@ -61,14 +61,14 @@ public class SheathnodeController {
 
     /**
      * 删除
-     * @param flofruitId
+     * @param shenodeId
      * @return
      */
     @ApiOperation(value = "删除箨环", notes = "根据url的id来指定删除箨环")
-    @DeleteMapping("delete/{flofruitId}")
-    public Result delete(@ApiParam(name = "flofruitId", value = "需删除箨环的ID", required = true)
-                         @PathVariable("flofruitId") Long flofruitId) {
-        sheathnodeService.delete(flofruitId);
+    @DeleteMapping("delete/{shenodeId}")
+    public Result delete(@ApiParam(name = "shenodeId", value = "需删除箨环的ID", required = true)
+                         @PathVariable("shenodeId") Long shenodeId) {
+        sheathnodeService.delete(shenodeId);
         return ResultUtil.success();
     }
 

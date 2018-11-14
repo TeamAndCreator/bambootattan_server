@@ -70,7 +70,7 @@ public class SheathnodeService {
     }
 
     /**
-     * 添加一个种
+     * 添加一个箨环
      * @param sheathnode
      * @return
      */
