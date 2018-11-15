@@ -16,7 +16,7 @@ public class Tissueproportion {
     private Long tpId;
 
     /* 种标识：外键 */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "spec_id")
     private Spec spec;
 

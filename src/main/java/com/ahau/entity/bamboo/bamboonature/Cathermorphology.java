@@ -16,8 +16,8 @@ public class Cathermorphology {
     private Long chmId;
 
     /* 种的标识 */
-    @ManyToOne
-    @JoinColumn(name = "spe_id")
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "spec_id")
     private Spec spec;
 
     /* 导管长度 */

@@ -1,9 +1,8 @@
 package com.ahau.entity.bamboo.bambooforms;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.ahau.entity.bamboo.base.Spec;
+
+import javax.persistence.*;
 
 /**
  * 实体类：（箨鞘表）
@@ -18,7 +17,9 @@ public class Sheath {
     private Long sheId;
 
     /* 种标识 */
-    private String specId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "spec_id")
+    private Spec spec;
 
     /* 箨鞘早落 */
     private String sheathShedTime;
@@ -43,12 +44,12 @@ public class Sheath {
         this.sheId = sheId;
     }
 
-    public String getSpecId() {
-        return specId;
+    public Spec getSpec() {
+        return spec;
     }
 
-    public void setSpecId(String specId) {
-        this.specId = specId;
+    public void setSpec(Spec spec) {
+        this.spec = spec;
     }
 
     public String getSheathShedTime() {
@@ -95,7 +96,7 @@ public class Sheath {
     public String toString() {
         return "Sheath{" +
                 "sheId=" + sheId +
-                ", specId='" + specId + '\'' +
+                ", spec='" + spec + '\'' +
                 ", sheathShedTime='" + sheathShedTime + '\'' +
                 ", sheathChar='" + sheathChar + '\'' +
                 ", sheathTopForm='" + sheathTopForm + '\'' +

@@ -1,9 +1,8 @@
 package com.ahau.entity.bamboo.bambooforms;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.ahau.entity.bamboo.base.Spec;
+
+import javax.persistence.*;
 
 /**
  * 实体类：（箨舌表）
@@ -18,7 +17,9 @@ public class Sheathtongue {
     private Long sheTogId;
 
     /* 种标识 */
-    private String specId;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "spec_id")
+    private Spec spec;
 
     /* 箨舌颜色 */
     private String sheathTongueColor;
@@ -40,12 +41,12 @@ public class Sheathtongue {
         this.sheTogId = sheTogId;
     }
 
-    public String getSpecId() {
-        return specId;
+    public Spec getSpec() {
+        return spec;
     }
 
-    public void setSpecId(String specId) {
-        this.specId = specId;
+    public void setSpec(Spec spec) {
+        this.spec = spec;
     }
 
     public String getSheathTongueColor() {
@@ -84,7 +85,7 @@ public class Sheathtongue {
     public String toString() {
         return "Sheathtongue{" +
                 "sheTogId=" + sheTogId +
-                ", specId='" + specId + '\'' +
+                ", spec='" + spec + '\'' +
                 ", sheathTongueColor='" + sheathTongueColor + '\'' +
                 ", sheathTongueHeight='" + sheathTongueHeight + '\'' +
                 ", sheathTongueMarginShape='" + sheathTongueMarginShape + '\'' +

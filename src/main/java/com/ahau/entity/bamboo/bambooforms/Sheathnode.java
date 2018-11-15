@@ -17,7 +17,7 @@ public class Sheathnode {
     private Long sheNodeId;
 
     /* 种标识 */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "spec_id")
     private Spec specId;
 
