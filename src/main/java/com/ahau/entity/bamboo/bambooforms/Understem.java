@@ -17,7 +17,7 @@ public class Understem {
     private Long underStemId;
 
     /* 种标识 */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "spec_id")
     private Spec spec;
 

@@ -16,7 +16,7 @@ public class Structure {
     private Long stId;
 
     /* 种标识 */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "spec_id")
     private Spec spec;
 

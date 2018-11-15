@@ -16,7 +16,7 @@ public class Fibermorphology {
     private Long fmId;
 
     /* 外键：种标识 */
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "spec_id")
     private Spec spec;
 
