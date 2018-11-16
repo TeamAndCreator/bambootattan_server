@@ -22,7 +22,6 @@ import java.util.Optional;
  */
 @Transactional
 @Service
-
 public class UnderstemService {
     private final UnderstemRepository understemRepository;
 
