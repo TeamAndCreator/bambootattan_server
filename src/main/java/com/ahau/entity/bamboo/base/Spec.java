@@ -1,6 +1,5 @@
 package com.ahau.entity.bamboo.base;
 
-import com.ahau.entity.bamboo.base.Genus;
 import javax.persistence.*;
 
 /**

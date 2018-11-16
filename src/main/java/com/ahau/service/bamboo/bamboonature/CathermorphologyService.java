@@ -1,4 +1,121 @@
 package com.ahau.service.bamboo.bamboonature;
 
+import com.ahau.entity.bamboo.bamboonature.Cathermorphology;
+import com.ahau.repository.bamboo.bamboonature.CathermorphologyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.stereotype.Service;
+import javax.persistence.criteria.Predicate;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+/**
+ * 解剖性质_导管形态特征服务层接口
+ * Created by: 张理
+ * 2018-11-14
+ */
+@Transactional
+@Service
 public class CathermorphologyService {
+    private final CathermorphologyRepository cathermorphologyRepository;
+
+    @Autowired
+    public CathermorphologyService(CathermorphologyRepository cathermorphologyRepository) {this.cathermorphologyRepository = cathermorphologyRepository;}
+
+    /**
+     * 查询所有解剖性质_导管形态特征列表
+     * @return
+     */
+    public List<Cathermorphology> findAll() {return cathermorphologyRepository.findAll();}
+
+    /**
+     * 查询一个解剖性质_导管形态特征
+     * @param id
+     * @return
+     */
+    public Cathermorphology findById(Long id) {
+        Optional<Cathermorphology> cathermorphologyOptional = cathermorphologyRepository.findById(id);
+        Cathermorphology cathermorphology = new Cathermorphology();
+        if (cathermorphologyOptional.isPresent()) {
+            cathermorphology = cathermorphologyOptional.get();
+        } else {
+            // handle not found, return null or throw
+            System.out.println("no exit!");
+        }
+        return cathermorphology;
+    }
+
+    /**
+     * 更新
+     * @param cathermorphology
+     * @return
+     */
+    public Cathermorphology update(Cathermorphology cathermorphology) {
+        cathermorphologyRepository.save(cathermorphology);
+        return cathermorphology;
+    }
+
+    /**
+     * 删除
+     * @param id
+     */
+    public void delete(Long id) {
+        cathermorphologyRepository.deleteById(id);
+    }
+
+    /**
+     * 添加一个解剖性质_导管形态特征
+     * @param cathermorphology
+     * @return
+     */
+    public Cathermorphology save(Cathermorphology cathermorphology) {
+        return cathermorphologyRepository.save(cathermorphology);
+    }
+
+    /**
+     * 分页无条件查找
+     * @param page
+     * @param size
+     * @return
+     */
+    public Page<Cathermorphology> findCathermorphologyNoQuery(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return cathermorphologyRepository.findAll(pageable);
+    }
+
+    /**
+     * 分页有条件查找
+     * @param page
+     * @param size
+     * @param cathermorphology
+     * @return
+     */
+    public Page<Cathermorphology> findCathermorphologyQuery(Integer page, Integer size, final Cathermorphology cathermorphology) {
+        Pageable pageable = PageRequest.of(page, size);
+        return cathermorphologyRepository.findAll((Specification<Cathermorphology>) (root, criteriaQuery, criteriaBuilder) -> {
+
+            //用于暂时存放查询条件的集合
+            List<Predicate> list = new ArrayList<>();
+            if (null != cathermorphology.getChmCatheterLenghtUnitMicrom() && !"".equals(cathermorphology.getChmCatheterLenghtUnitMicrom())) {
+                list.add(criteriaBuilder.equal(root.get("chmCatheterLenghtUnitMicrom").as(String.class),
+                        cathermorphology.getChmCatheterLenghtUnitMicrom()));
+            }
+
+            Predicate[] p = new Predicate[list.size()];
+            return criteriaBuilder.and(list.toArray(p));
+        },pageable);
+    }
+
+    /**
+     * 批量删除
+     * @param ids
+     */
+    public void deleteByIds(List<Long> ids){
+        cathermorphologyRepository.deleteByChmIdIn(ids);
+    }
 }

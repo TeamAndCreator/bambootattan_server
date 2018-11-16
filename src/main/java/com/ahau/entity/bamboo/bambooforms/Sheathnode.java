@@ -19,7 +19,7 @@ public class Sheathnode {
     /* 种标识 */
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "spec_id")
-    private Spec specId;
+    private Spec spec;
 
     /* 箨环是否隆起 */
     private String sheathNode;
@@ -35,12 +35,12 @@ public class Sheathnode {
         this.sheNodeId = sheNodeId;
     }
 
-    public Spec getSpecId() {
-        return specId;
+    public Spec getSpec() {
+        return spec;
     }
 
-    public void setSpecId(Spec specId) {
-        this.specId = specId;
+    public void setSpec(Spec spec) {
+        this.spec = spec;
     }
 
     public String getSheathNode() {
@@ -63,7 +63,7 @@ public class Sheathnode {
     public String toString() {
         return "Sheathnode{" +
                 "sheNodeId=" + sheNodeId +
-                ", specId='" + specId + '\'' +
+                ", spec='" + spec + '\'' +
                 ", sheathNode='" + sheathNode + '\'' +
                 ", sheathNodeBack='" + sheathNodeBack + '\'' +
                 '}';

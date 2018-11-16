@@ -1,6 +1,5 @@
 package com.ahau.repository.bamboo.bamboonature;
 
-import com.ahau.entity.bamboo.bambooforms.Flowerfruit;
 import com.ahau.entity.bamboo.bamboonature.Cathermorphology;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
