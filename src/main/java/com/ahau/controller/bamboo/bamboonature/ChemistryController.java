@@ -109,7 +109,7 @@ public class ChemistryController {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param chemistry
+     * @param search
      * @return
      */
     @ApiOperation(value = "分页有条件查找", notes = "分页有条件查找")
@@ -117,11 +117,12 @@ public class ChemistryController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
     public Result findChemistryQuery(@RequestParam Integer page, @RequestParam Integer size,
-                                            @RequestBody Chemistry chemistry) {
+                                            String search) {
 
-        Page<Chemistry> chemistryPage = chemistryService.findChemistryQuery(page, size, chemistry);
+        Page<Chemistry> chemistryPage = chemistryService.findChemistryQuery(page, size, search);
 
         return ResultUtil.success(chemistryPage);
     }

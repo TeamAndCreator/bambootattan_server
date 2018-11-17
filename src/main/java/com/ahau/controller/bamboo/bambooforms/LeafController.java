@@ -107,7 +107,7 @@ public class LeafController {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param leaf
+     * @param search
      * @return
      */
     @ApiOperation(value = "分页有条件查找", notes = "分页有条件查找")
@@ -115,10 +115,11 @@ public class LeafController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
-    public Result findLeafQuery(@RequestParam Integer page, @RequestParam Integer size, @RequestBody Leaf leaf) {
+    public Result findLeafQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
 
-        Page<Leaf> leafPage = leafService.findLeafQuery(page, size, leaf);
+        Page<Leaf> leafPage = leafService.findLeafQuery(page, size, search);
 
         return ResultUtil.success(leafPage);
     }

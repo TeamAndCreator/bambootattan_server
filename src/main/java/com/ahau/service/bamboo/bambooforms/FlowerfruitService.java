@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
@@ -93,22 +94,31 @@ public class FlowerfruitService {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param flowerfruit
+     * @param search
      * @return
      */
-    public Page<Flowerfruit> findFlowerfruitQuery(Integer page, Integer size, final Flowerfruit flowerfruit) {
+    public Page<Flowerfruit> findFlowerfruitQuery(Integer page, Integer size, String search) {
         Pageable pageable = PageRequest.of(page, size);
+        if (!StringUtils.isEmpty(search)) {
         return flowerfruitRepository.findAll((Specification<Flowerfruit>) (root, criteriaQuery, criteriaBuilder) -> {
 
             //用于暂时存放查询条件的集合
             List<Predicate> list = new ArrayList<>();
-            if (null != flowerfruit.getSpikeletShape() && !"".equals(flowerfruit.getSpikeletShape())) {
-                list.add(criteriaBuilder.equal(root.get("spikeletShape").as(String.class), flowerfruit.getSpikeletShape()));
-            }
+            list.add(criteriaBuilder.like(root.get("spikeletShape").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("spikeletBack").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("spikeletFloret").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("stamenNum").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder .like(root.get("glume").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("lodicule").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("palea").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("lemma").as(String.class), "%" + search + "%"));
 
             Predicate[] p = new Predicate[list.size()];
-            return criteriaBuilder.and(list.toArray(p));
+            return criteriaBuilder.or(list.toArray(p));
         },pageable);
+        } else {
+            return flowerfruitRepository.findAll(pageable);
+        }
     }
 
     /**

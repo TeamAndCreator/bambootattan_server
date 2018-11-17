@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
@@ -93,23 +94,30 @@ public class SheathshellService {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param sheathshell
+     * @param search
      * @return
      */
-    public Page<Sheathshell> findSheathshellQuery(Integer page, Integer size, final Sheathshell sheathshell) {
+    public Page<Sheathshell> findSheathshellQuery(Integer page, Integer size, String search) {
         Pageable pageable = PageRequest.of(page, size);
+        if (!StringUtils.isEmpty(search)) {
         return sheathshellRepository.findAll((Specification<Sheathshell>) (root, criteriaQuery, criteriaBuilder) -> {
 
             //用于暂时存放查询条件的集合
             List<Predicate> list = new ArrayList<>();
-            if (null != sheathshell.getSheathShellShape() && !"".equals(sheathshell.getSheathShellShape())) {
-                list.add(criteriaBuilder.equal(root.get("sheathShellShape").as(String.class),
-                        sheathshell.getSheathShellShape()));
-            }
+            list.add(criteriaBuilder.like(root.get("sheathShellShape").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathShellColor").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathShellTopShape").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathShellBaseShape").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathShellMargin").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathShellBackPowder").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathRatioOf").as(String.class), "%" + search + "%"));
 
             Predicate[] p = new Predicate[list.size()];
-            return criteriaBuilder.and(list.toArray(p));
+            return criteriaBuilder.or(list.toArray(p));
         },pageable);
+        } else {
+            return sheathshellRepository.findAll(pageable);
+        }
     }
 
     /**

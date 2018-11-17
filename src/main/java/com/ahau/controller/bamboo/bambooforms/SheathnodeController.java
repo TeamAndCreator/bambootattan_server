@@ -107,7 +107,7 @@ public class SheathnodeController {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param sheathnode
+     * @param search
      * @return
      */
     @ApiOperation(value = "分页有条件查找", notes = "分页有条件查找")
@@ -115,10 +115,11 @@ public class SheathnodeController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
-    public Result findSheathnodeQuery(@RequestParam Integer page, @RequestParam Integer size, @RequestBody Sheathnode sheathnode) {
+    public Result findSheathnodeQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
 
-        Page<Sheathnode> sheathnodePage = sheathnodeService.findSheathnodeQuery(page, size, sheathnode);
+        Page<Sheathnode> sheathnodePage = sheathnodeService.findSheathnodeQuery(page, size, search);
 
         return ResultUtil.success(sheathnodePage);
     }

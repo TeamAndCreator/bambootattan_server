@@ -16,7 +16,7 @@ public class Chemistry {
     private Long chemId;
 
     /* 种标识 */
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "spec_id")
     private Spec spec;
 

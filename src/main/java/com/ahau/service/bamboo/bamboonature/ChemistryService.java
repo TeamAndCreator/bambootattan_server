@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
@@ -93,23 +94,32 @@ public class ChemistryService {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param chemistry
+     * @param search
      * @return
      */
-    public Page<Chemistry> findChemistryQuery(Integer page, Integer size, final Chemistry chemistry) {
+    public Page<Chemistry> findChemistryQuery(Integer page, Integer size, String search) {
         Pageable pageable = PageRequest.of(page, size);
+        if (!StringUtils.isEmpty(search)) {
         return chemistryRepository.findAll((Specification<Chemistry>) (root, criteriaQuery, criteriaBuilder) -> {
 
             //用于暂时存放查询条件的集合
             List<Predicate> list = new ArrayList<>();
-            if (null != chemistry.getChemHolocelluloseUnitPercent() && !"".equals(chemistry.getChemHolocelluloseUnitPercent())) {
-                list.add(criteriaBuilder.equal(root.get("chemHolocelluloseUnitPercent").as(String.class),
-                        chemistry.getChemHolocelluloseUnitPercent()));
-            }
+            list.add(criteriaBuilder.equal(root.get("chemHolocelluloseUnitPercent").as(Double.class),Double.valueOf(search)));
+            list.add(criteriaBuilder.equal(root.get("chemCelluloseUnitPercent").as(Double.class),Double.valueOf(search)));
+            list.add(criteriaBuilder.equal(root.get("chemHemicelluloseUnitPercent").as(Double.class),Double.valueOf(search)));
+            list.add(criteriaBuilder.equal(root.get("chemACelluloseUnitPercent").as(Double.class),Double.valueOf(search)));
+            list.add(criteriaBuilder.equal(root.get("chemAcidInsolubleLigninUnitPercent").as(Double.class),Double.valueOf(search)));
+            list.add(criteriaBuilder.equal(root.get("chemBenzeneAlcoholExtractionUnitPercent").as(Double.class),Double.valueOf(search)));
+            list.add(criteriaBuilder.equal(root.get("chemHotWaterExtractionUnitPercent").as(Double.class),Double.valueOf(search)));
+            list.add(criteriaBuilder.equal(root.get("chemColdWaterExtractionUnitPercent").as(Double.class),Double.valueOf(search)));
+            list.add(criteriaBuilder.equal(root.get("chemAshContentUnitPercent").as(Double.class),Double.valueOf(search)));
 
             Predicate[] p = new Predicate[list.size()];
-            return criteriaBuilder.and(list.toArray(p));
+            return criteriaBuilder.or(list.toArray(p));
         },pageable);
+        } else {
+            return chemistryRepository.findAll(pageable);
+        }
     }
 
     /**
