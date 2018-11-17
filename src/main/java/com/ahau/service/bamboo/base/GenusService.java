@@ -8,6 +8,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -91,6 +93,7 @@ public class GenusService {
 
     /**
      * 分页无条件查找
+     *
      * @param page
      * @param size
      * @return
@@ -102,31 +105,39 @@ public class GenusService {
 
     /**
      * 分页有条件查找
+     *
      * @param page
      * @param size
-     * @param genus
+     * @param search
      * @return
      */
-    public Page<Genus> findGenusQuery(Integer page, Integer size, final Genus genus) {
+    public Page<Genus> findGenusQuery(Integer page, Integer size, String search) {
         Pageable pageable = PageRequest.of(page, size);
-        return genusRepository.findAll((Specification<Genus>) (root, criteriaQuery, criteriaBuilder) -> {
+        if (!StringUtils.isEmpty(search)) {
+            return genusRepository.findAll((Specification<Genus>) (root, criteriaQuery, criteriaBuilder) -> {
 
-            //用于暂时存放查询条件的集合
-            List<Predicate> list = new ArrayList<>();
-            if (null != genus.getGenusNameCh() && !"".equals(genus.getGenusNameCh())) {
-                list.add(criteriaBuilder.equal(root.get("genusNameCh").as(String.class), genus.getGenusNameCh()));
-            }
+                //用于暂时存放查询条件的集合
+                List<Predicate> list = new ArrayList<>();
+                list.add(criteriaBuilder.like(root.get("genusNameCh").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("genusNameEn").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("genusNameLd").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("genusNameOth").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("genusDesc").as(String.class), "%" + search + "%"));
+                Predicate[] p = new Predicate[list.size()];
+                return criteriaBuilder.or(list.toArray(p));
+            }, pageable);
+        } else {
+            return genusRepository.findAll(pageable);
+        }
 
-            Predicate[] p = new Predicate[list.size()];
-            return criteriaBuilder.and(list.toArray(p));
-        },pageable);
     }
 
     /**
      * 批量删除
+     *
      * @param ids
      */
-    public  void  deleteByIds(List<Long> ids){
+    public void deleteByIds(List<Long> ids) {
         genusRepository.deleteByGenusIdIn(ids);
     }
 }
