@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
@@ -93,22 +94,28 @@ public class SheathService {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param sheath
+     * @param search
      * @return
      */
-    public Page<Sheath> findSheathQuery(Integer page, Integer size, final Sheath sheath) {
+    public Page<Sheath> findSheathQuery(Integer page, Integer size, String search) {
         Pageable pageable = PageRequest.of(page, size);
+        if (!StringUtils.isEmpty(search)) {
         return sheathRepository.findAll((Specification<Sheath>) (root, criteriaQuery, criteriaBuilder) -> {
 
             //用于暂时存放查询条件的集合
             List<Predicate> list = new ArrayList<>();
-            if (null != sheath.getSheathShedTime() && !"".equals(sheath.getSheathShedTime())) {
-                list.add(criteriaBuilder.equal(root.get("sheathShedTime").as(String.class), sheath.getSheathShedTime()));
-            }
+            list.add(criteriaBuilder.like(root.get("sheathShedTime").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathChar").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathTopForm").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathBackPowder").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathMarginForm").as(String.class), "%" + search + "%"));
 
             Predicate[] p = new Predicate[list.size()];
-            return criteriaBuilder.and(list.toArray(p));
+            return criteriaBuilder.or(list.toArray(p));
         },pageable);
+        } else {
+            return sheathRepository.findAll(pageable);
+        }
     }
 
     /**

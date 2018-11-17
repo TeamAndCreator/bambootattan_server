@@ -77,7 +77,11 @@ public class SpecController {
     @DeleteMapping("delete/{specId}")
     public Result delete(@ApiParam(name = "specId", value = "需删除种的ID", required = true)
                          @PathVariable("specId") Long specId) {
+        try{
         specService.delete(specId);
+    }catch (Exception e){
+        return ResultUtil.error(500,e.toString());
+    }
         return ResultUtil.success();
     }
 
@@ -118,7 +122,7 @@ public class SpecController {
      *
      * @param page
      * @param size
-     * @param spec
+     * @param search
      * @return
      */
     @ApiOperation(value = "分页有条件查找", notes = "分页有条件查找")
@@ -126,10 +130,11 @@ public class SpecController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
-    public Result findSpecQuery(@RequestParam Integer page, @RequestParam Integer size, @RequestBody Spec spec) {
+    public Result findSpecQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
 
-        Page<Spec> specPage = specService.findSpecQuery(page, size, spec);
+        Page<Spec> specPage = specService.findSpecQuery(page, size, search);
 
         return ResultUtil.success(specPage);
     }
@@ -143,7 +148,13 @@ public class SpecController {
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除种")
     @DeleteMapping("deleteByIds")
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除种的id数组", required = true) @RequestParam List<Long> ids) {
-        specService.deleteByIds(ids);
+        try{
+            specService.deleteByIds(ids);
+        }catch (Exception e){
+            return ResultUtil.error(500,e.toString());
+        }
+
+
         return ResultUtil.success();
     }
 

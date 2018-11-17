@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
@@ -93,23 +94,35 @@ public class LeafService {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param leaf
+     * @param search
      * @return
      */
-    public Page<Leaf> findLeafQuery(Integer page, Integer size, final Leaf leaf) {
+    public Page<Leaf> findLeafQuery(Integer page, Integer size, String search) {
         Pageable pageable = PageRequest.of(page, size);
+        if (!StringUtils.isEmpty(search)) {
         return leafRepository.findAll((Specification<Leaf>) (root, criteriaQuery, criteriaBuilder) -> {
 
             //用于暂时存放查询条件的集合
             List<Predicate> list = new ArrayList<>();
-            if (null != leaf.getLeafShape() && !"".equals(leaf.getLeafShape())) {
-                list.add(criteriaBuilder.equal(root.get("leafShape").as(String.class), leaf.getLeafShape()));
-            }
+            list.add(criteriaBuilder.like(root.get("leafShape").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("leafLength").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("leafWidth").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("leafNum").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder .like(root.get("leafBack").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("leafMargin").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("leafTongueShape").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("leafTongueHeight").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("leafStalkLength").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("leafBaseShape").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("leafTopShape").as(String.class), "%" + search + "%"));
 
             Predicate[] p = new Predicate[list.size()];
-            return criteriaBuilder.and(list.toArray(p));
+            return criteriaBuilder.or(list.toArray(p));
         },pageable);
+    } else {
+        return leafRepository.findAll(pageable);
     }
+}
 
     /**
      * 批量删除

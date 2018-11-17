@@ -107,7 +107,7 @@ public class SheathtongueController {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param sheathtongue
+     * @param search
      * @return
      */
     @ApiOperation(value = "分页有条件查找", notes = "分页有条件查找")
@@ -115,10 +115,11 @@ public class SheathtongueController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
-    public Result findSheathtongueQuery(@RequestParam Integer page, @RequestParam Integer size, @RequestBody Sheathtongue sheathtongue) {
+    public Result findSheathtongueQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
 
-        Page<Sheathtongue> sheathtonguePage = sheathtongueService.findSheathtongueQuery(page, size, sheathtongue);
+        Page<Sheathtongue> sheathtonguePage = sheathtongueService.findSheathtongueQuery(page, size, search);
 
         return ResultUtil.success(sheathtonguePage);
     }

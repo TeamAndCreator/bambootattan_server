@@ -107,7 +107,7 @@ public class FlowerfruitController {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param flowerfruit
+     * @param search
      * @return
      */
     @ApiOperation(value = "分页有条件查找", notes = "分页有条件查找")
@@ -115,10 +115,11 @@ public class FlowerfruitController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
-    public Result findFlowerfruitQuery(@RequestParam Integer page, @RequestParam Integer size, @RequestBody Flowerfruit flowerfruit) {
+    public Result findFlowerfruitQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
 
-        Page<Flowerfruit> flowerfruitPage = flowerfruitService.findFlowerfruitQuery(page, size, flowerfruit);
+        Page<Flowerfruit> flowerfruitPage = flowerfruitService.findFlowerfruitQuery(page, size, search);
 
         return ResultUtil.success(flowerfruitPage);
     }

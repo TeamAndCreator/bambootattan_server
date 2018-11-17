@@ -15,7 +15,7 @@ public class Spec {
     private Long specId; //种标识
 
     /* 属标识 */
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "genus_id")
     private Genus genus;
 
@@ -53,6 +53,7 @@ public class Spec {
     private String specImgs;
 
     /* 种描述 */
+    @Column(length = 100000)
     private String specDesc;
 
     /* 排序序号 */

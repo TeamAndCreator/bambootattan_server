@@ -109,7 +109,7 @@ public class CathermorphologyController {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param cathermorphology
+     * @param search
      * @return
      */
     @ApiOperation(value = "分页有条件查找", notes = "分页有条件查找")
@@ -117,11 +117,12 @@ public class CathermorphologyController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
     public Result findCathermorphologyQuery(@RequestParam Integer page, @RequestParam Integer size,
-                                            @RequestBody Cathermorphology cathermorphology) {
+                                            String search) {
 
-        Page<Cathermorphology> cathermorphologyPage = cathermorphologyService.findCathermorphologyQuery(page, size, cathermorphology);
+        Page<Cathermorphology> cathermorphologyPage = cathermorphologyService.findCathermorphologyQuery(page, size, search);
 
         return ResultUtil.success(cathermorphologyPage);
     }

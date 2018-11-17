@@ -17,7 +17,7 @@ public class Flowerfruit {
     private Long floFruitId;
 
     /* 种标识 */
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "spec_id")
     private Spec spec;
 

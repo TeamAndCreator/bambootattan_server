@@ -107,7 +107,7 @@ public class SheathearController {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param sheathear
+     * @param search
      * @return
      */
     @ApiOperation(value = "分页有条件查找", notes = "分页有条件查找")
@@ -115,10 +115,11 @@ public class SheathearController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
-    public Result findSheathearQuery(@RequestParam Integer page, @RequestParam Integer size, @RequestBody Sheathear sheathear) {
+    public Result findSheathearQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
 
-        Page<Sheathear> sheathearPage = sheathearService.findSheathearQuery(page, size, sheathear);
+        Page<Sheathear> sheathearPage = sheathearService.findSheathearQuery(page, size, search);
 
         return ResultUtil.success(sheathearPage);
     }

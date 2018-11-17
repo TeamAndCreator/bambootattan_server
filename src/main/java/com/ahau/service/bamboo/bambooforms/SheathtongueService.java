@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
@@ -93,23 +94,27 @@ public class SheathtongueService {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param sheathtongue
+     * @param search
      * @return
      */
-    public Page<Sheathtongue> findSheathtongueQuery(Integer page, Integer size, final Sheathtongue sheathtongue) {
+    public Page<Sheathtongue> findSheathtongueQuery(Integer page, Integer size, String search) {
         Pageable pageable = PageRequest.of(page, size);
+        if (!StringUtils.isEmpty(search)) {
         return sheathtongueRepository.findAll((Specification<Sheathtongue>) (root, criteriaQuery, criteriaBuilder) -> {
 
             //用于暂时存放查询条件的集合
             List<Predicate> list = new ArrayList<>();
-            if (null != sheathtongue.getSheathTongueColor() && !"".equals(sheathtongue.getSheathTongueColor())) {
-                list.add(criteriaBuilder.equal(root.get("sheathTongueColor").as(String.class),
-                        sheathtongue.getSheathTongueColor()));
-            }
+            list.add(criteriaBuilder.like(root.get("sheathTongueColor").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathTongueHeight").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathTongueMarginShape").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("sheathTongueBackPowderv").as(String.class), "%" + search + "%"));
 
             Predicate[] p = new Predicate[list.size()];
-            return criteriaBuilder.and(list.toArray(p));
+            return criteriaBuilder.or(list.toArray(p));
         },pageable);
+        } else {
+            return sheathtongueRepository.findAll(pageable);
+        }
     }
 
     /**

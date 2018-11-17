@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
@@ -93,22 +94,36 @@ public class CulmService {
      * 分页有条件查找
      * @param page
      * @param size
-     * @param culm
+     * @param search
      * @return
      */
-    public Page<Culm> findCulmQuery(Integer page, Integer size, final Culm culm) {
+    public Page<Culm> findCulmQuery(Integer page, Integer size, String search) {
         Pageable pageable = PageRequest.of(page, size);
+        if (!StringUtils.isEmpty(search)) {
         return culmRepository.findAll((Specification<Culm>) (root, criteriaQuery, criteriaBuilder) -> {
 
             //用于暂时存放查询条件的集合
             List<Predicate> list = new ArrayList<>();
-            if (null != culm.getCulmHeight() && !"".equals(culm.getCulmHeight())) {
-                list.add(criteriaBuilder.equal(root.get("culmHeight").as(String.class), culm.getCulmHeight()));
-            }
+            list.add(criteriaBuilder.like(root.get("culmHeight").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("culmDiameter").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("culmColor").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("culmTop").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder .like(root.get("culmStem").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("internodeLength").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("internodeShape").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("internodeAerialRoot").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("internodeBack").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("internodeCulmWall").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("youngStemBack").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("youngStemPowder").as(String.class), "%" + search + "%"));
+            list.add(criteriaBuilder.like(root.get("culmNode").as(String.class), "%" + search + "%"));
 
             Predicate[] p = new Predicate[list.size()];
-            return criteriaBuilder.and(list.toArray(p));
+            return criteriaBuilder.or(list.toArray(p));
         },pageable);
+        } else {
+            return culmRepository.findAll(pageable);
+        }
     }
 
     /**
