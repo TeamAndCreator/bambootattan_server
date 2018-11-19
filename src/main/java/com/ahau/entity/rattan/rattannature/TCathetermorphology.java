@@ -17,7 +17,7 @@ public class TCathetermorphology {
 
     /* 种的标识 */
     @ManyToOne
-    @JoinColumn(name = "spe_id")
+    @JoinColumn(name = "spec_id")
     private Spec spec;
 
     /* 导管长度 */

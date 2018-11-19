@@ -41,13 +41,13 @@ public class RattanGenusController {
     /**
      * 查询一个属
      *
-     * @param rattanGenusId
+     * @param genusId
      * @returnR
      */
     @ApiOperation(value = "获取属详细信息", notes = "根据url的id来获取属详细信息")
-    @GetMapping("findId/{rattanGenusId}")
-    public Result findById(@ApiParam(name = "rattanGenusId", value = "需要查找的属的id", required = true) @PathVariable("rattanGenusId") Long rattanGenusId) {
-        return ResultUtil.success(rattanGenusService.findById(rattanGenusId));
+    @GetMapping("findId/{genusId}")
+    public Result findById(@ApiParam(name = "genusId", value = "需要查找的属的id", required = true) @PathVariable("genusId") Long genusId) {
+        return ResultUtil.success(rattanGenusService.findById(genusId));
     }
 
     /**
@@ -66,13 +66,13 @@ public class RattanGenusController {
     /**
      * 删除
      *
-     * @param rattanGenusId
+     * @param genusId
      */
     @ApiOperation(value = "删除属", notes = "根据url的id来指定删除属")
-    @DeleteMapping("delete/{rattanGenusId}")
-    public Result delete(@ApiParam(name = "rattanGenusId", value = "需删除属的ID", required = true)
-                         @PathVariable("rattanGenusId") Long rattanGenusId) {
-        rattanGenusService.delete(rattanGenusId);
+    @DeleteMapping("delete/{genusId}")
+    public Result delete(@ApiParam(name = "genusId", value = "需删除属的ID", required = true)
+                         @PathVariable("genusId") Long genusId) {
+        rattanGenusService.delete(genusId);
         return ResultUtil.success();
     }
 
