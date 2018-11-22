@@ -1,5 +1,7 @@
 package com.ahau.entity.bamboo.base;
 
+import org.springframework.data.elasticsearch.annotations.Document;
+
 import javax.persistence.*;
 
 /**
@@ -8,6 +10,7 @@ import javax.persistence.*;
  * 2018-10-26 15：00
  */
 @Entity
+@Document(indexName = "bambootattan",type = "spec")
 public class Spec {
 
     @Id
