@@ -37,14 +37,14 @@ public class TTissueproportionController {
 
     /**
      * 查询一个解剖性质_组织比量列表
-     * @param stId
+     * @param tpId
      * @return
      */
     @ApiOperation(value = "获取解剖性质_组织比量详细信息", notes = "根据url的id来获取解剖性质_组织比量详细信息")
-    @GetMapping("findId/{stId}")
-    public Result findById(@ApiParam(name = "stId", value = "需要查找的解剖性质_组织比量的id", required = true)
-                           @PathVariable("stId") Long stId) {
-        return ResultUtil.success(tTissueproportionService.findById(stId));
+    @GetMapping("findId/{tpId}")
+    public Result findById(@ApiParam(name = "tpId", value = "需要查找的解剖性质_组织比量的id", required = true)
+                           @PathVariable("tpId") Long tpId) {
+        return ResultUtil.success(tTissueproportionService.findById(tpId));
     }
 
     /**
@@ -62,14 +62,14 @@ public class TTissueproportionController {
 
     /**
      * 删除
-     * @param stId
+     * @param tpId
      * @return
      */
     @ApiOperation(value = "删除解剖性质_组织比量", notes = "根据url的id来指定删除解剖性质_组织比量")
-    @DeleteMapping("delete/{stId}")
-    public Result delete(@ApiParam(name = "stId", value = "需删除解剖性质_组织比量的ID", required = true)
-                         @PathVariable("stId") Long stId) {
-        tTissueproportionService.delete(stId);
+    @DeleteMapping("delete/{tpId}")
+    public Result delete(@ApiParam(name = "tpId", value = "需删除解剖性质_组织比量的ID", required = true)
+                         @PathVariable("tpId") Long tpId) {
+        tTissueproportionService.delete(tpId);
         return ResultUtil.success();
     }
 
