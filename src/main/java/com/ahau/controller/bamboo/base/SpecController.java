@@ -1,9 +1,10 @@
 package com.ahau.controller.bamboo.base;
 
-import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Result;
 import com.ahau.entity.bamboo.base.Spec;
+import com.ahau.entity.file.Files;
 import com.ahau.service.bamboo.base.SpecService;
+import com.ahau.service.file.FilesService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.apache.logging.log4j.LogManager;
@@ -13,10 +14,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.regex.Pattern;
+import java.util.Set;
+
 
 /**
  * 竹种控制层接口
@@ -29,10 +30,12 @@ import java.util.regex.Pattern;
 public class SpecController {
     private static final Logger LOGGER = LogManager.getLogger(SpecController.class);
     private final SpecService specService;
+    private final FilesService filesService;
 
     @Autowired
-    public SpecController(SpecService specService) {
+    public SpecController(SpecService specService, FilesService filesService) {
         this.specService = specService;
+        this.filesService = filesService;
     }
 
     /**
@@ -82,11 +85,11 @@ public class SpecController {
     @DeleteMapping("delete/{specId}")
     public Result delete(@ApiParam(name = "specId", value = "需删除种的ID", required = true)
                          @PathVariable("specId") Long specId) {
-        try{
-        specService.delete(specId);
-    }catch (Exception e){
-        return ResultUtil.error(500,e.toString());
-    }
+        try {
+            specService.delete(specId);
+        } catch (Exception e) {
+            return ResultUtil.error(500, e.toString());
+        }
         return ResultUtil.success();
     }
 
@@ -98,7 +101,16 @@ public class SpecController {
      */
     @ApiOperation(value = "创建种", notes = "根据Spec对象创建种")
     @PostMapping("save")
-    public Result save(@ApiParam(name = "spec", value = "要添加的种详细实体spec", required = true) @RequestBody Spec spec) {
+    public Result save(@ApiParam(name = "spec", value = "要添加的种详细实体spec",
+            required = true) @RequestBody Spec spec,
+                       MultipartFile[] multipartFiles) throws IOException {
+        if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
+            if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
+                Set<Files> filesSet = filesService.fileSave(multipartFiles, "竹子");
+                spec.setFiles(filesSet);
+            }
+
+        }
         return ResultUtil.success(specService.save(spec));
     }
 
@@ -153,55 +165,15 @@ public class SpecController {
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除种")
     @DeleteMapping("deleteByIds")
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除种的id数组", required = true) @RequestParam List<Long> ids) {
-        try{
+        try {
             specService.deleteByIds(ids);
-        }catch (Exception e){
-            return ResultUtil.error(500,e.toString());
+        } catch (Exception e) {
+            return ResultUtil.error(500, e.toString());
         }
 
 
         return ResultUtil.success();
     }
-
-    /**
-     * 上传文件
-     *
-     * @param file
-     * @return
-     */
-    @PostMapping("upload")
-    public String upload(@RequestParam("bambooFile") MultipartFile file) {
-        if (file.isEmpty()) {
-            return "文件为空";
-        }
-        //获取文件名
-        String fileName = file.getOriginalFilename();
-        System.out.println("上传的文件名为：" + fileName);
-        //获取文件的后缀名
-        assert fileName != null;
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        System.out.println("上传的后缀名为：" + suffixName);
-        //文件上传路径
-        String filePath = "d:/bamboo/video/";
-        String osName = System.getProperty("os.name");
-        if (Pattern.matches("Linux.*", osName)) {
-            filePath = "/root/bamboo/video/";
-        } else if (Pattern.matches("Mac.*", osName)) {
-            filePath = "/Users/james/bamboo/video/";
-        }
-        File dest = new File(filePath + fileName);
-        //检测是否存在目录
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
-        try {
-            file.transferTo(dest);
-            return "上传成功";
-        } catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
-        }
-        return "上传失败";
-    }
-
-
 }
+
+

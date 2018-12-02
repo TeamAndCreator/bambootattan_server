@@ -1,8 +1,11 @@
 package com.ahau.entity.bamboo.base;
 
+import com.ahau.entity.file.Files;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 实体类：（种表）
@@ -22,6 +25,9 @@ public class Spec {
     @JoinColumn(name = "genus_id")
     private Genus genus;
 
+    /* 文件上传 */
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Files> files=new HashSet<Files>();
     /* 中文名称 */
     private String specNameCh;
 
@@ -76,6 +82,14 @@ public class Spec {
 
     public void setGenus(Genus genus) {
         this.genus = genus;
+    }
+
+    public Set<Files> getFiles() {
+        return files;
+    }
+
+    public void setFiles(Set<Files> files) {
+        this.files = files;
     }
 
     public String getSpecNameCh() {
@@ -187,6 +201,7 @@ public class Spec {
         return "Spec{" +
                 "specId=" + specId +
                 ", genus=" + genus +
+                ", files=" + files +
                 ", specNameCh='" + specNameCh + '\'' +
                 ", specNameEn='" + specNameEn + '\'' +
                 ", specNameLd='" + specNameLd + '\'' +
