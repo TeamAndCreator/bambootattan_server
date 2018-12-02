@@ -1,10 +1,13 @@
 package com.ahau.controller.bamboo.base;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Result;
 import com.ahau.entity.bamboo.base.Spec;
 import com.ahau.service.bamboo.base.SpecService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +27,7 @@ import java.util.regex.Pattern;
 @RequestMapping("/spec")
 @Api(description = "种")
 public class SpecController {
+    private static final Logger LOGGER = LogManager.getLogger(SpecController.class);
     private final SpecService specService;
 
     @Autowired
@@ -39,6 +43,7 @@ public class SpecController {
     @ApiOperation(value = "获取所有种列表", notes = "获取所有种列表")
     @GetMapping("findAll")
     public Result findAll() {
+        LOGGER.info(specService.findAll().toString());
         return ResultUtil.success(specService.findAll());
     }
 
@@ -197,4 +202,6 @@ public class SpecController {
         }
         return "上传失败";
     }
+
+
 }
