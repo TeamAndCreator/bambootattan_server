@@ -1,7 +1,10 @@
 package com.ahau.service;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Genus;
 import com.ahau.service.bamboo.base.GenusService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +18,8 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class GenusServiceTest {
+
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     @Autowired
     private GenusService genusService;
     private Genus genus=new Genus();
@@ -32,13 +37,13 @@ public class GenusServiceTest {
     @Test
     public void findAll() {
         List<Genus> genusList = genusService.findAll();
-        System.out.println(genusList);
+        LOGGER.debug(genusList);
     }
 
     @Test
     public void findById() {
             Genus genus = genusService.findById(1L);
-            System.out.println(genus);
+            LOGGER.debug(genus);
         }
 
      @Test

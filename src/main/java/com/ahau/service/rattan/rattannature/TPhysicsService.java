@@ -1,7 +1,10 @@
 package com.ahau.service.rattan.rattannature;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.rattan.rattannature.TPhysics;
 import com.ahau.repository.rattan.rattannature.TPhysicsRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +28,7 @@ import java.util.Optional;
 @Service
 public class TPhysicsService {
     private final TPhysicsRepository tPhysicsRepository;
-
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     @Autowired
     public TPhysicsService(TPhysicsRepository tPhysicsRepository) {this.tPhysicsRepository = tPhysicsRepository;}
 
@@ -47,7 +50,7 @@ public class TPhysicsService {
             tPhysics = tPhysicsOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return tPhysics;
     }

@@ -1,7 +1,10 @@
 package com.ahau.service.rattan.rattannature;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.rattan.rattannature.TStructure;
 import com.ahau.repository.rattan.rattannature.TStructureRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +28,7 @@ import java.util.Optional;
 @Service
 public class TStructureService {
     private final TStructureRepository tStructureRepository;
-
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     @Autowired
     public TStructureService(TStructureRepository tStructureRepository) {this.tStructureRepository = tStructureRepository;}
 
@@ -47,7 +50,7 @@ public class TStructureService {
             tStructure = tStructureOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return tStructure;
     }

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -100,10 +101,10 @@ public class SpecController {
      * @return
      */
     @ApiOperation(value = "创建种", notes = "根据Spec对象创建种")
-    @PostMapping("save")
+    @PostMapping(value = "save",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Result save(@ApiParam(name = "spec", value = "要添加的种详细实体spec",
             required = true) @RequestBody Spec spec,
-                       MultipartFile[] multipartFiles) throws IOException {
+                       @RequestPart("file")  MultipartFile[] multipartFiles) throws IOException {
         if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
             if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
                 Set<Files> filesSet = filesService.fileSave(multipartFiles, "竹子");

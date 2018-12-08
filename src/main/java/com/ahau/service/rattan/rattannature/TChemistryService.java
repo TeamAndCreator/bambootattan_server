@@ -1,7 +1,10 @@
 package com.ahau.service.rattan.rattannature;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.rattan.rattannature.TChemistry;
 import com.ahau.repository.rattan.rattannature.TChemistryRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +28,7 @@ import java.util.Optional;
 @Service
 public class TChemistryService {
     private final TChemistryRepository tChemistryRepository;
-
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     @Autowired
     public TChemistryService(TChemistryRepository tChemistryRepository) {this.tChemistryRepository = tChemistryRepository;}
 
@@ -47,7 +50,7 @@ public class TChemistryService {
             tChemistry = tChemistryOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return tChemistry;
     }

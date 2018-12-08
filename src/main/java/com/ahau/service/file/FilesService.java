@@ -1,8 +1,11 @@
 package com.ahau.service.file;
 
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.file.Files;
 import com.ahau.repository.file.FilesRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,6 +24,7 @@ import java.util.regex.Pattern;
 public class FilesService {
     private final FilesRepository filesRepository;
     private final String REAL_PATH="C:/File/";
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
 
     private final static String VR_PATH="/File/";
 
@@ -38,11 +42,11 @@ public class FilesService {
         }
         //获取文件名
         String fileName = file.getOriginalFilename();
-        System.out.println("上传的文件名为：" + fileName);
+        LOGGER.debug("上传的文件名为：" + fileName);
         //获取文件的后缀名
         assert fileName != null;
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        System.out.println("上传的后缀名为：" + suffixName);
+        LOGGER.debug("上传的后缀名为：" + suffixName);
         //文件上传路径
         String filePath = "d:/bamboo/video/";
         String osName = System.getProperty("os.name");
@@ -74,7 +78,7 @@ public class FilesService {
             String origin_name =multipartFile.getOriginalFilename();
             //获取文件后缀
             String fileEnd = origin_name.substring(origin_name.lastIndexOf(".") + 1).toLowerCase();
-
+            LOGGER.debug("file end:"+fileEnd);
             //创建唯一文件名
             String uuid= UUID.randomUUID().toString();
             String name=uuid+"."+fileEnd;
@@ -83,7 +87,7 @@ public class FilesService {
                 file.getParentFile().mkdirs();
             }
             multipartFile.transferTo(new File(realPath + File.separator + name));
-            filesSet.add(new Files(name,content,realPath,null,null,null));
+            filesSet.add(new Files(name,origin_name,realPath,null,null,content));
         }
         return filesSet;
     }

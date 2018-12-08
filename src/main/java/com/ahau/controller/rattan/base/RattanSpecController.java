@@ -1,10 +1,13 @@
 package com.ahau.controller.rattan.base;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Result;
 import com.ahau.entity.rattan.base.RattanSpec;
 import com.ahau.service.rattan.base.RattanSpecService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +28,7 @@ import java.util.regex.Pattern;
 @Api(description = "种")
 public class RattanSpecController {
     private final RattanSpecService rattanSpecService;
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
 
     @Autowired
     public RattanSpecController(RattanSpecService rattanSpecService) {
@@ -171,11 +175,11 @@ public class RattanSpecController {
         }
         //获取文件名
         String fileName = file.getOriginalFilename();
-        System.out.println("上传的文件名为：" + fileName);
+        LOGGER.debug("上传的文件名为：" + fileName);
         //获取文件的后缀名
         assert fileName != null;
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        System.out.println("上传的后缀名为：" + suffixName);
+        LOGGER.debug("上传的后缀名为：" + suffixName);
         //文件上传路径
         String filePath = "d:/rattan/video/";
         String osName = System.getProperty("os.name");

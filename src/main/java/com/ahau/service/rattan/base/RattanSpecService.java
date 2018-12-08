@@ -1,7 +1,10 @@
 package com.ahau.service.rattan.base;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.rattan.base.RattanSpec;
 import com.ahau.repository.rattan.base.RattanSpecRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +28,7 @@ import java.util.Optional;
 @Service
 public class RattanSpecService {
     private final RattanSpecRepository rattanSpecRepository;
-
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     @Autowired
     public RattanSpecService(RattanSpecRepository rattanSpecRepository) {
         this.rattanSpecRepository = rattanSpecRepository;
@@ -53,7 +56,7 @@ public class RattanSpecService {
             rattanSpec = rattanSpecOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return rattanSpec;
     }

@@ -1,7 +1,10 @@
 package com.ahau.service.rattan.rattannature;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.rattan.rattannature.TCathetermorphology;
 import com.ahau.repository.rattan.rattannature.TCathetermorphologyRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +28,7 @@ import java.util.Optional;
 @Service
 public class TCathetermorphologyService {
     private final TCathetermorphologyRepository tCathetermorphologyRepository;
-
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     @Autowired
     public TCathetermorphologyService(TCathetermorphologyRepository tCathetermorphologyRepository) {
         this.tCathetermorphologyRepository = tCathetermorphologyRepository;
@@ -53,7 +56,7 @@ public class TCathetermorphologyService {
             tCathetermorphology = tCathetermorphologyOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return tCathetermorphology;
     }

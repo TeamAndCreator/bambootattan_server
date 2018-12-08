@@ -1,7 +1,10 @@
 package com.ahau.service.bamboo.bambooforms;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.bambooforms.Sheathtongue;
 import com.ahau.repository.bamboo.bambooforms.SheathtongueRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +28,7 @@ import java.util.Optional;
 @Service
 public class SheathtongueService {
     private final SheathtongueRepository sheathtongueRepository;
-
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     @Autowired
     public SheathtongueService(SheathtongueRepository sheathtongueRepository) {this.sheathtongueRepository = sheathtongueRepository;}
 
@@ -47,7 +50,7 @@ public class SheathtongueService {
             sheathtongue = sheathtongueOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return sheathtongue;
     }

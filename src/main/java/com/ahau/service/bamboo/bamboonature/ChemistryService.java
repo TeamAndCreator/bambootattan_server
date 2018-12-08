@@ -1,7 +1,10 @@
 package com.ahau.service.bamboo.bamboonature;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.bamboonature.Chemistry;
 import com.ahau.repository.bamboo.bamboonature.ChemistryRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +28,7 @@ import java.util.Optional;
 @Service
 public class ChemistryService {
     private final ChemistryRepository chemistryRepository;
-
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     @Autowired
     public ChemistryService(ChemistryRepository chemistryRepository) {this.chemistryRepository = chemistryRepository;}
 
@@ -47,7 +50,7 @@ public class ChemistryService {
             chemistry = chemistryOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return chemistry;
     }

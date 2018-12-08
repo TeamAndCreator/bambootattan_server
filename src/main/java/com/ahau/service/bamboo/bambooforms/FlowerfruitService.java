@@ -1,7 +1,10 @@
 package com.ahau.service.bamboo.bambooforms;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.bambooforms.Flowerfruit;
 import com.ahau.repository.bamboo.bambooforms.FlowerfruitRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +28,7 @@ import java.util.Optional;
 @Service
 public class FlowerfruitService {
     private final FlowerfruitRepository flowerfruitRepository;
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
 
     @Autowired
     public FlowerfruitService(FlowerfruitRepository flowerfruitRepository) {this.flowerfruitRepository = flowerfruitRepository;}
@@ -47,7 +51,7 @@ public class FlowerfruitService {
             flowerfruit = flowerfruitOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return flowerfruit;
     }

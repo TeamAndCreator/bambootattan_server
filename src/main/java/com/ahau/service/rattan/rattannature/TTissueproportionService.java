@@ -1,7 +1,10 @@
 package com.ahau.service.rattan.rattannature;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.rattan.rattannature.TTissueproportion;
 import com.ahau.repository.rattan.rattannature.TTissueproportionRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +28,7 @@ import java.util.Optional;
 @Service
 public class TTissueproportionService {
     private final TTissueproportionRepository tTissueproportionRepository;
-
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     @Autowired
     public TTissueproportionService(TTissueproportionRepository tTissueproportionRepository) {this.tTissueproportionRepository = tTissueproportionRepository;}
 
@@ -47,7 +50,7 @@ public class TTissueproportionService {
             tTissueproportion = tTissueproportionOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return tTissueproportion;
     }

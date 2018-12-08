@@ -1,7 +1,10 @@
 package com.ahau.service.rattan.rattannature;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.rattan.rattannature.TMechanics;
 import com.ahau.repository.rattan.rattannature.TMechanicsRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,7 +28,7 @@ import java.util.Optional;
 @Service
 public class TMechanicsService {
     private final TMechanicsRepository tMechanicsRepository;
-
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     @Autowired
     public TMechanicsService(TMechanicsRepository tMechanicsRepository) {this.tMechanicsRepository = tMechanicsRepository;}
 
@@ -47,7 +50,7 @@ public class TMechanicsService {
             tMechanics = tMechanicsOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return tMechanics;
     }

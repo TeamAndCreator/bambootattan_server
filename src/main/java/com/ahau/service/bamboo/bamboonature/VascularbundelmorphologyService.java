@@ -1,7 +1,10 @@
 package com.ahau.service.bamboo.bamboonature;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.bamboonature.Vascularbundelmorphology;
 import com.ahau.repository.bamboo.bamboonature.VascularbundelmorphologyRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -25,6 +28,7 @@ import java.util.Optional;
 @Service
 public class VascularbundelmorphologyService {
     private final VascularbundelmorphologyRepository vascularbundelmorphologyRepository;
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
 
     @Autowired
     public VascularbundelmorphologyService(VascularbundelmorphologyRepository vascularbundelmorphologyRepository) {this.vascularbundelmorphologyRepository = vascularbundelmorphologyRepository;}
@@ -47,7 +51,7 @@ public class VascularbundelmorphologyService {
             vascularbundelmorphology = vascularbundelmorphologyOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return vascularbundelmorphology;
     }

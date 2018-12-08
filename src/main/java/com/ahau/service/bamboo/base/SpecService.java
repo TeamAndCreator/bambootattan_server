@@ -1,7 +1,10 @@
 package com.ahau.service.bamboo.base;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Spec;
 import com.ahau.repository.bamboo.base.SpecRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +27,7 @@ import java.util.Optional;
 @Transactional
 @Service
 public class SpecService {
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
 
     private final SpecRepository specRepository;
 
@@ -54,7 +58,7 @@ public class SpecService {
             spec = specOptional.get();
         } else {
             // handle not found, return null or throw
-            System.out.println("no exit!");
+            LOGGER.debug("no exit!");
         }
         return spec;
     }
