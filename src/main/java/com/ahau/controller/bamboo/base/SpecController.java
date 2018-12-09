@@ -101,13 +101,13 @@ public class SpecController {
      * @return
      */
     @ApiOperation(value = "创建种", notes = "根据Spec对象创建种")
-    @PostMapping(value = "save",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Result save(@ApiParam(name = "spec", value = "要添加的种详细实体spec",
-            required = true) @RequestBody Spec spec,
-                       @RequestPart("file")  MultipartFile[] multipartFiles) throws IOException {
+    @PostMapping(value = "save")
+    public Result save(@ApiParam(name = "spec", value = "要添加的种详细实体spec",required = true) Spec spec, MultipartFile[] multipartFiles) throws IOException {
+        System.out.println("========");
+        LOGGER.debug(spec.toString());
         if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
             if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
-                Set<Files> filesSet = filesService.fileSave(multipartFiles, "竹子");
+                Set<Files> filesSet = filesService.fileSave(multipartFiles,"bamboo",spec.getGenus().getGenusId());
                 spec.setFiles(filesSet);
             }
 
