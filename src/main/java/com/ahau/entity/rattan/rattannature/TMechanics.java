@@ -1,6 +1,8 @@
 package com.ahau.entity.rattan.rattannature;
 
 import com.ahau.entity.bamboo.base.Spec;
+import com.ahau.entity.rattan.base.RattanSpec;
+
 import javax.persistence.*;
 
 /**
@@ -18,7 +20,7 @@ public class TMechanics {
     /* 外键：种标识 */
     @ManyToOne
     @JoinColumn(name = "spec_id")
-    private Spec spec;
+    private RattanSpec rattanSpec;
 
     /* 抗弯弹性模量 */
     private Double mechBendingModulusElastictyUnitGpa;
@@ -49,12 +51,12 @@ public class TMechanics {
         this.mechId = mechId;
     }
 
-    public Spec getSpec() {
-        return spec;
+    public RattanSpec getRattanSpec() {
+        return rattanSpec;
     }
 
-    public void setSpec(Spec spec) {
-        this.spec = spec;
+    public void setRattanSpec(RattanSpec rattanSpec) {
+        this.rattanSpec = rattanSpec;
     }
 
     public Double getMechBendingModulusElastictyUnitGpa() {
@@ -117,7 +119,7 @@ public class TMechanics {
     public String toString() {
         return "TMechanics{" +
                 "mechId=" + mechId +
-                ", spec=" + spec +
+                ", rattanSpec=" + rattanSpec +
                 ", mechBendingModulusElastictyUnitGpa=" + mechBendingModulusElastictyUnitGpa +
                 ", mechBendingStrenghtUnitMpa=" + mechBendingStrenghtUnitMpa +
                 ", mechCompressionStrenghtUnitMpa=" + mechCompressionStrenghtUnitMpa +

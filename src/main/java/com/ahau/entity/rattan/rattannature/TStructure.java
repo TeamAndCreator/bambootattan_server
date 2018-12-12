@@ -1,6 +1,7 @@
 package com.ahau.entity.rattan.rattannature;
 
-import com.ahau.entity.bamboo.base.Spec;
+import com.ahau.entity.rattan.base.RattanSpec;
+
 import javax.persistence.*;
 
 /**
@@ -18,7 +19,7 @@ public class TStructure {
     /* 种标识 */
     @ManyToOne
     @JoinColumn(name = "spec_id")
-    private Spec spec;
+    private RattanSpec rattanSpec;
 
     /* 胸高处的秆径 */
     private Double stStemDiameterUnitMm;
@@ -40,12 +41,12 @@ public class TStructure {
         this.stId = stId;
     }
 
-    public Spec getSpec() {
-        return spec;
+    public RattanSpec getRattanSpec() {
+        return rattanSpec;
     }
 
-    public void setSpec(Spec spec) {
-        this.spec = spec;
+    public void setRattanSpec(RattanSpec rattanSpec) {
+        this.rattanSpec = rattanSpec;
     }
 
     public Double getStStemDiameterUnitMm() {
@@ -84,7 +85,7 @@ public class TStructure {
     public String toString() {
         return "TStructure{" +
                 "stId=" + stId +
-                ", spec=" + spec +
+                ", rattanSpec=" + rattanSpec +
                 ", stStemDiameterUnitMm=" + stStemDiameterUnitMm +
                 ", stWallThicknessUnitMm=" + stWallThicknessUnitMm +
                 ", stMaximumInternodeLengthUnitCm=" + stMaximumInternodeLengthUnitCm +

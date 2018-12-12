@@ -1,6 +1,7 @@
 package com.ahau.entity.rattan.rattannature;
 
-import com.ahau.entity.bamboo.base.Spec;
+import com.ahau.entity.rattan.base.RattanSpec;
+
 import javax.persistence.*;
 
 /**
@@ -18,7 +19,7 @@ public class TVascularbundelmorphology {
     /* 外键：是种的标识 */
     @ManyToOne
     @JoinColumn(name = "spec_id")
-    private Spec spec;
+    private RattanSpec rattanSpec;
 
     /* 维管束径向直径 */
     private Double vbmRadialDiameterUnitMicrom;
@@ -37,12 +38,12 @@ public class TVascularbundelmorphology {
         this.vbmId = vbmId;
     }
 
-    public Spec getSpec() {
-        return spec;
+    public RattanSpec getRattanSpec() {
+        return rattanSpec;
     }
 
-    public void setSpec(Spec spec) {
-        this.spec = spec;
+    public void setRattanSpec(RattanSpec rattanSpec) {
+        this.rattanSpec = rattanSpec;
     }
 
     public Double getVbmRadialDiameterUnitMicrom() {
@@ -73,7 +74,7 @@ public class TVascularbundelmorphology {
     public String toString() {
         return "TVascularbundelmorphology{" +
                 "vbmId=" + vbmId +
-                ", spec=" + spec +
+                ", rattanSpec=" + rattanSpec +
                 ", vbmRadialDiameterUnitMicrom=" + vbmRadialDiameterUnitMicrom +
                 ", vbmChordDiameterUnitMicrom=" + vbmChordDiameterUnitMicrom +
                 ", vbmDensityUnitVcmidu=" + vbmDensityUnitVcmidu +

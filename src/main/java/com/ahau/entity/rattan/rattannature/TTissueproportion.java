@@ -1,6 +1,7 @@
 package com.ahau.entity.rattan.rattannature;
 
-import com.ahau.entity.bamboo.base.Spec;
+import com.ahau.entity.rattan.base.RattanSpec;
+
 import javax.persistence.*;
 
 /**
@@ -18,7 +19,7 @@ public class TTissueproportion {
     /* 种标识：外键 */
     @ManyToOne
     @JoinColumn(name = "spec_id")
-    private Spec spec;
+    private RattanSpec rattanSpec;
 
     /* 纤维比量 */
     private Double tpFiberPeoportionUnitPercent;
@@ -40,12 +41,12 @@ public class TTissueproportion {
         this.tpId = tpId;
     }
 
-    public Spec getSpec() {
-        return spec;
+    public RattanSpec getRattanSpec() {
+        return rattanSpec;
     }
 
-    public void setSpec(Spec spec) {
-        this.spec = spec;
+    public void setRattanSpec(RattanSpec rattanSpec) {
+        this.rattanSpec = rattanSpec;
     }
 
     public Double getTpFiberPeoportionUnitPercent() {
@@ -84,7 +85,7 @@ public class TTissueproportion {
     public String toString() {
         return "TTissueproportion{" +
                 "tpId=" + tpId +
-                ", spec=" + spec +
+                ", rattanSpec=" + rattanSpec +
                 ", tpFiberPeoportionUnitPercent=" + tpFiberPeoportionUnitPercent +
                 ", tpVesselProportionUnitPercent=" + tpVesselProportionUnitPercent +
                 ", tpSieveTubeProportionUnitPercent=" + tpSieveTubeProportionUnitPercent +

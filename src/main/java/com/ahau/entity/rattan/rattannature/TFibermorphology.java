@@ -1,6 +1,8 @@
 package com.ahau.entity.rattan.rattannature;
 
 import com.ahau.entity.bamboo.base.Spec;
+import com.ahau.entity.rattan.base.RattanSpec;
+
 import javax.persistence.*;
 
 /**
@@ -18,7 +20,7 @@ public class TFibermorphology {
     /* 外键：种标识 */
     @ManyToOne
     @JoinColumn(name = "spec_id")
-    private Spec spec;
+    private RattanSpec rattanSpec;
 
     /* 纤维长度 */
     private Double fmLengthUnitMicron;
@@ -49,12 +51,12 @@ public class TFibermorphology {
         this.fmId = fmId;
     }
 
-    public Spec getSpec() {
-        return spec;
+    public RattanSpec getRattanSpec() {
+        return rattanSpec;
     }
 
-    public void setSpec(Spec spec) {
-        this.spec = spec;
+    public void setRattanSpec(RattanSpec rattanSpec) {
+        this.rattanSpec = rattanSpec;
     }
 
     public Double getFmLengthUnitMicron() {
@@ -117,7 +119,7 @@ public class TFibermorphology {
     public String toString() {
         return "TFibermorphology{" +
                 "fmId=" + fmId +
-                ", spec=" + spec +
+                ", rattanSpec=" + rattanSpec +
                 ", fmLengthUnitMicron=" + fmLengthUnitMicron +
                 ", fmWidthUnitMicron=" + fmWidthUnitMicron +
                 ", fmDwallThicknessUnitMicron=" + fmDwallThicknessUnitMicron +

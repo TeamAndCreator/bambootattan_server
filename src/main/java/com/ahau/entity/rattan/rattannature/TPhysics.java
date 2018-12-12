@@ -1,6 +1,8 @@
 package com.ahau.entity.rattan.rattannature;
 
 import com.ahau.entity.bamboo.base.Spec;
+import com.ahau.entity.rattan.base.RattanSpec;
+
 import javax.persistence.*;
 
 /**
@@ -18,7 +20,7 @@ public class TPhysics {
     /* 种标识 */
     @ManyToOne
     @JoinColumn(name = "spec_id")
-    private Spec spec;
+    private RattanSpec rattanSpec;
 
     /* 相对含水率 */
     private Double phyRelativeUnitPercent;
@@ -85,12 +87,12 @@ public class TPhysics {
         this.phyId = phyId;
     }
 
-    public Spec getSpec() {
-        return spec;
+    public RattanSpec getRattanSpec() {
+        return rattanSpec;
     }
 
-    public void setSpec(Spec spec) {
-        this.spec = spec;
+    public void setRattanSpec(RattanSpec rattanSpec) {
+        this.rattanSpec = rattanSpec;
     }
 
     public Double getPhyRelativeUnitPercent() {
@@ -249,7 +251,7 @@ public class TPhysics {
     public String toString() {
         return "TPhysics{" +
                 "phyId=" + phyId +
-                ", spec=" + spec +
+                ", rattanSpec=" + rattanSpec +
                 ", phyRelativeUnitPercent=" + phyRelativeUnitPercent +
                 ", phyAbsoluteUnitPercent=" + phyAbsoluteUnitPercent +
                 ", phyGreenDensityUnitMidu=" + phyGreenDensityUnitMidu +
