@@ -22,7 +22,7 @@ public class RattanSpec {
     /* 属标识 */
     @ManyToOne
     @JoinColumn(name = "genus_id")
-    private Genus genus;
+    private RattanGenus rattanGenus;
 
     /* 文件上传 */
     @OneToMany(cascade = CascadeType.ALL)
@@ -75,12 +75,12 @@ public class RattanSpec {
         this.specId = specId;
     }
 
-    public Genus getGenus() {
-        return genus;
+    public RattanGenus getRattanGenus() {
+        return rattanGenus;
     }
 
-    public void setGenus(Genus genus) {
-        this.genus = genus;
+    public void setRattanGenus(RattanGenus rattanGenus) {
+        this.rattanGenus = rattanGenus;
     }
 
     public Set<Files> getFiles() {
@@ -199,7 +199,7 @@ public class RattanSpec {
     public String toString() {
         return "RattanSpec{" +
                 "specId=" + specId +
-                ", genus=" + genus +
+                ", rattanGenus=" + rattanGenus +
                 ", files=" + files +
                 ", specNameCh='" + specNameCh + '\'' +
                 ", specNameEn='" + specNameEn + '\'' +

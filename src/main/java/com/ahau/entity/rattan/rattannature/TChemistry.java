@@ -1,6 +1,6 @@
 package com.ahau.entity.rattan.rattannature;
 
-import com.ahau.entity.bamboo.base.Spec;
+import com.ahau.entity.rattan.base.RattanSpec;
 
 import javax.persistence.*;
 
@@ -19,7 +19,7 @@ public class TChemistry {
     /* 种标识 */
     @ManyToOne
     @JoinColumn(name = "spec_id")
-    private Spec spec;
+    private RattanSpec rattanSpec;
 
     /* 综纤维素 */
     private Double chemHolocelluloseUnitPercent;
@@ -56,12 +56,12 @@ public class TChemistry {
         this.chemId = chemId;
     }
 
-    public Spec getSpec() {
-        return spec;
+    public RattanSpec getRattanSpec() {
+        return rattanSpec;
     }
 
-    public void setSpec(Spec spec) {
-        this.spec = spec;
+    public void setRattanSpec(RattanSpec rattanSpec) {
+        this.rattanSpec = rattanSpec;
     }
 
     public Double getChemHolocelluloseUnitPercent() {
@@ -140,7 +140,7 @@ public class TChemistry {
     public String toString() {
         return "TChemistry{" +
                 "chemId=" + chemId +
-                ", spec=" + spec +
+                ", rattanSpec=" + rattanSpec +
                 ", chemHolocelluloseUnitPercent=" + chemHolocelluloseUnitPercent +
                 ", chemCelluloseUnitPercent=" + chemCelluloseUnitPercent +
                 ", chemHemicelluloseUnitPercent=" + chemHemicelluloseUnitPercent +

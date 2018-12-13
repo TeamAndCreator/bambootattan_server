@@ -1,6 +1,7 @@
 package com.ahau.entity.rattan.rattannature;
 
-import com.ahau.entity.bamboo.base.Spec;
+import com.ahau.entity.rattan.base.RattanSpec;
+
 import javax.persistence.*;
 
 /**
@@ -18,7 +19,7 @@ public class TCathetermorphology {
     /* 种的标识 */
     @ManyToOne
     @JoinColumn(name = "spec_id")
-    private Spec spec;
+    private RattanSpec rattanSpec;
 
     /* 导管长度 */
     private Double chmCatheterLenghtUnitMicrom;
@@ -40,12 +41,12 @@ public class TCathetermorphology {
         this.chmId = chmId;
     }
 
-    public Spec getSpec() {
-        return spec;
+    public RattanSpec getRattanSpec() {
+        return rattanSpec;
     }
 
-    public void setSpec(Spec spec) {
-        this.spec = spec;
+    public void setRattanSpec(RattanSpec rattanSpec) {
+        this.rattanSpec = rattanSpec;
     }
 
     public Double getChmCatheterLenghtUnitMicrom() {
@@ -84,7 +85,7 @@ public class TCathetermorphology {
     public String toString() {
         return "TCathetermorphology{" +
                 "chmId=" + chmId +
-                ", spec=" + spec +
+                ", rattanSpec=" + rattanSpec +
                 ", chmCatheterLenghtUnitMicrom=" + chmCatheterLenghtUnitMicrom +
                 ", chmCatheterDiameterUnitMicrom=" + chmCatheterDiameterUnitMicrom +
                 ", chmCatheterDensityUnitVcmidu=" + chmCatheterDensityUnitVcmidu +

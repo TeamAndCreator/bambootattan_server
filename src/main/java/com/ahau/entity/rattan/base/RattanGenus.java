@@ -1,7 +1,6 @@
 package com.ahau.entity.rattan.base;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 /**
  * 实体类：（属表）
