@@ -8,6 +8,7 @@ import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.Cacheable;
 
 import java.util.List;
 
@@ -41,6 +42,7 @@ public class GenusController {
      */
     @ApiOperation(value = "获取属详细信息", notes = "根据url的id来获取属详细信息")
     @GetMapping("findId/{genusId}")
+    @Cacheable(value = "genus-key")
     public Result findById(@ApiParam(name = "genusId", value = "需要查找的属的id", required = true) @PathVariable("genusId") Long genusId) {
         return ResultUtil.success(genusService.findById(genusId));
     }
