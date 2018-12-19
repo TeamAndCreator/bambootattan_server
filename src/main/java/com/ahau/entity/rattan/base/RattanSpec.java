@@ -1,6 +1,5 @@
 package com.ahau.entity.rattan.base;
 
-import com.ahau.entity.bamboo.base.Genus;
 import com.ahau.entity.file.Files;
 
 import javax.persistence.*;

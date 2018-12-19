@@ -1,9 +1,10 @@
 package com.ahau.controller.rattan.base;
 
-import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Result;
+import com.ahau.entity.file.Files;
 import com.ahau.entity.rattan.base.RattanSpec;
 import com.ahau.service.rattan.base.RattanSpecService;
+import com.ahau.service.file.FilesService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.apache.logging.log4j.LogManager;
@@ -13,10 +14,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.regex.Pattern;
+import java.util.Set;
 
 /**
  *  藤种控制层接口
@@ -28,11 +28,13 @@ import java.util.regex.Pattern;
 @Api(description = "种")
 public class RattanSpecController {
     private final RattanSpecService rattanSpecService;
-    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
+    private final FilesService filesService;
+    private static final Logger LOGGER = LogManager.getLogger(RattanSpec.class);
 
     @Autowired
-    public RattanSpecController(RattanSpecService rattanSpecService) {
+    public RattanSpecController(RattanSpecService rattanSpecService, FilesService filesService) {
         this.rattanSpecService = rattanSpecService;
+        this.filesService = filesService;
     }
 
     /**
@@ -97,7 +99,16 @@ public class RattanSpecController {
      */
     @ApiOperation(value = "创建种", notes = "根据RattanSpec对象创建种")
     @PostMapping("save")
-    public Result save(@ApiParam(name = "rattanSpec", value = "要添加的种详细实体rattanSpec", required = true) @RequestBody RattanSpec rattanSpec) {
+    public Result save(@ApiParam(name = "rattanSpec", value = "要添加的种详细实体rattanSpec",required = true) RattanSpec rattanSpec, MultipartFile[] multipartFiles) throws IOException {
+        System.out.println("========");
+        LOGGER.debug(rattanSpec.toString());
+        if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
+            if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
+                Set<Files> filesSet = filesService.fileSave(multipartFiles,"rattan",rattanSpec.getRattanGenus().getGenusId());
+                rattanSpec.setFiles(filesSet);
+            }
+
+        }
         return ResultUtil.success(rattanSpecService.save(rattanSpec));
     }
 
@@ -160,45 +171,5 @@ public class RattanSpecController {
 
 
         return ResultUtil.success();
-    }
-
-    /**
-     * 上传文件
-     *
-     * @param file
-     * @return
-     */
-    @PostMapping("upload")
-    public String upload(@RequestParam("rattanFile") MultipartFile file) {
-        if (file.isEmpty()) {
-            return "文件为空";
-        }
-        //获取文件名
-        String fileName = file.getOriginalFilename();
-        LOGGER.debug("上传的文件名为：" + fileName);
-        //获取文件的后缀名
-        assert fileName != null;
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        LOGGER.debug("上传的后缀名为：" + suffixName);
-        //文件上传路径
-        String filePath = "d:/rattan/video/";
-        String osName = System.getProperty("os.name");
-        if (Pattern.matches("Linux.*", osName)) {
-            filePath = "/root/rattan/video/";
-        } else if (Pattern.matches("Mac.*", osName)) {
-            filePath = "/Users/james/rattan/video/";
-        }
-        File dest = new File(filePath + fileName);
-        //检测是否存在目录
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
-        try {
-            file.transferTo(dest);
-            return "上传成功";
-        } catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
-        }
-        return "上传失败";
     }
 }
