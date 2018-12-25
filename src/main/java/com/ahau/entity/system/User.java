@@ -1,10 +1,8 @@
 package com.ahau.entity.system;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Set;
 
 /**
  * 实体类：（系统用户）
@@ -42,6 +40,9 @@ public class User {
     private String orgName;
     /* 办公室电话 */
     private String orgPhone;
+    /* 用户权限*/
+    @ManyToMany
+    private Set<Role> roles;
 
     public Long getUserId() {
         return userId;
@@ -147,6 +148,14 @@ public class User {
         this.orgPhone = orgPhone;
     }
 
+    public Set<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -163,6 +172,7 @@ public class User {
                 ", jpushRegId='" + jpushRegId + '\'' +
                 ", orgName='" + orgName + '\'' +
                 ", orgPhone='" + orgPhone + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 }
