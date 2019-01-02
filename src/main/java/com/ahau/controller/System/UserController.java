@@ -41,7 +41,7 @@ public class UserController {
         User user = null;
         String jsessionid= (String) currentUser.getSession().getId();
         UsernamePasswordToken token = new UsernamePasswordToken(userName,password);
-        token.setRememberMe(true);
+        token.setRememberMe(false);
         try {
             currentUser.login(token);
         } catch (UnknownAccountException ua) {
@@ -73,7 +73,6 @@ public class UserController {
     //@RequiresRoles:当前Subject必须拥有所有指定的角色时，才能访问被该注解标注的方法。如果当天Subject不同时拥有所有指定角色，则方法不会执行还会抛出AuthorizationException异常。
     //@RequiresUser:当前Subject必须是应用的用户，才能访问或调用被该注解标注的类，实例，方法。
     public Result findByUserName(String userName){
-        System.out.println(userName);
         User user=userService.findByUserName(userName);
         return ResultUtil.success(""+user);
     }
