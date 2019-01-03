@@ -77,6 +77,13 @@ public class UserController {
         return ResultUtil.success(""+user);
     }
 
+    @ApiOperation(value = "获取所有用户")
+    @GetMapping(value = "findAll")
+    @RequiresRoles(value = "admin")
+    public Result findAll(){
+        return ResultUtil.success(userService.findAll());
+    }
+
     @ApiOperation(value = "登出")
     @PostMapping(value = "logout")
     @RequiresAuthentication
