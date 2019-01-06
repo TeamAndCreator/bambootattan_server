@@ -3,12 +3,10 @@ package com.ahau.controller.System;
 import com.ahau.entity.bamboo.base.Result;
 import com.ahau.entity.system.User;
 import com.ahau.service.system.UserService;
-import com.ahau.utils.RandomValidateCodeUtil;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import io.swagger.annotations.ApiParam;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -17,17 +15,14 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import java.util.Map;
+
 
 @RestController
 @Api(description = "用户接口")
 @RequestMapping(value = "/user")
 public class UserController {
 
-    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
+//    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
 
     @Autowired
     private UserService userService;
@@ -84,11 +79,37 @@ public class UserController {
         return ResultUtil.success("" + user);
     }
 
-    @ApiOperation(value = "获取所有用户")
+    /**
+     * 查询所有用户列表
+     * @return
+     */
+    @ApiOperation(value = "获取所有用户", notes = "获取所有用户列表")
     @GetMapping(value = "findAll")
     @RequiresRoles(value = "admin")
     public Result findAll() {
         return ResultUtil.success(userService.findAll());
+    }
+
+    /**
+     * 更新
+     * @param user
+     * @return
+     */
+    @ApiOperation(value = "更新用户信息", notes = "根据url的id来指定更新用户信息")
+    @PutMapping("update")
+    public Result update(@ApiParam(name = "user", value = "要修改的用户详细实体user", required = true) @RequestBody User user) {
+        return ResultUtil.success(userService.update(user));
+    }
+
+    /**
+     * 添加用户
+     * @param user
+     * @return
+     */
+    @ApiOperation(value = "创建用户", notes = "根据User对象创建用户")
+    @PostMapping("save")
+    public Result save(@ApiParam(name = "user", value = "要添加的用户详细实体user", required = true) @RequestBody User user) {
+        return ResultUtil.success(userService.save(user));
     }
 
     @ApiOperation(value = "登出")
@@ -111,51 +132,72 @@ public class UserController {
     }
 
 
-    /**
-     * 生成验证码
-     * @param request
-     * @param response
-     */
-    @ApiOperation("生成验证码")
-    @GetMapping("/getVerify")
-    public void getVerify(HttpServletRequest request, HttpServletResponse response) {
-        try {
-            response.setContentType("image/jpeg");//设置相应类型,告诉浏览器输出的内容为图片
-            response.setHeader("Pragma", "No-cache");//设置响应头信息，告诉浏览器不要缓存此内容
-            response.setHeader("Cache-Control", "no-cache");
-            response.setDateHeader("Expire", 0);
-            RandomValidateCodeUtil randomValidateCode = new RandomValidateCodeUtil();
-            randomValidateCode.getRandcode(request, response);//输出验证码图片方法
-        } catch (Exception e) {
-            LOGGER.error("获取验证码失败>>>> ", e);
-        }
-    }
 
-    /**
-     * 忘记密码页面校验验证码
-     * @param requestMap
-     * @param session
-     * @return
-     */
-    @ApiOperation("忘记密码页面校验验证码")
-    @RequestMapping(value = "/checkVerify", method = RequestMethod.POST, headers = "Accept=application/json")
-    public boolean checkVerify(@RequestBody Map<String, Object> requestMap, HttpSession session) {
-        try{
-            //从session中获取随机数
-            String inputStr = requestMap.get("inputStr").toString();
-            String random = (String) session.getAttribute("RANDOMVALIDATECODEKEY");
-            if (random == null) {
-                return false;
-            }
-            if (random.equals(inputStr)) {
-                return true;
-            } else {
-                return false;
-            }
-        }catch (Exception e){
-            LOGGER.error("验证码校验失败", e);
-            return false;
-        }
-    }
 
+
+
+
+
+
+
+
+
+
+//    /**
+//     * 获取验证码图片
+//     * @param request
+//     * @param response
+//     * @throws IOException
+//     */
+//    @RequestMapping(value="/getImage",method=RequestMethod.GET)
+//    public void authImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+//        response.setHeader("Pragma", "No-cache");
+//        response.setHeader("Cache-Control", "no-cache");
+//        response.setDateHeader("Expires", 0);
+//        response.setContentType("image/jpeg");
+//        // 生成随机字串
+//        String verifyCode = VerifyCodeUtils.generateVerifyCode(4);
+//        // 存入会话session
+//        HttpSession session = request.getSession(true);
+//        // 删除以前的
+//        session.removeAttribute("verCode");
+//        session.removeAttribute("codeTime");
+//        session.setAttribute("verCode", verifyCode.toLowerCase());
+//        session.setAttribute("codeTime", LocalDateTime.now());
+//        // 生成图片
+//        int w = 100, h = 30;
+//        OutputStream out = response.getOutputStream();
+//        VerifyCodeUtils.outputImage(w, h, out, verifyCode);
+//    }
+
+//    /**
+//     * 核对验证码
+//     * @param request
+//     * @param session
+//     * @return
+//     */
+//    @RequestMapping(value="validImage",method=RequestMethod.GET)
+//    public String validImage(HttpServletRequest request,HttpSession session){
+//        String code = request.getParameter("code");
+//        Object verCode = session.getAttribute("verCode");
+//        if (null == verCode) {
+//            request.setAttribute("errmsg", "验证码已失效，请重新输入");
+//            return "验证码已失效，请重新输入";
+//        }
+//        String verCodeStr = verCode.toString();
+//        LocalDateTime localDateTime = (LocalDateTime)session.getAttribute("codeTime");
+//        long past = localDateTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+//        long now = LocalDateTime.now().atZone(ZoneId.systemDefault()).toInstant().toEpochMilli();
+//        if(verCodeStr == null || code == null || code.isEmpty() || !verCodeStr.equalsIgnoreCase(code)){
+//            request.setAttribute("errmsg", "验证码错误");
+//            return "验证码错误";
+//        } else if((now-past)/1000/60>5){
+//            request.setAttribute("errmsg", "验证码已过期，重新获取");
+//            return "验证码已过期，重新获取";
+//        } else {
+//            //验证成功，删除存储的验证码
+//            session.removeAttribute("verCode");
+//            return "200";
+//        }
+//    }
 }
