@@ -1,7 +1,9 @@
 package com.ahau.controller.System;
 
 import com.ahau.entity.bamboo.base.Result;
+import com.ahau.entity.system.Role;
 import com.ahau.entity.system.User;
+import com.ahau.service.system.RoleService;
 import com.ahau.service.system.UserService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.Api;
@@ -12,9 +14,15 @@ import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresGuest;
 import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @RestController
@@ -26,6 +34,7 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+    private RoleService roleService;
 
     /**
      * 用户登录密码会先被MD5两次加密后再和数据库比对，
@@ -85,7 +94,7 @@ public class UserController {
      */
     @ApiOperation(value = "获取所有用户", notes = "获取所有用户列表")
     @GetMapping(value = "findAll")
-    @RequiresRoles(value = "admin")
+    //@RequiresRoles(value = "admin")
     public Result findAll() {
         return ResultUtil.success(userService.findAll());
     }
@@ -108,9 +117,61 @@ public class UserController {
      */
     @ApiOperation(value = "创建用户", notes = "根据User对象创建用户")
     @PostMapping("save")
-    public Result save(@ApiParam(name = "user", value = "要添加的用户详细实体user", required = true) @RequestBody User user) {
-        return ResultUtil.success(userService.save(user));
+    public Result save(@ApiParam(name = "user", value = "要添加的用户详细实体user", required = true) @RequestBody User user,@RequestParam List<Long> roleIdList) {
+        //return ResultUtil.success(userService.save(user));
+        try {
+            User findByUserName = this.userService.findByUserName(user.getUserName());
+            if (findByUserName != null) {
+                return ResultUtil.error(500,"用户名已存在！请重建用户名");
+            }
+            Object password = new SimpleHash("MD5", user.getUserPwd(), null, 1);
+            user.setUserPwd(String.valueOf(password));
+            Date time = new Date();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+            //System.out.println(user.getCreateTime());
+            //System.out.println(sdf.format(user.getCreateTime()));
+            user.setCreateTime(dateFormat.format(time));
+            user.setActiveFlag(2);//重置为未激活状态
+            List<Role> roles = roleService.findAll();
+            int i = 0;
+            for (Role role : roles) {
+                for (Long roleId : roleIdList) {
+                    if (role.getRoleId() == roleId) {
+                        i++;
+                        break;
+                    }
+                }
+            }
+            if (i == 0)
+                return ResultUtil.error(500,"不存在该角色！请重新输入正确的角色idList（至少要有一个是正确的才能成功添加）");
+            Set<Role> roles1 = new HashSet<>();
+            for (Long roleId : roleIdList) {
+                roles1.add(roleService.findById(roleId));//若其中有不存在的角色，则忽略添加该角色，其他正确角色正常添加
+            }
+            user.setRoles(roles1);
+            userService.save(user);
+            return ResultUtil.success();
+        } catch (Exception e) {
+            return ResultUtil.error();
+        }
     }
+
+//    /**
+//     * 修改密码
+//     * @param userId
+//     * @param password
+//     * @return
+//     */
+//    @ApiOperation(value = "修改密码", notes = "根据User对象修改密码")
+//    @PutMapping("changePassword")
+//    public Result changePassword(Long userId, String password) {
+//            Object md5Password = new SimpleHash("MD5", password, null, 1);
+//            userService.changePassword(userId, String.valueOf(md5Password));
+//            return ResultUtil.success();
+//        }
+
+
+
 
     @ApiOperation(value = "登出")
     @PostMapping(value = "logout")
