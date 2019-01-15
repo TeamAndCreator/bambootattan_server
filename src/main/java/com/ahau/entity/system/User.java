@@ -25,12 +25,14 @@ public class User {
     private String userName;
     /* 登录密码 */
     private String userPwd;
+    /* 再次确认密码 */
+    private String userRepwd;
     /* 是否有效 [1-有效 2-无效] */
-    private byte activeFlag;
+    private int activeFlag;
     /* 默认主题 */
     private String dftTheme;
     /* 创建时间 */
-    private Timestamp createTime;
+    private String createTime;
     /* pc是否在线 [1-在线 2-不在线] */
     private byte pcOnlineFlag;
     /* 登错次数 */
@@ -43,6 +45,10 @@ public class User {
     private String orgName;
     /* 办公室电话 */
     private String orgPhone;
+    /* 手机 */
+    private String mobPhone;
+    /* 邮箱 */
+    private String eMail;
     /* 用户权限*/
     @ManyToMany
     private Set<Role> roles;
@@ -56,6 +62,16 @@ public class User {
     public void setCode(String code) {
         this.code = code;
     }
+
+//    public User() {
+//
+//    }
+//
+//    public User(Long userId, String userName, String password) {
+//        this.userId = userId;
+//        this.userName = userName;
+//        this.userPwd = password;
+//    }
 
     public Long getUserId() {
         return userId;
@@ -89,11 +105,11 @@ public class User {
         this.userPwd = userPwd;
     }
 
-    public byte getActiveFlag() {
+    public int getActiveFlag() {
         return activeFlag;
     }
 
-    public void setActiveFlag(byte activeFlag) {
+    public void setActiveFlag(int activeFlag) {
         this.activeFlag = activeFlag;
     }
 
@@ -105,11 +121,11 @@ public class User {
         this.dftTheme = dftTheme;
     }
 
-    public Timestamp getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
@@ -161,6 +177,30 @@ public class User {
         this.orgPhone = orgPhone;
     }
 
+    public String getUserRepwd() {
+        return userRepwd;
+    }
+
+    public void setUserRepwd(String userRepwd) {
+        this.userRepwd = userRepwd;
+    }
+
+    public String getMobPhone() {
+        return mobPhone;
+    }
+
+    public void setMobPhone(String mobPhone) {
+        this.mobPhone = mobPhone;
+    }
+
+    public String geteMail() {
+        return eMail;
+    }
+
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
+
     public Set<Role> getRoles() {
         return roles;
     }
@@ -176,6 +216,7 @@ public class User {
                 ", userAcct='" + userAcct + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userPwd='" + userPwd + '\'' +
+                ", userRepwd='" + userRepwd + '\'' +
                 ", activeFlag=" + activeFlag +
                 ", dftTheme='" + dftTheme + '\'' +
                 ", createTime=" + createTime +
@@ -185,6 +226,8 @@ public class User {
                 ", jpushRegId='" + jpushRegId + '\'' +
                 ", orgName='" + orgName + '\'' +
                 ", orgPhone='" + orgPhone + '\'' +
+                ", mobPhone='" + mobPhone + '\'' +
+                ", eMail='" + eMail + '\'' +
                 ", roles=" + roles +
                 ", code='" + code + '\'' +
                 '}';

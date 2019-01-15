@@ -3,6 +3,7 @@ package com.ahau.service.system;
 import com.ahau.entity.system.Role;
 import com.ahau.entity.system.User;
 import com.ahau.repository.system.UserRepository;
+import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -59,6 +60,37 @@ public class UserService {
     public User save(User user) {
         return userRepository.save(user);
     }
+
+//    /**
+//     * 修改密码
+//     * @param userId
+//     * @param password
+//     * @return
+//     */
+//    public User changePassword(Long userId, String password) {
+//        return userRepository.changePassword(userId, password);
+//    }
+
+//    /**
+//     * 验证密码
+//     * @param userId
+//     * @param password
+//     * @return
+//     */
+//    public int verifyPassword(Long userId,String password){
+//        Object md5Password = new SimpleHash("MD5", password, null, 1);
+//        password=String.valueOf(md5Password);
+//        String password1=userRepository.findPassword(userId);
+//        if (password.equals(password1)){
+//            return 1;
+//        }else{
+//            return 0;
+//        }
+//    }
+
+//    public String findPassWord(Long userId){
+//        return userRepository.findPassword(userId);
+//    }
 
 
 

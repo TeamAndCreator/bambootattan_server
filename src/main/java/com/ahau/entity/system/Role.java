@@ -23,7 +23,7 @@ public class Role {
     private String remark;
     /* 排序序号 */
     private Integer sortNum;
-    /* 是否能删除 */
+    /* 是否能删除 1--是 2--否 */
     private Byte canDel;
 
     public int getRoleId() {
