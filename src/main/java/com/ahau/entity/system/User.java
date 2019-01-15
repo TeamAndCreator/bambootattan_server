@@ -1,5 +1,7 @@
 package com.ahau.entity.system;
 
+import org.hibernate.validator.constraints.UniqueElements;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Set;
@@ -19,6 +21,7 @@ public class User {
     /* 登录账号 */
     private String userAcct;
     /* 用户姓名 */
+    @JoinColumn(nullable = false,unique = true)
     private String userName;
     /* 登录密码 */
     private String userPwd;
@@ -43,6 +46,16 @@ public class User {
     /* 用户权限*/
     @ManyToMany
     private Set<Role> roles;
+    /*激活码*/
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 
     public Long getUserId() {
         return userId;
@@ -173,6 +186,7 @@ public class User {
                 ", orgName='" + orgName + '\'' +
                 ", orgPhone='" + orgPhone + '\'' +
                 ", roles=" + roles +
+                ", code='" + code + '\'' +
                 '}';
     }
 }

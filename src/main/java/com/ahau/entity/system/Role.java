@@ -15,7 +15,7 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
+    private int roleId;
 
     /* 角色名称 */
     private String roleName;
@@ -26,11 +26,11 @@ public class Role {
     /* 是否能删除 */
     private Byte canDel;
 
-    public Long getRoleId() {
+    public int getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(Long roleId) {
+    public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
 

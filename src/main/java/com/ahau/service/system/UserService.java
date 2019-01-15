@@ -17,6 +17,14 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    public void updateActiveFlag(Long id){
+        userRepository.updateActiveFlag(id);
+    }
+
+    public User findByCode(String code){
+        return userRepository.findUserByCode(code);
+    }
+
     /**
      * 根据用户名查找用户
      * @return

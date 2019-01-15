@@ -8,5 +8,4 @@ public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificat
 
     Role findByRoleId(Long roleId);
     Role findByRoleName(String roleName);
-
 }
