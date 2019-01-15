@@ -1,8 +1,12 @@
 package com.ahau.repository.system;
 
 import com.ahau.entity.system.User;
+import org.hibernate.annotations.Parameter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 
 /**
@@ -14,9 +18,17 @@ public interface UserRepository extends JpaRepository<User,Long>,JpaSpecificatio
 
     User findByUserName(String userName);
 
+<<<<<<< HEAD
+    @Query(value = "update user set active_flag=1 where user_id=:id", nativeQuery = true)
+    @Modifying
+    void updateActiveFlag(@Param(value = "id") Long id);
+
+    User findUserByCode(String code);
+=======
     //User changePassword(Long userId, String userPwd);
 
     //String findPassword(Long userId);
 
 
+>>>>>>> develop
 }
