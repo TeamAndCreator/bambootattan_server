@@ -17,18 +17,9 @@ import org.springframework.data.repository.query.Param;
 public interface UserRepository extends JpaRepository<User,Long>,JpaSpecificationExecutor<User> {
 
     User findByUserName(String userName);
-
-<<<<<<< HEAD
     @Query(value = "update user set active_flag=1 where user_id=:id", nativeQuery = true)
     @Modifying
     void updateActiveFlag(@Param(value = "id") Long id);
 
     User findUserByCode(String code);
-=======
-    //User changePassword(Long userId, String userPwd);
-
-    //String findPassword(Long userId);
-
-
->>>>>>> develop
 }

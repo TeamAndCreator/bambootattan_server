@@ -21,11 +21,6 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -47,7 +42,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-    private RoleService roleService;
 
     @Autowired
     private RoleService roleService;
@@ -110,7 +104,7 @@ public class UserController {
      */
     @ApiOperation(value = "获取所有用户", notes = "获取所有用户列表")
     @GetMapping(value = "findAll")
-    //@RequiresRoles(value = "admin")
+    @RequiresRoles(value = "admin")
     public Result findAll() {
         return ResultUtil.success(userService.findAll());
     }
@@ -133,7 +127,6 @@ public class UserController {
      */
     @ApiOperation(value = "创建用户", notes = "根据User对象创建用户")
     @PostMapping("save")
-<<<<<<< HEAD
     public Result save(User user,@ApiParam(value = "给用户分配的角色Id", required = true) @RequestParam List<Integer> idList) {
         try {
             if (userService.findByUserName(user.getUserName())!=null)
@@ -144,7 +137,7 @@ public class UserController {
             //添加注册时间
             Date time = new Date();
             Timestamp timestamp=new Timestamp(time.getTime());
-            user.setCreateTime(timestamp);
+            user.setCreateTime(timestamp.toString());
             //添加角色
             List<Role> roleList=roleService.findAll();
             Set<Role> roleSet=new HashSet<>();
@@ -188,62 +181,6 @@ public class UserController {
             return ResultUtil.error(500,e.getMessage());
         }
     }
-=======
-    public Result save(@ApiParam(name = "user", value = "要添加的用户详细实体user", required = true) @RequestBody User user,@RequestParam List<Long> roleIdList) {
-        //return ResultUtil.success(userService.save(user));
-        try {
-            User findByUserName = this.userService.findByUserName(user.getUserName());
-            if (findByUserName != null) {
-                return ResultUtil.error(500,"用户名已存在！请重建用户名");
-            }
-            Object password = new SimpleHash("MD5", user.getUserPwd(), null, 1);
-            user.setUserPwd(String.valueOf(password));
-            Date time = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            //System.out.println(user.getCreateTime());
-            //System.out.println(sdf.format(user.getCreateTime()));
-            user.setCreateTime(dateFormat.format(time));
-            user.setActiveFlag(2);//重置为未激活状态
-            List<Role> roles = roleService.findAll();
-            int i = 0;
-            for (Role role : roles) {
-                for (Long roleId : roleIdList) {
-                    if (role.getRoleId() == roleId) {
-                        i++;
-                        break;
-                    }
-                }
-            }
-            if (i == 0)
-                return ResultUtil.error(500,"不存在该角色！请重新输入正确的角色idList（至少要有一个是正确的才能成功添加）");
-            Set<Role> roles1 = new HashSet<>();
-            for (Long roleId : roleIdList) {
-                roles1.add(roleService.findById(roleId));//若其中有不存在的角色，则忽略添加该角色，其他正确角色正常添加
-            }
-            user.setRoles(roles1);
-            userService.save(user);
-            return ResultUtil.success();
-        } catch (Exception e) {
-            return ResultUtil.error();
-        }
-    }
-
-//    /**
-//     * 修改密码
-//     * @param userId
-//     * @param password
-//     * @return
-//     */
-//    @ApiOperation(value = "修改密码", notes = "根据User对象修改密码")
-//    @PutMapping("changePassword")
-//    public Result changePassword(Long userId, String password) {
-//            Object md5Password = new SimpleHash("MD5", password, null, 1);
-//            userService.changePassword(userId, String.valueOf(md5Password));
-//            return ResultUtil.success();
-//        }
-
-
->>>>>>> develop
 
 
     @ApiOperation(value = "登出")
