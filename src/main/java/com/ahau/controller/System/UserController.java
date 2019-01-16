@@ -5,7 +5,9 @@ import com.ahau.entity.system.Role;
 import com.ahau.entity.system.User;
 import com.ahau.service.system.RoleService;
 import com.ahau.service.system.UserService;
+import com.ahau.utils.MailSendUtil;
 import com.ahau.utils.ResultUtil;
+import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -17,12 +19,12 @@ import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
+
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 
 @RestController
@@ -32,8 +34,16 @@ public class UserController {
 
 //    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
 
+    @Value("${lance.mail.recipient}")
+    private String recipient;
+
+    @Autowired
+    private MailSendUtil mailSendUtil;
+
     @Autowired
     private UserService userService;
+
+    @Autowired
     private RoleService roleService;
 
     /**
@@ -117,42 +127,42 @@ public class UserController {
      */
     @ApiOperation(value = "创建用户", notes = "根据User对象创建用户")
     @PostMapping("save")
-    public Result save(@ApiParam(name = "user", value = "要添加的用户详细实体user", required = true) @RequestBody User user,@RequestParam List<Long> roleIdList) {
-        //return ResultUtil.success(userService.save(user));
+    public Result save(User user,@ApiParam(value = "给用户分配的角色Id", required = true) @RequestParam List<Integer> idList) {
         try {
-            User findByUserName = this.userService.findByUserName(user.getUserName());
-            if (findByUserName != null) {
-                return ResultUtil.error(500,"用户名已存在！请重建用户名");
-            }
-            Object password = new SimpleHash("MD5", user.getUserPwd(), null, 1);
+            if (userService.findByUserName(user.getUserName())!=null)
+                return ResultUtil.error(500,"用户名已存在");
+            //对密码进行md5两次加密，不加盐
+            Object password = new SimpleHash("MD5", user.getUserPwd(), null, 2);
             user.setUserPwd(String.valueOf(password));
+            //添加注册时间
             Date time = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-            //System.out.println(user.getCreateTime());
-            //System.out.println(sdf.format(user.getCreateTime()));
-            user.setCreateTime(dateFormat.format(time));
-            user.setActiveFlag(2);//重置为未激活状态
-            List<Role> roles = roleService.findAll();
-            int i = 0;
-            for (Role role : roles) {
-                for (Long roleId : roleIdList) {
-                    if (role.getRoleId() == roleId) {
-                        i++;
-                        break;
-                    }
+            Timestamp timestamp=new Timestamp(time.getTime());
+            user.setCreateTime(timestamp);
+            //添加角色
+            List<Role> roleList=roleService.findAll();
+            Set<Role> roleSet=new HashSet<>();
+            for (int id:idList){
+                for (Role role: roleList){
+                    if (role.getRoleId()==id)
+                        roleSet.add(role);
                 }
             }
-            if (i == 0)
-                return ResultUtil.error(500,"不存在该角色！请重新输入正确的角色idList（至少要有一个是正确的才能成功添加）");
-            Set<Role> roles1 = new HashSet<>();
-            for (Long roleId : roleIdList) {
-                roles1.add(roleService.findById(roleId));//若其中有不存在的角色，则忽略添加该角色，其他正确角色正常添加
-            }
-            user.setRoles(roles1);
+            if (roleSet.size()==0)
+                return ResultUtil.error(500,"至少需要添加一个角色");
+            user.setRoles(roleSet);
+            //初始状态为无效
+            user.setActiveFlag(Byte.valueOf("2"));
+            //生成激活码
+            String code= UUID.randomUUID().toString();
+            user.setCode(code);
+            //将用户存入数据库
             userService.save(user);
+            //发送邮件激活用户
+            mailSendUtil.sendHTMLMail(recipient,code,user);
             return ResultUtil.success();
-        } catch (Exception e) {
-            return ResultUtil.error();
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultUtil.error(e.hashCode(),e.getMessage());
         }
     }
 
@@ -170,7 +180,21 @@ public class UserController {
 //            return ResultUtil.success();
 //        }
 
-
+    @ApiOperation(value = "激活账号")
+    @GetMapping("active")
+    public Result active(String code){
+        try {
+            User user=userService.findByCode(code);
+            if (user!=null){
+                userService.updateActiveFlag(user.getUserId());
+                return ResultUtil.success("激活成功");
+            }
+            return ResultUtil.error(500,"激活错误");
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
 
 
     @ApiOperation(value = "登出")
