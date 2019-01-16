@@ -104,7 +104,7 @@ public class UserController {
      */
     @ApiOperation(value = "获取所有用户", notes = "获取所有用户列表")
     @GetMapping(value = "findAll")
-    //@RequiresRoles(value = "admin")
+    @RequiresRoles(value = "admin")
     public Result findAll() {
         return ResultUtil.success(userService.findAll());
     }
