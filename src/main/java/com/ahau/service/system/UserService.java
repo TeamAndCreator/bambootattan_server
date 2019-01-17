@@ -5,9 +5,16 @@ import com.ahau.entity.system.User;
 import com.ahau.repository.system.UserRepository;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
+import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -61,6 +68,52 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    /**
+     * 分页无条件查找
+     * @param page
+     * @param size
+     * @return
+     */
+    public Page<User> findUserNoQuery(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return userRepository.findAll(pageable);
+    }
+
+    /**
+     * 分页有条件查找
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    public Page<User> findUserQuery(Integer page, Integer size, String search) {
+        Pageable pageable = PageRequest.of(page, size);
+        if (!StringUtils.isEmpty(search)) {
+            return userRepository.findAll((Specification<User>) (root, criteriaQuery, criteriaBuilder) -> {
+
+                //用于暂时存放查询条件的集合
+                List<Predicate> list = new ArrayList<>();
+                list.add(criteriaBuilder.like(root.get("userAcct").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("userName").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("userPwd").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("activeFlag").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("dftTheme").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("createTime").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("pcOnlineFlag").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("errCount").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("errTime").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("orgName").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("orgPhone").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("roles").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("code").as(String.class), "%" + search + "%"));
+
+                Predicate[] p = new Predicate[list.size()];
+                return criteriaBuilder.or(list.toArray(p));
+            },pageable);
+        } else {
+            return userRepository.findAll(pageable);
+        }
+    }
 //    /**
 //     * 修改密码
 //     * @param userId

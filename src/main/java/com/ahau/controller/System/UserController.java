@@ -8,9 +8,7 @@ import com.ahau.service.system.UserService;
 import com.ahau.utils.MailSendUtil;
 import com.ahau.utils.ResultUtil;
 import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
@@ -20,6 +18,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -216,6 +215,45 @@ public class UserController {
         return ResultUtil.error(500, "请登录");
     }
 
+    /**
+     * 分页无条件查找
+     * @param page
+     * @param size
+     * @return
+     */
+    @ApiOperation(value = "分页无条件查找", notes = "分页无条件查找")
+    @GetMapping("findAllNoQuery")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+    })
+    public Result findUserNoQuery(@RequestParam Integer page, @RequestParam Integer size) {
+
+        Page<User> userPage = userService.findUserNoQuery(page, size);
+
+        return ResultUtil.success(userPage);
+    }
+
+    /**
+     * 分页有条件查找
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找", notes = "分页有条件查找")
+    @GetMapping("findAllQuery")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findUserQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
+
+        Page<User> userPage = userService.findUserQuery(page, size, search);
+
+        return ResultUtil.success(userPage);
+    }
 
 
 
