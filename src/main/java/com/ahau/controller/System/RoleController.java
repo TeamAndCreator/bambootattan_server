@@ -112,7 +112,7 @@ public class RoleController {
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
             @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
-    public Result findCulmQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
+    public Result findRoleQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
 
         Page<Role> rolePage = roleService.findRoleQuery(page, size, search);
 

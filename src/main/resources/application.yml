@@ -78,9 +78,9 @@ spring:
   #邮箱配置
   mail:
     host: smtp.qq.com
-    username: 743551828@qq.com
+    username: 1172032260@qq.com
     #QQ邮箱的授权码
-    password: vyqxraphysyhbebc
+    password: kcrcbcsqwtouficd
     default-encoding: UTF-8
     properties:
       mail:
@@ -105,6 +105,6 @@ spring:
 #设置一个邮件发送人
 lance:
   mail:
-    sender: 743551828@qq.com #发件人
-    recipient: 765974851@qq.com #收件人
-    url: http://localhost:8080/ #项目根目录
+    sender: 1172032260@qq.com #发件人
+    recipient: 2574325794@qq.com #收件人
+    url: http://47.104.26.79:8081/ #项目根目录
