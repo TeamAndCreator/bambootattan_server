@@ -255,6 +255,31 @@ public class UserController {
         return ResultUtil.success(userPage);
     }
 
+    /**
+     * 删除
+     * @param userId
+     * @return
+     */
+    @ApiOperation(value = "删除用户", notes = "根据url的id来指定删除用户")
+    @DeleteMapping("delete/{userId}")
+    public Result delete(@ApiParam(name = "userId", value = "需删除用户的ID", required = true)
+                         @PathVariable("userId") Long userId) {
+        userService.delete(userId);
+        return ResultUtil.success();
+    }
+
+    /**
+     * 批量删除
+     * @param ids
+     * @return
+     */
+    @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除用户")
+    @DeleteMapping("deleteByIds")
+    public Result deleteByIds(@ApiParam(name = "ids", value = "需删除用户的id数组", required = true) @RequestParam List<Long> ids) {
+        userService.deleteByIds(ids);
+        return ResultUtil.success();
+    }
+
 
 
 

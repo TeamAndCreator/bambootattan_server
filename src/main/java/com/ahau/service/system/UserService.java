@@ -114,6 +114,37 @@ public class UserService {
             return userRepository.findAll(pageable);
         }
     }
+
+    /**
+     * 删除
+     * @param id
+     */
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    /**
+     * 批量删除
+     * @param ids
+     */
+    public  void  deleteByIds(List<Long> ids){
+        userRepository.deleteByUserIdIn(ids);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //    /**
 //     * 修改密码
 //     * @param userId

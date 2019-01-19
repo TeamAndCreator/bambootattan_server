@@ -6,10 +6,10 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 import java.util.List;
 
-public interface RoleRepository extends JpaRepository<Role, Long>, JpaSpecificationExecutor<Role> {
+public interface RoleRepository extends JpaRepository<Role, Integer>, JpaSpecificationExecutor<Role> {
 
-    Role findByRoleId(Long roleId);
+    Role findByRoleId(int roleId);
     Role findByRoleName(String roleName);
 
-    void deleteByRoleIdIn(List<Long> ids);
+    void deleteByRoleIdIn(List<Integer> ids);
 }

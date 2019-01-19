@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 
 /**
  * 用户
@@ -22,4 +24,6 @@ public interface UserRepository extends JpaRepository<User,Long>,JpaSpecificatio
     void updateActiveFlag(@Param(value = "id") Long id);
 
     User findUserByCode(String code);
+
+    void deleteByUserIdIn(List<Long> ids);
 }
