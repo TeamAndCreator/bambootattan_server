@@ -40,8 +40,6 @@ public class MyShiroRealm extends AuthorizingRealm {
         User user = userService.findByUserName(username);
         if (user == null) {
             return null;
-        }else if (user.getActiveFlag() == 2) { //账户未激活
-            throw new LockedAccountException();
         }else {
             SimpleAuthenticationInfo info = null;
             info = new SimpleAuthenticationInfo(user.getUserName(), user.getUserPwd(), getName());
