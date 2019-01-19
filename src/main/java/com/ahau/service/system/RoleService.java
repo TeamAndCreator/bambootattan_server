@@ -42,7 +42,7 @@ public class RoleService {
      * @param id
      * @return
      */
-    public Role findById(Long id) {
+    public Role findById(int id) {
         Optional<Role> roleOptional = roleRepository.findById(id);
         Role role = new Role();
         if (roleOptional.isPresent()) {
@@ -63,7 +63,7 @@ public class RoleService {
         return role;
     }
 
-    public void delete(Long id) {
+    public void delete(int id) {
         roleRepository.deleteById(id);
     }
 
@@ -118,7 +118,7 @@ public class RoleService {
      * 批量删除
      * @param ids
      */
-    public  void  deleteByIds(List<Long> ids){
+    public  void  deleteByIds(List<Integer> ids){
         roleRepository.deleteByRoleIdIn(ids);
     }
 

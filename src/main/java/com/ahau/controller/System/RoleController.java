@@ -39,7 +39,7 @@ public class RoleController {
      */
     @ApiOperation(value = "获取角色详细信息", notes = "根据url的id来获取角色详细信息")
     @GetMapping("findId/{roleId}")
-    public Result findById(@ApiParam(name = "roleId", value = "需要查找的角色的id", required = true) @PathVariable("roleId") Long roleId) {
+    public Result findById(@ApiParam(name = "roleId", value = "需要查找的角色的id", required = true) @PathVariable("roleId") int roleId) {
         return ResultUtil.success(roleService.findById(roleId));
     }
 
@@ -63,7 +63,7 @@ public class RoleController {
     @ApiOperation(value = "删除角色", notes = "根据url的id来指定删除角色")
     @DeleteMapping("delete/{roleId}")
     public Result delete(@ApiParam(name = "roleId", value = "需删除角色的ID", required = true)
-                         @PathVariable("roleId") Long roleId) {
+                         @PathVariable("roleId") int roleId) {
         roleService.delete(roleId);
         return ResultUtil.success();
     }
@@ -126,7 +126,7 @@ public class RoleController {
      */
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除角色")
     @DeleteMapping("deleteByIds")
-    public Result deleteByIds(@ApiParam(name = "ids", value = "需删除角色的id数组", required = true) @RequestParam List<Long> ids) {
+    public Result deleteByIds(@ApiParam(name = "ids", value = "需删除角色的id数组", required = true) @RequestParam List<Integer> ids) {
         roleService.deleteByIds(ids);
         return ResultUtil.success();
     }
