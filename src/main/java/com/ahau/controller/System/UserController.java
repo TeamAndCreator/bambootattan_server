@@ -71,8 +71,8 @@ public class UserController {
             System.out.println("错误的凭证！：" + ice.getMessage());
             return ResultUtil.error(500, "错误的凭证!");
         } catch (LockedAccountException lae) {
-            System.out.println("账户已锁定！：" + lae.getMessage());
-            return ResultUtil.error(500, "账户已锁定!");
+            System.out.println("账户未激活！：" + lae.getMessage());
+            return ResultUtil.error(500, "账户未激活!");
         } catch (ExcessiveAttemptsException eae) {
             System.out.println("错误次数过多！：" + eae.getMessage());
             return ResultUtil.error(500, "错误次数过多!");
