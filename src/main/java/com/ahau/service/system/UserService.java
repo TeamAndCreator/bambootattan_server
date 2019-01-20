@@ -1,9 +1,10 @@
 package com.ahau.service.system;
 
-import com.ahau.entity.system.Role;
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.system.User;
 import com.ahau.repository.system.UserRepository;
-import org.apache.shiro.crypto.hash.SimpleHash;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -16,11 +17,13 @@ import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.Optional;
 
 @Transactional
 @Service
 public class UserService {
+
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
 
     @Autowired
     private UserRepository userRepository;
@@ -33,12 +36,31 @@ public class UserService {
         return userRepository.findUserByCode(code);
     }
 
+    @Autowired
+    public UserService(UserRepository userRepository) {this.userRepository = userRepository;}
+
     /**
      * 根据用户名查找用户
      * @return
      */
     public User findByUserName(String userName){
         return userRepository.findByUserName(userName);
+    }
+
+    /**
+     * 根据用户ID查找用户
+     * @param id
+     * @return
+     */
+    public User findById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        User user = new User();
+        if (userOptional.isPresent()) {
+            user = userOptional.get();
+        }else {
+            LOGGER.debug("no exit!");
+        }
+        return user;
     }
 
     /**

@@ -1,7 +1,7 @@
 package com.ahau.repository.system;
 
+import com.ahau.entity.system.Role;
 import com.ahau.entity.system.User;
-import org.hibernate.annotations.Parameter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Modifying;
@@ -26,4 +26,6 @@ public interface UserRepository extends JpaRepository<User,Long>,JpaSpecificatio
     User findUserByCode(String code);
 
     void deleteByUserIdIn(List<Long> ids);
+
+    Role findByUserId(Long userId);
 }
