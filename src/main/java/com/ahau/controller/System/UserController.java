@@ -109,6 +109,17 @@ public class UserController {
     }
 
     /**
+     * 根据用户ID查找用户
+     * @param userId
+     * @return
+     */
+    @ApiOperation(value = "获取用户详细信息", notes = "根据url的id来获取用户详细信息")
+    @GetMapping("findId/{userId}")
+    public Result findById(@ApiParam(name = "userId", value = "需要查找的用户的id", required = true) @PathVariable("userId") Long userId) {
+        return ResultUtil.success(userService.findById(userId));
+    }
+
+    /**
      * 更新
      * @param user
      * @return
@@ -120,7 +131,7 @@ public class UserController {
     }
 
     /**
-     * 添加用户
+     * 用户注册
      * @param user
      * @return
      */
