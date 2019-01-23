@@ -149,33 +149,14 @@ public class UserService {
      * 批量删除
      * @param ids
      */
-    public  void  deleteByIds(List<Long> ids){
+    public void deleteByIds(List<Long> ids){
         userRepository.deleteByUserIdIn(ids);
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-//    /**
-//     * 修改密码
-//     * @param userId
-//     * @param password
-//     * @return
-//     */
-//    public User changePassword(Long userId, String password) {
-//        return userRepository.changePassword(userId, password);
-//    }
+//    public void changeUserPwd(Long userId, String userPwd) {
+//         userRepository.changeUserPwd(userId, userPwd);
+//   }
 
 //    /**
 //     * 验证密码

@@ -27,5 +27,9 @@ public interface UserRepository extends JpaRepository<User,Long>,JpaSpecificatio
 
     void deleteByUserIdIn(List<Long> ids);
 
-    Role findByUserId(Long userId);
+    User findByUserId(Long userId);
+
+//    int updateUser(User user);
+
+    //void changeUserPwd(Long userId, String userPwd);
 }
