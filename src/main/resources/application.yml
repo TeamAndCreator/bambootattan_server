@@ -89,6 +89,12 @@ spring:
           starttls:
             enable: true
             required: true
+            timeout: 25000
+            ssl.enable: true
+            socketFactory.class: javax.net.ssl.SSLSocketFactory
+            starttls.enable: true
+            socketFactory.port: 465
+            port: 465
   freemarker:
     content-type: text/html
     #后缀名

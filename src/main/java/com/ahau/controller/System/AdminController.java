@@ -13,6 +13,7 @@ import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -109,6 +110,45 @@ public class AdminController {
         }
 
     }
+
+//    @PostMapping("changPwd")
+//    @ResponseBody
+//    public String userUpdateHandler(@ModelAttribute(value = "user") User user, HttpServletRequest request) {
+//        //获取新密码
+//        String newPassword = request.getParameter("newPassword");
+//        //获取修改前用户信息
+//        User user1 = (User) request.getSession().getAttribute("user");
+//        //比较输入的旧密码是否和修改前的密码相等
+//        if (user1.getUserPwd().equals(user.getUserPwd())) {
+//            //把用户原用户密码在前端修改
+//            user1.setUserPwd(newPassword);
+//            //通过业务逻辑层给数据库修改
+//            if (userService.update(user1)) {
+//                //把修改了的用户信息重新存入session
+//                request.getSession().setAttribute("user",user1);
+//                return "修改成功";
+//            }
+//        }else{
+//            return "旧密码错误";
+//        }
+//
+//        return "修改失败";
+//    }
+
+//    /**
+//     * 修改密码
+//     * @param userId
+//     * @param userPwd
+//     * @return
+//     */
+//    @ApiOperation(value = "修改密码", notes = "根据User对象修改密码")
+//    @PutMapping("changePassword")
+//    public Result changeUserPwd(Long userId, String userPwd) {
+//            Object md5Password = new SimpleHash("MD5", userPwd, null, 1);
+//            userService.changeUserPwd(userId, String.valueOf(md5Password));
+//            return ResultUtil.success();
+//        }
+
 
 
 

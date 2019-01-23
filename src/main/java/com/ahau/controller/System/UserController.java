@@ -7,7 +7,6 @@ import com.ahau.service.system.RoleService;
 import com.ahau.service.system.UserService;
 import com.ahau.utils.MailSendUtil;
 import com.ahau.utils.ResultUtil;
-import com.mysql.jdbc.exceptions.MySQLIntegrityConstraintViolationException;
 import io.swagger.annotations.*;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
