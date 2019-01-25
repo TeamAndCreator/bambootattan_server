@@ -21,7 +21,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -43,6 +42,29 @@ public class UserController {
 
     @Autowired
     private RoleService roleService;
+
+
+    @ApiOperation(value = "密码修改")
+    @PostMapping(value = "changePassword")
+    public Result changePassword(String userName, String old_password, String new_Password) {
+        try {
+            User user = userService.findByUserName(userName);
+            //判断用户名是否正确
+            if (user == null) {
+                return ResultUtil.error(500,"用户名错误");
+            }
+            //判断密码是否正确
+            if (user.getUserPwd().equals(String.valueOf(new SimpleHash("MD5", old_password, null, 2)))){
+                userService.updateUserPwd(user.getUserId(),String.valueOf(new SimpleHash("MD5", new_Password, null, 2)));
+                return ResultUtil.success("密码修改成功");
+            }else {
+                return ResultUtil.error(500,"密码错误");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
 
     /**
      * 用户登录密码会先被MD5两次加密后再和数据库比对，
@@ -98,6 +120,7 @@ public class UserController {
 
     /**
      * 查询所有用户列表
+     *
      * @return
      */
     @ApiOperation(value = "获取所有用户", notes = "获取所有用户列表")
@@ -109,6 +132,7 @@ public class UserController {
 
     /**
      * 根据用户ID查找用户
+     *
      * @param userId
      * @return
      */
@@ -120,6 +144,7 @@ public class UserController {
 
     /**
      * 更新
+     *
      * @param user
      * @return
      */
@@ -131,47 +156,48 @@ public class UserController {
 
     /**
      * 用户注册
+     *
      * @param user
      * @return
      */
     @ApiOperation(value = "创建用户", notes = "根据User对象创建用户")
     @PostMapping("save")
-    public Result save(User user,@ApiParam(value = "给用户分配的角色Id", required = true) @RequestParam List<Integer> idList) {
+    public Result save(User user, @ApiParam(value = "给用户分配的角色Id", required = true) @RequestParam List<Integer> idList) {
         try {
-            if (userService.findByUserName(user.getUserName())!=null)
-                return ResultUtil.error(500,"用户名已存在");
+            if (userService.findByUserName(user.getUserName()) != null)
+                return ResultUtil.error(500, "用户名已存在");
             //对密码进行md5两次加密，不加盐
             Object password = new SimpleHash("MD5", user.getUserPwd(), null, 2);
             user.setUserPwd(String.valueOf(password));
             //添加注册时间
             Date time = new Date();
-            Timestamp timestamp=new Timestamp(time.getTime());
+            Timestamp timestamp = new Timestamp(time.getTime());
             user.setCreateTime(timestamp);
             //添加角色
-            List<Role> roleList=roleService.findAll();
-            Set<Role> roleSet=new HashSet<>();
-            for (int id:idList){
-                for (Role role: roleList){
-                    if (role.getRoleId()==id)
+            List<Role> roleList = roleService.findAll();
+            Set<Role> roleSet = new HashSet<>();
+            for (int id : idList) {
+                for (Role role : roleList) {
+                    if (role.getRoleId() == id)
                         roleSet.add(role);
                 }
             }
-            if (roleSet.size()==0)
-                return ResultUtil.error(500,"至少需要添加一个角色");
+            if (roleSet.size() == 0)
+                return ResultUtil.error(500, "至少需要添加一个角色");
             user.setRoles(roleSet);
             //初始状态为无效
             user.setActiveFlag(Byte.valueOf("2"));
             //生成激活码
-            String code= UUID.randomUUID().toString();
+            String code = UUID.randomUUID().toString();
             user.setCode(code);
             //将用户存入数据库
             userService.save(user);
             //发送邮件激活用户
-            mailSendUtil.sendHTMLMail(recipient,code,user);
+            mailSendUtil.sendHTMLMail(recipient, code, user);
             return ResultUtil.success();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResultUtil.error(e.hashCode(),e.getMessage());
+            return ResultUtil.error(e.hashCode(), e.getMessage());
         }
     }
 
@@ -191,17 +217,17 @@ public class UserController {
 
     @ApiOperation(value = "激活账号")
     @GetMapping("active")
-    public Result active(String code){
+    public Result active(String code) {
         try {
-            User user=userService.findByCode(code);
-            if (user!=null){
+            User user = userService.findByCode(code);
+            if (user != null) {
                 userService.updateActiveFlag(user.getUserId());
                 return ResultUtil.success("激活成功");
             }
-            return ResultUtil.error(500,"激活错误");
-        }catch (Exception e){
+            return ResultUtil.error(500, "激活错误");
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResultUtil.error(500,e.getMessage());
+            return ResultUtil.error(500, e.getMessage());
         }
     }
 
@@ -227,6 +253,7 @@ public class UserController {
 
     /**
      * 分页无条件查找
+     *
      * @param page
      * @param size
      * @return
@@ -246,6 +273,7 @@ public class UserController {
 
     /**
      * 分页有条件查找
+     *
      * @param page
      * @param size
      * @param search
@@ -267,6 +295,7 @@ public class UserController {
 
     /**
      * 删除
+     *
      * @param userId
      * @return
      */
@@ -280,6 +309,7 @@ public class UserController {
 
     /**
      * 批量删除
+     *
      * @param ids
      * @return
      */
@@ -289,16 +319,6 @@ public class UserController {
         userService.deleteByIds(ids);
         return ResultUtil.success();
     }
-
-
-
-
-
-
-
-
-
-
 
 
 //    /**

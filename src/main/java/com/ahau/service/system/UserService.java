@@ -39,6 +39,11 @@ public class UserService {
     @Autowired
     public UserService(UserRepository userRepository) {this.userRepository = userRepository;}
 
+
+    public void updateUserPwd(Long id,String pwd){
+        userRepository.updateUserPwd(pwd, id);
+    }
+
     /**
      * 根据用户名查找用户
      * @return

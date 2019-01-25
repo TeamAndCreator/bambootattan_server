@@ -19,9 +19,14 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User,Long>,JpaSpecificationExecutor<User> {
 
     User findByUserName(String userName);
+
     @Query(value = "update user set active_flag=1 where user_id=:id", nativeQuery = true)
     @Modifying
     void updateActiveFlag(@Param(value = "id") Long id);
+
+    @Query(value = "update user set user_pwd=:pwd where user_id=:id", nativeQuery = true)
+    @Modifying
+    void updateUserPwd(@Param(value = "pwd") String pwd,@Param(value = "id") Long id);
 
     User findUserByCode(String code);
 
