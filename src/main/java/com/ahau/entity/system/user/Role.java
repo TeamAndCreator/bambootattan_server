@@ -1,4 +1,4 @@
-package com.ahau.entity.system;
+package com.ahau.entity.system.user;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

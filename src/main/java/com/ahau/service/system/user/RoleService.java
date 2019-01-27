@@ -1,8 +1,8 @@
-package com.ahau.service.system;
+package com.ahau.service.system.user;
 
 import com.ahau.BambootattanServerApplication;
-import com.ahau.entity.system.Role;
-import com.ahau.repository.system.RoleRepository;
+import com.ahau.entity.system.user.Role;
+import com.ahau.repository.system.user.RoleRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

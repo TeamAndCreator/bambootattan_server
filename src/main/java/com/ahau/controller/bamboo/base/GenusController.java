@@ -1,10 +1,13 @@
 package com.ahau.controller.bamboo.base;
 
+import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Genus;
 import com.ahau.entity.bamboo.base.Result;
 import com.ahau.service.bamboo.base.GenusService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
@@ -12,11 +15,14 @@ import springfox.documentation.annotations.Cacheable;
 
 import java.util.List;
 
+import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
+
 @RestController
 @RequestMapping("/genus")
 @Api(description = "属")
 public class GenusController {
     private final GenusService genusService;
+    private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
 
     @Autowired
     public GenusController(GenusService genusService) {
@@ -122,7 +128,6 @@ public class GenusController {
     })
     public Result findGenusQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
         Page<Genus> genusPage = genusService.findGenusQuery(page, size, search);
-
         return ResultUtil.success(genusPage);
     }
 

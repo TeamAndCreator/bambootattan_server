@@ -1,14 +1,13 @@
 package com.ahau.configs;
 
-import com.ahau.entity.system.Role;
-import com.ahau.entity.system.User;
-import com.ahau.service.system.UserService;
+import com.ahau.entity.system.user.Role;
+import com.ahau.entity.system.user.User;
+import com.ahau.service.system.user.UserService;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
-import org.apache.shiro.util.ByteSource;
 
 import javax.annotation.Resource;
 

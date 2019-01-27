@@ -1,6 +1,6 @@
 package com.ahau.utils;
 
-import com.ahau.entity.system.User;
+import com.ahau.entity.system.user.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -8,7 +8,6 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
 
 import javax.mail.internet.MimeMessage;
-import java.net.InetAddress;
 
 @Component
 public class MailSendUtil {

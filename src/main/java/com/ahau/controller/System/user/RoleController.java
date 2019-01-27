@@ -1,9 +1,9 @@
-package com.ahau.controller.System;
+package com.ahau.controller.System.user;
 
 
 import com.ahau.entity.bamboo.base.Result;
-import com.ahau.entity.system.Role;
-import com.ahau.service.system.RoleService;
+import com.ahau.entity.system.user.Role;
+import com.ahau.service.system.user.RoleService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
