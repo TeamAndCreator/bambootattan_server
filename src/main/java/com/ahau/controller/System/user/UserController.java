@@ -56,12 +56,12 @@ public class UserController {
     @RequiresGuest
     public Result login(String userName, String password) {
         Subject currentUser = SecurityUtils.getSubject();
-        User user = null;
         String jsessionid = (String) currentUser.getSession().getId();
         UsernamePasswordToken token = new UsernamePasswordToken(userName, password);
         token.setRememberMe(false);
         try {
             currentUser.login(token);
+            currentUser.getSession().setAttribute("username",userName);
         } catch (UnknownAccountException ua) {
             System.out.println("未知账号！（提示：若已成功注册，请联系管理员查看用户是否已激活。）：" + ua.getMessage());
             return ResultUtil.error(500, "未知账号！（提示：若已成功注册，请联系管理员查看用户是否已激活。）");
@@ -211,6 +211,7 @@ public class UserController {
     public Result logout() {
         try {
             Subject currentSubject = SecurityUtils.getSubject();
+            currentSubject.getSession().removeAttribute("username");
             currentSubject.logout();
             return ResultUtil.success();
         } catch (Exception e) {

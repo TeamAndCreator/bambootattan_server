@@ -15,7 +15,6 @@ import springfox.documentation.annotations.Cacheable;
 
 import java.util.List;
 
-import static com.sun.xml.internal.ws.spi.db.BindingContextFactory.LOGGER;
 
 @RestController
 @RequestMapping("/genus")
