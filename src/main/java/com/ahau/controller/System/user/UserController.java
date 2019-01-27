@@ -1,10 +1,10 @@
-package com.ahau.controller.System;
+package com.ahau.controller.System.user;
 
 import com.ahau.entity.bamboo.base.Result;
-import com.ahau.entity.system.Role;
-import com.ahau.entity.system.User;
-import com.ahau.service.system.RoleService;
-import com.ahau.service.system.UserService;
+import com.ahau.entity.system.user.Role;
+import com.ahau.entity.system.user.User;
+import com.ahau.service.system.user.RoleService;
+import com.ahau.service.system.user.UserService;
 import com.ahau.utils.MailSendUtil;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
@@ -21,7 +21,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 

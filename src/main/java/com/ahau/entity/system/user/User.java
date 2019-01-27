@@ -1,6 +1,4 @@
-package com.ahau.entity.system;
-
-import org.hibernate.validator.constraints.UniqueElements;
+package com.ahau.entity.system.user;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
