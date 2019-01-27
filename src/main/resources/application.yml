@@ -77,40 +77,19 @@ spring:
 spring:
   #邮箱配置
   mail:
+    default-encoding: UTF-8
     host: smtp.qq.com
+    port: 465
     username: 1172032260@qq.com
     #QQ邮箱的授权码
     password: kcrcbcsqwtouficd
-    default-encoding: UTF-8
     properties:
       mail:
         smtp:
+          ssl:
+            enable: true
           auth: true
           starttls:
-            enable: true
+            enable: false
             required: true
-            timeout: 25000
-            ssl.enable: true
-            socketFactory.class: javax.net.ssl.SSLSocketFactory
-            starttls.enable: true
-            socketFactory.port: 465
-            port: 465
-  freemarker:
-    content-type: text/html
-    #后缀名
-    suffix: .ftl
-    template-loader-path: classpath:/templates
-    charset: UTF-8
-    check-template-location: true
 ---
-  #freemarker配置
-
-
-
-
-#设置一个邮件发送人
-lance:
-  mail:
-    sender: 1172032260@qq.com #发件人
-    recipient: 2574325794@qq.com #收件人
-    url: http://47.104.26.79:8081/ #项目根目录

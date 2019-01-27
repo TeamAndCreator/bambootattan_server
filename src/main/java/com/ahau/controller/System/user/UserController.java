@@ -31,17 +31,17 @@ public class UserController {
 
 //    private static final Logger LOGGER = LogManager.getLogger(UserController.class);
 
-    @Value("${lance.mail.recipient}")
-    private String recipient;
+
+    private final MailSendUtil mailSendUtil;
+    private final UserService userService;
+    private final RoleService roleService;
 
     @Autowired
-    private MailSendUtil mailSendUtil;
-
-    @Autowired
-    private UserService userService;
-
-    @Autowired
-    private RoleService roleService;
+    public UserController(MailSendUtil mailSendUtil, UserService userService, RoleService roleService) {
+        this.mailSendUtil = mailSendUtil;
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     /**
      * 用户登录密码会先被MD5两次加密后再和数据库比对，
@@ -166,7 +166,7 @@ public class UserController {
             //将用户存入数据库
             userService.save(user);
             //发送邮件激活用户
-            mailSendUtil.sendHTMLMail(recipient,code,user);
+            mailSendUtil.sendHTMLMail("liulianjushi@126.com",code,user);
             return ResultUtil.success();
         }catch (Exception e){
             e.printStackTrace();
