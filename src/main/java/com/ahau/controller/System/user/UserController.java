@@ -290,6 +290,37 @@ public class UserController {
         return ResultUtil.success();
     }
 
+    /**
+     * 修改密码
+     * @param userName
+     * @param old_password
+     * @param new_Password
+     * @return
+     */
+    @ApiOperation(value = "密码修改")
+    @PostMapping(value = "changePassword")
+    public Result changePassword(String userName, String old_password, String new_Password) {
+        try {
+            User user = userService.findByUserName(userName);
+            //判断用户名是否正确
+            if (user == null) {
+                return ResultUtil.error(500,"用户名错误");
+            }
+            //判断密码是否正确
+            if (user.getUserPwd().equals(String.valueOf(new SimpleHash("MD5", old_password, null, 2)))){
+                userService.updateUserPwd(user.getUserId(),String.valueOf(new SimpleHash("MD5", new_Password, null, 2)));
+                return ResultUtil.success("密码修改成功");
+            }else {
+                return ResultUtil.error(500,"密码错误");
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultUtil.error(500,e.getMessage());
+        }
+    }
+
+
+
 
 
 

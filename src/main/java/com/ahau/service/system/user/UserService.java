@@ -153,6 +153,15 @@ public class UserService {
         userRepository.deleteByUserIdIn(ids);
     }
 
+    /**
+     * 修改密码
+     * @param id
+     * @param pwd
+     */
+    public void updateUserPwd(Long id,String pwd){
+        userRepository.updateUserPwd(pwd, id);
+    }
+
 
 //    public void changeUserPwd(Long userId, String userPwd) {
 //         userRepository.changeUserPwd(userId, userPwd);
