@@ -4,11 +4,10 @@ import com.ahau.entity.bamboo.base.Spec;
 import org.springframework.data.elasticsearch.repository.ElasticsearchCrudRepository;
 
 /**
- * 竹种Repository
- * Created by: 张理
- * 2018-11-12
+ * 描述：搜索引擎Repository
+ * Created by: zhangli
+ * 2019-2-17
  */
-
-public interface SpecRepository1 extends ElasticsearchCrudRepository<Spec, Long> {
+public interface EsRepository extends ElasticsearchCrudRepository <Spec, Long> {
 
 }
