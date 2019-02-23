@@ -75,13 +75,13 @@ spring:
     timeout: 5000
 ---
 spring:
-  #邮箱配置
+  #????
   mail:
     default-encoding: UTF-8
     host: smtp.qq.com
     port: 465
     username: 1172032260@qq.com
-    #QQ邮箱的授权码
+    #QQ??????
     password: kcrcbcsqwtouficd
     properties:
       mail:
