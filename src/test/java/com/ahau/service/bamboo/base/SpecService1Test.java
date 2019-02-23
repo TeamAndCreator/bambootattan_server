@@ -20,11 +20,11 @@ import static org.junit.Assert.*;
 public class SpecService1Test {
     private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     @Autowired
-    private SpecService1 specService1;
+    private EsService esService;
 
     @Test
     public void search() {
-        List<Spec> specs= specService1.search();
+        List<Spec> specs= esService.search();
         LOGGER.debug(specs.toString());
     }
 }
