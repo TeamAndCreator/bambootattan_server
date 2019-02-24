@@ -25,11 +25,15 @@ import java.util.*;
 @RequestMapping(value = "/admin")
 public class AdminController {
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
+
+    private final RoleService roleService;
 
     @Autowired
-    private RoleService roleService;
+    public AdminController(UserService userService, RoleService roleService) {
+        this.userService = userService;
+        this.roleService = roleService;
+    }
 
     /**
      * 添加用户

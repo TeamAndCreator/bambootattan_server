@@ -72,6 +72,16 @@ public class LogService {
 
     }
 
+
+    /**
+     * 添加一个日志
+     * @param log
+     * @return
+     */
+    public Log save(Log log) {
+        return logRepository.save(log);
+    }
+
 //    /**
 //     * 查询所有属
 //     * @return
