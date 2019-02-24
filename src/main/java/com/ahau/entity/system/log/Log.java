@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Timestamp;
 
+
 /**
  * 实体类：（日志表）
  * Created by: zhangli
@@ -17,18 +18,28 @@ public class Log {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long logId;
 
-    /* 操作人地址 */
+    /* 操作 */
     private String optUrl;
     /* 操作人登录名 */
     private String optUser;
     /* 操作时间 */
-    private String optTime;
+    @org.hibernate.annotations.CreationTimestamp  //由数据库自动创建时间
+    private Timestamp optTime;
     /* 操作IP地址 */
     private String optIp;
     /* 请求参数 */
     private String requestParam;
     /* 类方法 */
     private String classMethod;
+
+    public Log(){
+        this.optUrl=optUrl;
+        this.optUser=optUser;
+        this.optTime=optTime;
+        this.optIp=optIp;
+        this.requestParam=requestParam;
+        this.classMethod=classMethod;
+    }
 
     public Long getLogId() {
         return logId;
@@ -54,11 +65,11 @@ public class Log {
         this.optUser = optUser;
     }
 
-    public String getOptTime() {
+    public Timestamp getOptTime() {
         return optTime;
     }
 
-    public void setOptTime(String optTime) {
+    public void setOptTime(Timestamp optTime) {
         this.optTime = optTime;
     }
 
@@ -92,7 +103,7 @@ public class Log {
                 "logId=" + logId +
                 ", optUrl='" + optUrl + '\'' +
                 ", optUser='" + optUser + '\'' +
-                ", optTime='" + optTime + '\'' +
+                ", optTime=" + optTime +
                 ", optIp='" + optIp + '\'' +
                 ", requestParam='" + requestParam + '\'' +
                 ", classMethod='" + classMethod + '\'' +
