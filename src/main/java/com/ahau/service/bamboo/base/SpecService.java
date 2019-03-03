@@ -6,12 +6,14 @@ import com.ahau.repository.bamboo.base.SpecRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import springfox.documentation.annotations.Cacheable;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
@@ -26,6 +28,7 @@ import java.util.Optional;
  */
 @Transactional
 @Service
+@CacheConfig(cacheNames = "spec")
 public class SpecService {
     private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
 
@@ -41,6 +44,7 @@ public class SpecService {
      *
      * @return
      */
+    @Cacheable(value = "specCache")
     public List<Spec> findAll() {
         return specRepository.findAll();
     }
