@@ -6,12 +6,16 @@ import com.ahau.repository.bamboo.base.GenusRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
+import springfox.documentation.annotations.Cacheable;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
@@ -27,6 +31,7 @@ import java.util.Optional;
  */
 @Transactional
 @Service
+@CacheConfig(cacheNames = "genus")
 public class GenusService {
 
     private final GenusRepository genusRepository;
@@ -42,6 +47,7 @@ public class GenusService {
      *
      * @return
      */
+
     public List<Genus> findAll() {
         return genusRepository.findAll();
     }
@@ -52,6 +58,7 @@ public class GenusService {
      * @param id
      * @return
      */
+    @Cacheable(value = "'findById'")
     public Genus findById(Long id) {
 
         Optional<Genus> genusOptional = genusRepository.findById(id);
@@ -71,6 +78,7 @@ public class GenusService {
      * @param genus
      * @return
      */
+    @CachePut(key = "'genusCache'")
     public Genus update(Genus genus) {
         genusRepository.save(genus);
         return genus;
@@ -91,6 +99,7 @@ public class GenusService {
      *
      * @param id
      */
+    @CacheEvict(key = "'genusCache'")
     public void delete(Long id) {
         genusRepository.deleteById(id);
     }

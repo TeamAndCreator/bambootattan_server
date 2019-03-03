@@ -31,6 +31,10 @@ public class Log {
     private String requestParam;
     /* 类方法 */
     private String classMethod;
+    /* 查询时间上限 */
+    private String startTime;
+    /* 查询时间下限 */
+    private String endTime;
 
     public Log(){
         this.optUrl=optUrl;
@@ -97,6 +101,22 @@ public class Log {
         this.classMethod = classMethod;
     }
 
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
     @Override
     public String toString() {
         return "Log{" +
@@ -107,6 +127,8 @@ public class Log {
                 ", optIp='" + optIp + '\'' +
                 ", requestParam='" + requestParam + '\'' +
                 ", classMethod='" + classMethod + '\'' +
+                ", startTime='" + startTime + '\'' +
+                ", endTime='" + endTime + '\'' +
                 '}';
     }
 }

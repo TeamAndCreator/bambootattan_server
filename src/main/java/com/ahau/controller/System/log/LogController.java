@@ -71,7 +71,6 @@ public class LogController {
         return ResultUtil.success(logPage);
     }
 
-
 //    /**
 //     * 查询所有日志
 //     * @return
