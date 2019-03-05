@@ -205,19 +205,44 @@ public class UserController {
     }
 
 
+//    @ApiOperation(value = "登出")
+//    @PostMapping(value = "logout")
+//    @RequiresAuthentication
+//    public Result logout() {
+//        try {
+//            Subject currentSubject = SecurityUtils.getSubject();
+//            currentSubject.getSession().removeAttribute("username");
+//            currentSubject.logout();
+//            return ResultUtil.success();
+//        } catch (Exception e) {
+//            return ResultUtil.error();
+//        }
+//    }
+
+
     @ApiOperation(value = "登出")
-    @PostMapping(value = "logout")
-    @RequiresAuthentication
-    public Result logout() {
-        try {
-            Subject currentSubject = SecurityUtils.getSubject();
-            currentSubject.getSession().removeAttribute("username");
-            currentSubject.logout();
-            return ResultUtil.success();
-        } catch (Exception e) {
-            return ResultUtil.error();
+    @PostMapping(value = "logOut")
+    //@RequiresAuthentication
+    @ResponseBody
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "已创建"),
+            @ApiResponse(code = 400, message = "请求参数填写错误 "),
+            @ApiResponse(code = 401, message = "访问被拒绝"),
+            @ApiResponse(code = 403, message = "禁止访问"),
+            @ApiResponse(code = 404, message = "请求路径没有或页面跳转路径错误")
+    })
+    public Result logOut() {
+        Subject currentUser = SecurityUtils.getSubject();
+        if (currentUser.isAuthenticated()) {
+            try {
+                currentUser.logout();
+            } catch (Exception e) {
+                return ResultUtil.error(500, e.getMessage());
+            }
         }
+        return ResultUtil.success();
     }
+
 
     @GetMapping(value = "pleaseLogin")
     @ApiOperation(value = "提示登录")
@@ -318,6 +343,9 @@ public class UserController {
             return ResultUtil.error(500,e.getMessage());
         }
     }
+
+
+
 
 
 
