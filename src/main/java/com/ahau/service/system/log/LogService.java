@@ -6,6 +6,7 @@ import com.ahau.repository.system.log.LogRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,7 @@ import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 描述：日志服务层接口
@@ -72,6 +74,29 @@ public class LogService {
 
     }
 
+    /**
+     * 查询时间段内的日志
+     * @param page
+     * @param size
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public Page<Log> findLogDateQuery(Integer page, Integer size, String startTime, String endTime) {
+        Pageable pageable = PageRequest.of(page, size);
+        if (!StringUtils.isEmpty(startTime) && !StringUtils.isEmpty(endTime)) {
+            return logRepository.findAll((Specification<Log>) (root, criteriaQuery, criteriaBuilder) -> {
+                //用于暂时存放查询条件的集合
+                List<Predicate> list = new ArrayList<>();
+                list.add(criteriaBuilder.between(root.get("optTime").as(String.class),startTime,endTime));
+                Predicate[] p = new Predicate[list.size()];
+                return criteriaBuilder.or(list.toArray(p));
+            }, pageable);
+        } else {
+            return logRepository.findAll(pageable);
+        }
+    }
+
 
     /**
      * 添加一个日志
@@ -82,7 +107,15 @@ public class LogService {
         return logRepository.save(log);
     }
 
-
+//    public List<Map<String, Object>> findLogDateQuery(Map<String, Object> map) {
+//        StringBuffer sql = new StringBuffer();
+//        sql.append("SELECT");
+//        sql.append("'class_method', 'opt_ip', 'opt_time', 'opt_url', 'opt_user', 'request_param'");
+//        sql.append("FROM 'log'");
+//        sql.append("WHERE uid = :uid and status=2 and opt_time between :start_time and :end_time ");
+//        List<Map<String, Object>> resultList = null;
+//        return resultList;
+//    }
 
 //    /**
 //     * 查询所有属
