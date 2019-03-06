@@ -4,7 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import java.sql.Timestamp;
+import java.sql.Date;
 
 
 /**
@@ -24,7 +24,8 @@ public class Log {
     private String optUser;
     /* 操作时间 */
     @org.hibernate.annotations.CreationTimestamp  //由数据库自动创建时间
-    private Timestamp optTime;
+    //private Timestamp optTime;
+    private Date optTime;
     /* 操作IP地址 */
     private String optIp;
     /* 请求参数 */
@@ -69,11 +70,11 @@ public class Log {
         this.optUser = optUser;
     }
 
-    public Timestamp getOptTime() {
+    public Date getOptTime() {
         return optTime;
     }
 
-    public void setOptTime(Timestamp optTime) {
+    public void setOptTime(Date optTime) {
         this.optTime = optTime;
     }
 
