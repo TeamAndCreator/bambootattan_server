@@ -43,9 +43,20 @@ public class UserService {
      * 根据用户名查找用户
      * @return
      */
+//    public User findByUserName(String userName){
+//        return userRepository.findByUserName(userName);
+//    }
+
     public User findByUserName(String userName){
-        return userRepository.findByUserName(userName);
+        Optional<User> userOptional = Optional.ofNullable(userRepository.findByUserName(userName));
+        User user = new User();
+        if (userOptional.isPresent()) {
+            user = userOptional.get();
+        }else {
+        }
+        return user;
     }
+
 
     /**
      * 根据用户ID查找用户
