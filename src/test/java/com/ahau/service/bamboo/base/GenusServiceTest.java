@@ -1,4 +1,4 @@
-package com.ahau.service;
+package com.ahau.service.bamboo.base;
 
 import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Genus;
