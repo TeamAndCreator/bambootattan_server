@@ -5,6 +5,11 @@ spring:
     password : 46132205092017
     driverClassName : com.mysql.jdbc.Driver
 ---
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+---
 #JPA Configuration:
 spring :
   jpa:
@@ -30,7 +35,7 @@ spring :
         enabled: false
     elasticsearch :
       repositories :
-        enabled : false
+        enabled : true
       cluster-name : elasticsearch
       cluster-nodes : 47.104.26.79:9300
 ---
