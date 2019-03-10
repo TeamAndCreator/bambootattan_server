@@ -84,15 +84,19 @@ public class UserController {
 
 
     @ApiOperation(value = "根据用户名查询用户")
-    @GetMapping(value = "findByUserName")
+//    @GetMapping(value = "findByUserName")
+    @GetMapping(value = "findByUserName/{userName}")
     @RequiresRoles(value = "admin")
     //@RequiresAuthentication:使用该注解标注的类，实例，方法在访问或调用时，当前Subject(即用户)必须在当前session中已经过认证。
     //@RequiresGuest:使用该注解标注的类，实例，方法在访问或调用时，当前Subject可以是“gust”身份，不需要经过认证或者在原先的session中存在记录。
     //@RequiresRoles:当前Subject必须拥有所有指定的角色时，才能访问被该注解标注的方法。如果当天Subject不同时拥有所有指定角色，则方法不会执行还会抛出AuthorizationException异常。
     //@RequiresUser:当前Subject必须是应用的用户，才能访问或调用被该注解标注的类，实例，方法。
-    public Result findByUserName(String userName) {
-        User user = userService.findByUserName(userName);
-        return ResultUtil.success("" + user);
+//    public Result findByUserName(String userName) {
+//        User user = userService.findByUserName(userName);
+//        return ResultUtil.success("" + user);
+//    }
+    public Result findByUserName(@ApiParam(name = "userName", value = "需要查找的用户的名字", required = true) @PathVariable("userName") String userName) {
+        return ResultUtil.success(userService.findByUserName(userName));
     }
 
     /**
@@ -205,19 +209,44 @@ public class UserController {
     }
 
 
+//    @ApiOperation(value = "登出")
+//    @PostMapping(value = "logout")
+//    @RequiresAuthentication
+//    public Result logout() {
+//        try {
+//            Subject currentSubject = SecurityUtils.getSubject();
+//            currentSubject.getSession().removeAttribute("username");
+//            currentSubject.logout();
+//            return ResultUtil.success();
+//        } catch (Exception e) {
+//            return ResultUtil.error();
+//        }
+//    }
+
+
     @ApiOperation(value = "登出")
-    @PostMapping(value = "logout")
-    @RequiresAuthentication
-    public Result logout() {
-        try {
-            Subject currentSubject = SecurityUtils.getSubject();
-            currentSubject.getSession().removeAttribute("username");
-            currentSubject.logout();
-            return ResultUtil.success();
-        } catch (Exception e) {
-            return ResultUtil.error();
+    @PostMapping(value = "logOut")
+    //@RequiresAuthentication
+    @ResponseBody
+    @ApiResponses({
+            @ApiResponse(code = 201, message = "已创建"),
+            @ApiResponse(code = 400, message = "请求参数填写错误 "),
+            @ApiResponse(code = 401, message = "访问被拒绝"),
+            @ApiResponse(code = 403, message = "禁止访问"),
+            @ApiResponse(code = 404, message = "请求路径没有或页面跳转路径错误")
+    })
+    public Result logOut() {
+        Subject currentUser = SecurityUtils.getSubject();
+        if (currentUser.isAuthenticated()) {
+            try {
+                currentUser.logout();
+            } catch (Exception e) {
+                return ResultUtil.error(500, e.getMessage());
+            }
         }
+        return ResultUtil.success();
     }
+
 
     @GetMapping(value = "pleaseLogin")
     @ApiOperation(value = "提示登录")
@@ -318,6 +347,9 @@ public class UserController {
             return ResultUtil.error(500,e.getMessage());
         }
     }
+
+
+
 
 
 

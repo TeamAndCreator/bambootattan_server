@@ -71,6 +71,27 @@ public class LogController {
         return ResultUtil.success(logPage);
     }
 
+    /**
+     * 查询时间段内的日志
+     * @param page
+     * @param size
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    @ApiOperation(value = "查询时间段内的日志", notes = "根据日期查询时间段内的日志")
+    @GetMapping("findDateQuery")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "startTime", value = "查询时间上限", paramType = "query"),
+            @ApiImplicitParam(name = "endTime", value = "查询时间下限", paramType = "query")
+    })
+    public Result findLogDateQuery(@RequestParam Integer page, @RequestParam Integer size, String startTime, String endTime) {
+        Page<Log> logPage = logService.findLogDateQuery(page, size, startTime, endTime);
+        return ResultUtil.success(logPage);
+    }
+
 //    /**
 //     * 查询所有日志
 //     * @return
