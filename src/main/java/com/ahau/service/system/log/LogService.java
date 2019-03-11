@@ -10,6 +10,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -41,7 +42,9 @@ public class LogService {
      * @return
      */
     public Page<Log> findLogNoQuery(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Sort sort = new Sort(Sort.Direction.DESC, "LogId")
+                .and(new Sort(Sort.Direction.DESC, "optTime"));
+        Pageable pageable = PageRequest.of(page, size, sort);
         return logRepository.findAll(pageable);
     }
 
@@ -83,7 +86,9 @@ public class LogService {
      * @return
      */
     public Page<Log> findLogDateQuery(Integer page, Integer size, String startTime, String endTime) {
-        Pageable pageable = PageRequest.of(page, size);
+        Sort sort = new Sort(Sort.Direction.DESC, "LogId")
+                .and(new Sort(Sort.Direction.DESC, "optTime"));
+        Pageable pageable = PageRequest.of(page, size, sort);
         if (!StringUtils.isEmpty(startTime) && !StringUtils.isEmpty(endTime)) {
             return logRepository.findAll((Specification<Log>) (root, criteriaQuery, criteriaBuilder) -> {
                 //用于暂时存放查询条件的集合
