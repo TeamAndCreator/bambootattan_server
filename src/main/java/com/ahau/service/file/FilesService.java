@@ -88,7 +88,7 @@ public class FilesService {
 
         for (MultipartFile multipartFile : multipartFiles) {
             //获取文件名
-            String origin_name = multipartFile.getOriginalFilename();
+            String origin_name = multipartFile.getName();
             LOGGER.debug("上传的文件名为：" + origin_name);
             //获取文件后缀
             assert origin_name != null;
