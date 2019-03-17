@@ -2,6 +2,7 @@ package com.ahau.service.file;
 
 
 import com.ahau.BambootattanServerApplication;
+import com.ahau.configs.StaticMvcConfig;
 import com.ahau.entity.file.Files;
 import com.ahau.repository.file.FilesRepository;
 import com.ahau.utils.GetTimeUtil;

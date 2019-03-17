@@ -21,7 +21,7 @@ public class StaticMvcConfig extends WebMvcConfigurerAdapter {
     public static String getString(String ROOT_PATH) {
         String osName = System.getProperty("os.name");
         if (Pattern.matches("Linux.*", osName)) {
-            ROOT_PATH = "/root/File";
+            ROOT_PATH = "/root/File/";
         } else if (Pattern.matches("Mac.*", osName)) {
             ROOT_PATH = "/Users/james/File/";
         }
