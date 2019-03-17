@@ -73,14 +73,14 @@ public class FilesService {
             //创建唯一文件名
             String uuid = UUID.randomUUID().toString();
             String name = uuid + "." + suffixName;
-            path = VR_PATH+path + name;
+            path = path + name;
             File file = new File(ROOT_PATH+path);
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();
             }
             multipartFile.transferTo(file);
             //Files(String name, String origin_name, String path, String date, String type, String content)
-            Files files = save(new Files(name, origin_name, path, GetTimeUtil.getDate(), type, content));
+            Files files = save(new Files(name, origin_name, VR_PATH+path, GetTimeUtil.getDate(), type, content));
             filesSet.add(files);
         }
         return filesSet;
