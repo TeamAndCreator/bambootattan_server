@@ -30,6 +30,8 @@ public class Files {
         this.content = content;
     }
 
+    public Files(){}
+
     public Long getId() {
         return id;
     }
