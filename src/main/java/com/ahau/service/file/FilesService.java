@@ -25,7 +25,7 @@ public class FilesService {
     private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
     private String type;
 
-    private final static String VR_PATH = "/File/";
+    private final static String VR_PATH = "/file/";
     private String[] imagesSuffixName = {"bmp", "gif", "jpeg", "png", "jpg"};
     private String[] videoSuffixname = {"flv", "mp4", "flash", "avi", "mov", "rmvb", "rm"};
 
@@ -43,39 +43,6 @@ public class FilesService {
         return filesRepository.save(files);
     }
 
-    public String upLoad(MultipartFile file) {
-        if (file.isEmpty()) {
-            return "文件为空";
-        }
-        //获取文件名
-        String fileName = file.getOriginalFilename();
-        LOGGER.debug("上传的文件名为：" + fileName);
-        //获取文件的后缀名
-        assert fileName != null;
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));
-        LOGGER.debug("上传的后缀名为：" + suffixName);
-        //文件上传路径
-        String filePath = "d:/bamboo/video/";
-        String osName = System.getProperty("os.name");
-        if (Pattern.matches("Linux.*", osName)) {
-            filePath = "/root/bamboo/video/";
-        } else if (Pattern.matches("Mac.*", osName)) {
-            filePath = "/Users/james/bamboo/video/";
-        }
-        File dest = new File(filePath + fileName);
-        //检测是否存在目录
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
-        try {
-            file.transferTo(dest);
-            return "上传成功";
-        } catch (IllegalStateException | IOException e) {
-            e.printStackTrace();
-        }
-        return "上传失败";
-    }
-
     public Set<Files> fileSave(MultipartFile[] multipartFiles, String content, Long genusId) throws IOException {
         //物理路径
         Set<Files> filesSet = new HashSet<Files>();
@@ -88,14 +55,12 @@ public class FilesService {
 
         for (MultipartFile multipartFile : multipartFiles) {
             //获取文件名
-            String origin_name = multipartFile.getName();
-            LOGGER.debug("上传的文件名为：" + origin_name);
+            String origin_name = multipartFile.getOriginalFilename();
             //获取文件后缀
             assert origin_name != null;
             String suffixName = origin_name.substring(origin_name.lastIndexOf(".") + 1).toLowerCase();
-            LOGGER.debug("上传的后缀名为：" + suffixName);
             //文件上传路径
-            String path = Long.toString(genusId) + "/";
+            String path = genusId + "/";
             List<String> imgSuffixList = Arrays.asList(imagesSuffixName);
             List<String> videoSuffixList = Arrays.asList(videoSuffixname);
             if (imgSuffixList.contains(suffixName)) {
@@ -108,8 +73,7 @@ public class FilesService {
             //创建唯一文件名
             String uuid = UUID.randomUUID().toString();
             String name = uuid + "." + suffixName;
-            path = path + name;
-            LOGGER.debug(ROOT_PATH);
+            path = VR_PATH+path + name;
             File file = new File(ROOT_PATH+path);
             if (!file.getParentFile().exists()) {
                 file.getParentFile().mkdirs();

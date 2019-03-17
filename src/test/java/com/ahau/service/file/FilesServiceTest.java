@@ -44,6 +44,7 @@ public class FilesServiceTest {
         MultipartFile[] multipartFiles=new MultipartFile[1];
         File file = new File("/Users/james/Desktop/xiaoxin.png");
         FileInputStream inputStream = new FileInputStream(file);
+        LOGGER.info(file.getName());
         MultipartFile multipartFile = new MockMultipartFile(file.getName(), inputStream);
         multipartFiles[0]=multipartFile;
         filesService.fileSave(multipartFiles,"bamboo",53L);

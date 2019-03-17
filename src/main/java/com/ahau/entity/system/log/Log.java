@@ -1,9 +1,6 @@
 package com.ahau.entity.system.log;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.sql.Date;
 
 
@@ -29,6 +26,7 @@ public class Log {
     /* 操作IP地址 */
     private String optIp;
     /* 请求参数 */
+    @Column(length = 100000)
     private String requestParam;
     /* 类方法 */
     private String classMethod;
