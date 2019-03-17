@@ -100,8 +100,6 @@ public class RattanSpecController {
     @ApiOperation(value = "创建种", notes = "根据RattanSpec对象创建种")
     @PostMapping("save")
     public Result save(@ApiParam(name = "rattanSpec", value = "要添加的种详细实体rattanSpec",required = true) RattanSpec rattanSpec, MultipartFile[] multipartFiles) throws IOException {
-        System.out.println("========");
-        LOGGER.debug(rattanSpec.toString());
         if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
             if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
                 Set<Files> filesSet = filesService.fileSave(multipartFiles,"rattan",rattanSpec.getRattanGenus().getGenusId());

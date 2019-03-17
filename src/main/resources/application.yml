@@ -48,15 +48,6 @@ logging :
   path: log/
 ---
 spring:
-  servlet:
-    multipart:
-      location: /root/File/
----
-spring:
-  resources:
-    static-locations: file:${spring.servlet.multipart.location}
----
-spring:
   redis:
     database: 0
     host: 47.104.26.79
