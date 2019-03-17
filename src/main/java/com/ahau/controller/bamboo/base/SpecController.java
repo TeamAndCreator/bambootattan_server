@@ -153,10 +153,15 @@ public class SpecController {
             @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
     public Result findSpecQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findSpecQuery(page, size, search);
 
-        Page<Spec> specPage = specService.findSpecQuery(page, size, search);
+            return ResultUtil.success(specPage);
 
-        return ResultUtil.success(specPage);
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultUtil.error(500,e.getMessage());
+        }
     }
 
     /**
