@@ -44,6 +44,15 @@ public class FilesService {
         return filesRepository.save(files);
     }
 
+    /**
+     *  保存一个文件（file）到服务器指定处（例如到http://47.106.74.107:8081//file/55/image路径下等）
+     *  并返回一个实体类（Files）用于在上一层（例如SpecController等）将file保存到数据库
+     * @param multipartFiles
+     * @param content
+     * @param genusId
+     * @return
+     * @throws IOException
+     */
     public Set<Files> fileSave(MultipartFile[] multipartFiles, String content, Long genusId) throws IOException {
         //物理路径
         Set<Files> filesSet = new HashSet<Files>();
@@ -85,5 +94,32 @@ public class FilesService {
             filesSet.add(files);
         }
         return filesSet;
+    }
+
+    /**
+     * 删除一组文件（file），不删除数据库记录，删除种时级联删除，用于删除种
+     * @param filesSet
+     */
+    public void deleteFiles(Set<Files> filesSet) {
+        for (Files files : filesSet) {
+            String path = ROOT_PATH + files.getPath();
+            String fileName = files.getName();
+            File file = new File(path, fileName);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
+    }
+
+    public void deleteDoubleFiles(Set<Files> filesSet) {
+        for (Files files : filesSet) {
+            filesRepository.deleteById(files.getId());
+            String path = ROOT_PATH + files.getPath();
+            String fileName = files.getName();
+            File file = new File(path, fileName);
+            if (file.exists()) {
+                file.delete();
+            }
+        }
     }
 }

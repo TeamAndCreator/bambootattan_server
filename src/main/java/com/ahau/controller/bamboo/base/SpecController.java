@@ -70,9 +70,22 @@ public class SpecController {
      */
     @ApiOperation(value = "更新种信息", notes = "根据url的id来指定更新种信息")
     @PutMapping("update")
-    public Result update(@ApiParam(name = "spec", value = "要修改的属详细实体spec", required = true)
-                         @RequestBody Spec spec) {
-        return ResultUtil.success(specService.update(spec));
+    public Result update(@ApiParam(name = "spec", value = "要修改的属详细实体spec", required = true) Spec spec, MultipartFile[] multipartFiles) {
+        try {
+            //查出原文件并删除
+            Set<Files> oldFilesSet = specService.getFiles(spec.getSpecId());
+            filesService.deleteDoubleFiles(oldFilesSet);
+            if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
+                if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
+                    Set<Files> filesSet = filesService.fileSave(multipartFiles,"bamboo",spec.getGenus().getGenusId());
+                    spec.setFiles(filesSet);
+                }
+            }
+            return ResultUtil.success(specService.update(spec));
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResultUtil.error(500,e.getMessage());
+        }
     }
 
     /**
@@ -86,6 +99,9 @@ public class SpecController {
     public Result delete(@ApiParam(name = "specId", value = "需删除种的ID", required = true)
                          @PathVariable("specId") Long specId) {
         try {
+            Spec spec = specService.findById(specId);
+            Set<Files> filesSet = spec.getFiles();
+            filesService.deleteFiles(filesSet);
             specService.delete(specId);
         } catch (Exception e) {
             return ResultUtil.error(500, e.toString());
@@ -174,6 +190,11 @@ public class SpecController {
     @DeleteMapping("deleteByIds")
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除种的id数组", required = true) @RequestParam List<Long> ids) {
         try {
+            for (Long specId : ids) {
+                Spec spec = specService.findById(specId);
+                Set<Files> filesSet = spec.getFiles();
+                filesService.deleteFiles(filesSet);
+            }
             specService.deleteByIds(ids);
         } catch (Exception e) {
             return ResultUtil.error(500, e.toString());
@@ -182,6 +203,17 @@ public class SpecController {
 
         return ResultUtil.success();
     }
+
+//    @GetMapping("findfile")
+//    public Set findfile(Long id){
+//        try {
+//            return specService.getFiles(id);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
+
 }
 
 
