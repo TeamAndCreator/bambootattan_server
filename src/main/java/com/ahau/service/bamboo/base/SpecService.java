@@ -2,6 +2,7 @@ package com.ahau.service.bamboo.base;
 
 import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Spec;
+import com.ahau.entity.file.Files;
 import com.ahau.repository.bamboo.base.SpecRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -17,9 +18,7 @@ import springfox.documentation.annotations.Cacheable;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * 竹种服务层接口
@@ -153,4 +152,15 @@ public class SpecService {
     public void deleteByIds(List<Long> ids) {
         specRepository.deleteBySpecIdIn(ids);
     }
+
+    /**
+     * 查找Spec中的文件
+     * @param id
+     * @return
+     */
+    public Set getFiles(Long id) {
+        Set filesSet=new HashSet(specRepository.getFiles(id));
+        return filesSet;
+    }
+
 }
