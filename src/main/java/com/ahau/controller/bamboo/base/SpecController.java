@@ -70,18 +70,22 @@ public class SpecController {
      */
     @ApiOperation(value = "更新种信息", notes = "根据url的id来指定更新种信息")
     @PutMapping("update")
-    public Result update(@ApiParam(name = "spec", value = "要修改的属详细实体spec", required = true) Spec spec, MultipartFile[] multipartFiles) {
+    public Result update(@ApiParam(name = "spec", value = "要修改的属详细实体spec")
+                                     Spec spec, MultipartFile[] multipartFiles) {
         try {
             //查出原文件并删除
             Set<Files> oldFilesSet = specService.getFiles(spec.getSpecId());
-            filesService.deleteDoubleFiles(oldFilesSet);
-            if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
-                if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
-                    Set<Files> filesSet = filesService.fileSave(multipartFiles,"bamboo",spec.getGenus().getGenusId());
-                    spec.setFiles(filesSet);
+            if (multipartFiles!=null){
+                if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
+                    if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
+                        Set<Files> filesSet = filesService.fileSave(multipartFiles,"bamboo",spec.getGenus().getGenusId());
+                        spec.setFiles(filesSet);
+                    }
                 }
             }
-            return ResultUtil.success(specService.update(spec));
+            specService.update(spec);
+            filesService.deleteDoubleFiles(oldFilesSet);
+            return ResultUtil.success();
         }catch (Exception e){
             e.printStackTrace();
             return ResultUtil.error(500,e.getMessage());
@@ -104,6 +108,7 @@ public class SpecController {
             filesService.deleteFiles(filesSet);
             specService.delete(specId);
         } catch (Exception e) {
+            e.printStackTrace();
             return ResultUtil.error(500, e.toString());
         }
         return ResultUtil.success();
@@ -204,15 +209,15 @@ public class SpecController {
         return ResultUtil.success();
     }
 
-//    @GetMapping("findfile")
-//    public Set findfile(Long id){
-//        try {
-//            return specService.getFiles(id);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
+    @GetMapping("findfile")
+    public Set findfile(Long id){
+        try {
+            return specService.getFiles(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+    }
 
 }
 

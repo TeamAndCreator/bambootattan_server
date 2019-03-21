@@ -111,6 +111,10 @@ public class FilesService {
         }
     }
 
+    /**
+     * 删除一组文件（file),并删除数据库中记录，用于种更新
+     * @param filesSet
+     */
     public void deleteDoubleFiles(Set<Files> filesSet) {
         for (Files files : filesSet) {
             filesRepository.deleteById(files.getId());
