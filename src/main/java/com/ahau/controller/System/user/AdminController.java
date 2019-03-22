@@ -17,11 +17,11 @@ import java.sql.Timestamp;
 import java.util.*;
 
 /**
- * 超级管理员接口
+ * 管理员接口
  * Created by: zhangli
  */
 @RestController
-@Api(description = "超级管理员接口")
+@Api(description = "管理员接口")
 @RequestMapping(value = "/admin")
 public class AdminController {
 
@@ -45,6 +45,10 @@ public class AdminController {
     @PostMapping("save")
     public Result save(User user, @ApiParam(value = "给用户分配的角色Id", required = true) @RequestParam List<Integer> idList) {
         try {
+//            User findByUserName = this.userService.findByUserName(user.getUserName());
+//            if (findByUserName != null) {
+//                return ResultUtil.error( 500,"用户名已存在！请重新输入用户名");
+//            }
             if (userService.findByUserName(user.getUserName()) != null)
                 return ResultUtil.error(500, "用户名已存在");
             //对密码进行md5两次加密，不加盐
