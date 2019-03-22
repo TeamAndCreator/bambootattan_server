@@ -21,6 +21,7 @@ public interface SpecRepository extends JpaRepository<Spec, Long>, JpaSpecificat
 
     void deleteBySpecIdIn(List<Long> ids);
     void findBySpecIdIn(List<Long> ids);
+
     /**
      * 根据spec的id查找其files
      * 用于更新文件

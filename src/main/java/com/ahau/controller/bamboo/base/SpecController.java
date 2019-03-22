@@ -209,15 +209,15 @@ public class SpecController {
         return ResultUtil.success();
     }
 
-    @GetMapping("findfile")
-    public Set findfile(Long id){
-        try {
-            return specService.getFiles(id);
-        }catch (Exception e){
-            e.printStackTrace();
-            return null;
-        }
-    }
+//    @GetMapping("findfile")
+//    public Set findfile(Long id){
+//        try {
+//            return specService.getFiles(id);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//            return null;
+//        }
+//    }
 
 }
 
