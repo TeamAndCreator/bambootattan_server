@@ -5,18 +5,14 @@ import com.ahau.entity.bamboo.base.Result;
 import com.ahau.entity.system.log.Log;
 import com.ahau.service.system.log.LogService;
 import com.ahau.utils.ResultUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 描述：日志控制层接口
@@ -91,6 +87,31 @@ public class LogController {
         Page<Log> logPage = logService.findLogDateQuery(page, size, startTime, endTime);
         return ResultUtil.success(logPage);
     }
+
+    /**
+     * 删除
+     * @param logId
+     * @return
+     */
+    @ApiOperation(value = "删除日志", notes = "根据url的id来指定删除日志")
+    @DeleteMapping("delete/{logId}")
+    public Result delete(@ApiParam(name = "logId", value = "需删除日志的ID", required = true)
+                         @PathVariable("logId") Long logId) {
+        logService.delete(logId);
+        return ResultUtil.success();
+    }
+
+//    /**
+//     * 批量删除
+//     * @param ids
+//     * @return
+//     */
+//    @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除日志")
+//    @DeleteMapping("deleteByIds")
+//    public Result deleteByIds(@ApiParam(name = "ids", value = "需删除日志的id数组", required = true) @RequestParam List<Long> ids) {
+//        logService.deleteByIds(ids);
+//        return ResultUtil.success();
+//    }
 
 //    /**
 //     * 查询所有日志

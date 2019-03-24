@@ -17,9 +17,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 描述：日志服务层接口
@@ -109,8 +107,57 @@ public class LogService {
      * @return
      */
     public Log save(Log log) {
+//        //判断日期是否在7天外
+//        Calendar calendar = Calendar.getInstance(); //得到日历
+//        calendar.setTime(now); //把当前时间赋给日历
+//        calendar.add(Calendar.DAY_OF_MONTH, -7); //设置为7天前
+//        Date before7days = calendar.getTime(); //得到7天前的时间
+//        if (before7days.getTime() > addtime.getTime()){
+//            return true
+//        }
+        logRepository.delSevenDayLogs();
         return logRepository.save(log);
     }
+
+    /**
+     * 删除
+     * @param id
+     */
+    public void delete(Long id) {
+        logRepository.deleteById(id);
+    }
+
+//    /**
+//     * 批量删除
+//     * @param ids
+//     */
+//    public void deleteByIds(List<Long> ids) {
+//        logRepository.deleteByLogIdIn(ids);
+//    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //    public List<Map<String, Object>> findLogDateQuery(Map<String, Object> map) {
 //        StringBuffer sql = new StringBuffer();
