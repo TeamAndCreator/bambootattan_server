@@ -113,7 +113,7 @@ public class SpecController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultUtil.error(404, e.toString());
+            return ResultUtil.error(1451, "存在子表，无法删除");
         }
         return ResultUtil.success();
     }
@@ -204,7 +204,12 @@ public class SpecController {
                 Set<Files> filesSet = spec.getFiles();
                 filesService.deleteFiles(filesSet);
             }
-            specService.deleteByIds(ids);
+            try{
+                specService.deleteByIds(ids);
+            }catch (Exception e){
+                return ResultUtil.error(1451, "存在子表，无法删除");
+            }
+
         } catch (Exception e) {
             return ResultUtil.error(1451, "存在子表，无法删除");
         }
