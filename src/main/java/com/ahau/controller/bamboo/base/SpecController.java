@@ -71,14 +71,14 @@ public class SpecController {
     @ApiOperation(value = "更新种信息", notes = "根据url的id来指定更新种信息")
     @PutMapping("update")
     public Result update(@ApiParam(name = "spec", value = "要修改的属详细实体spec")
-                                     Spec spec, MultipartFile[] multipartFiles) {
+                                 Spec spec, MultipartFile[] multipartFiles) {
         try {
             //查出原文件并删除
             Set<Files> oldFilesSet = specService.getFiles(spec.getSpecId());
-            if (multipartFiles!=null){
+            if (multipartFiles != null) {
                 if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
                     if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
-                        Set<Files> filesSet = filesService.fileSave(multipartFiles,"bamboo",spec.getGenus().getGenusId());
+                        Set<Files> filesSet = filesService.fileSave(multipartFiles, "bamboo", spec.getGenus().getGenusId());
                         spec.setFiles(filesSet);
                     }
                 }
@@ -86,9 +86,9 @@ public class SpecController {
             specService.update(spec);
             filesService.deleteDoubleFiles(oldFilesSet);
             return ResultUtil.success();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResultUtil.error(500,e.getMessage());
+            return ResultUtil.error(500, e.getMessage());
         }
     }
 
@@ -106,10 +106,14 @@ public class SpecController {
             Spec spec = specService.findById(specId);
             Set<Files> filesSet = spec.getFiles();
             filesService.deleteFiles(filesSet);
-            specService.delete(specId);
+            try {
+                specService.delete(specId);
+            } catch (Exception e) {
+                return ResultUtil.error(1451, "存在子表，无法删除");
+            }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultUtil.error(500, e.toString());
+            return ResultUtil.error(404, e.toString());
         }
         return ResultUtil.success();
     }
@@ -122,19 +126,19 @@ public class SpecController {
      */
     @ApiOperation(value = "创建种", notes = "根据Spec对象创建种")
     @PostMapping(value = "save")
-    public Result save(@ApiParam(name = "spec", value = "要添加的种详细实体spec",required = true) Spec spec, MultipartFile[] multipartFiles) {
+    public Result save(@ApiParam(name = "spec", value = "要添加的种详细实体spec", required = true) Spec spec, MultipartFile[] multipartFiles) {
         try {
             if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
                 if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
-                    Set<Files> filesSet = filesService.fileSave(multipartFiles,"bamboo",spec.getGenus().getGenusId());
+                    Set<Files> filesSet = filesService.fileSave(multipartFiles, "bamboo", spec.getGenus().getGenusId());
                     spec.setFiles(filesSet);
                 }
 
             }
             return ResultUtil.success(specService.save(spec));
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResultUtil.error(500,e.getMessage());
+            return ResultUtil.error(500, e.getMessage());
         }
     }
 
@@ -179,9 +183,9 @@ public class SpecController {
 
             return ResultUtil.success(specPage);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return ResultUtil.error(500,e.getMessage());
+            return ResultUtil.error(500, e.getMessage());
         }
     }
 
@@ -202,23 +206,12 @@ public class SpecController {
             }
             specService.deleteByIds(ids);
         } catch (Exception e) {
-            return ResultUtil.error(500, e.toString());
+            return ResultUtil.error(1451, "存在子表，无法删除");
         }
 
 
         return ResultUtil.success();
     }
-
-//    @GetMapping("findfile")
-//    public Set findfile(Long id){
-//        try {
-//            return specService.getFiles(id);
-//        }catch (Exception e){
-//            e.printStackTrace();
-//            return null;
-//        }
-//    }
-
 }
 
 

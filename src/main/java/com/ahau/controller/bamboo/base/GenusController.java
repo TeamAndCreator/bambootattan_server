@@ -74,7 +74,12 @@ public class GenusController {
     @DeleteMapping("delete/{genusId}")
     public Result delete(@ApiParam(name = "genusId", value = "需删除属的ID", required = true)
                          @PathVariable("genusId") Long genusId) {
-        genusService.delete(genusId);
+        try {
+            genusService.delete(genusId);
+        } catch (Exception e) {
+           return ResultUtil.error(1451, "存在子表，无法删除");
+        }
+
         return ResultUtil.success();
     }
 
@@ -127,6 +132,7 @@ public class GenusController {
     })
     public Result findGenusQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
         Page<Genus> genusPage = genusService.findGenusQuery(page, size, search);
+
         return ResultUtil.success(genusPage);
     }
 
@@ -139,7 +145,12 @@ public class GenusController {
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除属")
     @DeleteMapping("deleteByIds")
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除属的id数组", required = true) @RequestParam List<Long> ids) {
-        genusService.deleteByIds(ids);
+        try {
+            genusService.deleteByIds(ids);
+        } catch (Exception e) {
+            return ResultUtil.error(1451, "存在子表，无法删除");
+        }
+
         return ResultUtil.success();
     }
 }
