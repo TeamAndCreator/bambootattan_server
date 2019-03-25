@@ -77,7 +77,7 @@ public class GenusController {
         try {
             genusService.delete(genusId);
         } catch (Exception e) {
-           return ResultUtil.error(1451, "存在子表，无法删除");
+           return ResultUtil.error(1451, "提示：该属存在竹种信息，因此无法删除！");
         }
 
         return ResultUtil.success();
@@ -148,9 +148,8 @@ public class GenusController {
         try {
             genusService.deleteByIds(ids);
         } catch (Exception e) {
-            return ResultUtil.error(1451, "存在子表，无法删除");
+            return ResultUtil.error(1451, "提示：该属存在竹种信息，因此无法删除");
         }
-
         return ResultUtil.success();
     }
 }

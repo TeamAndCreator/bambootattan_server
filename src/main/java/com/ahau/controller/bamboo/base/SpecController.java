@@ -109,11 +109,11 @@ public class SpecController {
             try {
                 specService.delete(specId);
             } catch (Exception e) {
-                return ResultUtil.error(1451, "存在子表，无法删除");
+                return ResultUtil.error(1451, "提示：该竹种存在形态和性质信息，因此无法删除！");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            return ResultUtil.error(1451, "存在子表，无法删除");
+            return ResultUtil.error(1451, "提示：该竹种存在形态和性质信息，因此无法删除！");
         }
         return ResultUtil.success();
     }
@@ -207,11 +207,11 @@ public class SpecController {
             try{
                 specService.deleteByIds(ids);
             }catch (Exception e){
-                return ResultUtil.error(1451, "存在子表，无法删除");
+                return ResultUtil.error(1451, "提示：该竹种存在形态和性质信息，因此无法删除！");
             }
 
         } catch (Exception e) {
-            return ResultUtil.error(1451, "存在子表，无法删除");
+            return ResultUtil.error(1451, "提示：该竹种存在形态和性质信息，因此无法删除！");
         }
 
 
