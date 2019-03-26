@@ -170,7 +170,7 @@ public class UserController {
             //将用户存入数据库
             userService.save(user);
             //发送邮件激活用户
-            mailSendUtil.sendHTMLMail("liulianjushi@126.com",code,user);
+            mailSendUtil.sendHTMLMail("1172032260@qq.com",code,user);
             return ResultUtil.success();
         }catch (Exception e){
             e.printStackTrace();
