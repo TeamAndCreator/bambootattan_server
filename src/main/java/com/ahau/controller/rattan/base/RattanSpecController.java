@@ -25,7 +25,7 @@ import java.util.Set;
  */
 @RestController
 @RequestMapping("/rattanSpec")
-@Api(description = "种")
+@Api(description = "藤种")
 public class RattanSpecController {
     private final RattanSpecService rattanSpecService;
     private final FilesService filesService;
@@ -69,8 +69,24 @@ public class RattanSpecController {
     @ApiOperation(value = "更新种信息", notes = "根据url的id来指定更新种信息")
     @PutMapping("update")
     public Result update(@ApiParam(name = "rattanSpec", value = "要修改的属详细实体rattanSpec", required = true)
-                         @RequestBody RattanSpec rattanSpec) {
-        return ResultUtil.success(rattanSpecService.update(rattanSpec));
+                         @RequestBody RattanSpec rattanSpec, MultipartFile[] multipartFiles) {
+        try {
+            Set<Files> oldFileSet = rattanSpecService.getFiles(rattanSpec.getSpecId());
+            if (multipartFiles != null) {
+                if (multipartFiles.length != 0) {
+                    if (!multipartFiles[0].isEmpty()){
+                        Set<Files> filesSet = filesService.fileSave(multipartFiles, "rattan",rattanSpec.getRattanGenus().getGenusId());
+                        rattanSpec.setFiles(filesSet);
+                    }
+                }
+            }
+            rattanSpecService.update(rattanSpec);
+            filesService.deleteDoubleFiles(oldFileSet);
+            return ResultUtil.success();
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
     }
 
     /**
@@ -99,15 +115,20 @@ public class RattanSpecController {
      */
     @ApiOperation(value = "创建种", notes = "根据RattanSpec对象创建种")
     @PostMapping("save")
-    public Result save(@ApiParam(name = "rattanSpec", value = "要添加的种详细实体rattanSpec",required = true) RattanSpec rattanSpec, MultipartFile[] multipartFiles) throws IOException {
+    public Result save(@ApiParam(name = "rattanSpec", value = "要添加的种详细实体rattanSpec",required = true) RattanSpec rattanSpec, MultipartFile[] multipartFiles){
+        try{
         if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
             if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
-                Set<Files> filesSet = filesService.fileSave(multipartFiles,"rattan",rattanSpec.getRattanGenus().getGenusId());
+                Set<Files> filesSet = filesService.fileSave(multipartFiles, "rattan", rattanSpec.getRattanGenus().getGenusId());
                 rattanSpec.setFiles(filesSet);
             }
 
         }
         return ResultUtil.success(rattanSpecService.save(rattanSpec));
+    } catch(Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
     }
 
     /**
