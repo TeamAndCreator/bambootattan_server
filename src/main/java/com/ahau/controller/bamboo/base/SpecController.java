@@ -217,6 +217,27 @@ public class SpecController {
 
         return ResultUtil.success();
     }
+
+    @ApiOperation(value = "分页有条件查找(不包含已有地下茎的数据)", notes = "分页有条件查找（不包含已有地下茎的数据）")
+    @GetMapping("findAllQueryWithOutUnderstem")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutUnderstem(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutUnderstem(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+
 }
 
 

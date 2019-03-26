@@ -43,7 +43,7 @@ public class SpecService {
      *
      * @return
      */
-    @Cacheable(value = "specCache")
+    //@Cacheable(value = "specCache")
     public List<Spec> findAll() {
         return specRepository.findAll();
     }
@@ -161,6 +161,41 @@ public class SpecService {
     public Set getFiles(Long id) {
         Set filesSet=new HashSet(specRepository.getFiles(id));
         return filesSet;
+    }
+
+    /**
+     *  分页有条件查找（不包含已有地下茎的数据）
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    public Page<Spec> findAllQueryWithOutUnderstem(Integer page, Integer size, String search) {
+        Pageable pageable = PageRequest.of(page, size);
+        if (!StringUtils.isEmpty(search)) {
+            return specRepository.findAllQueryWithOutUnderstem((Specification<Spec>) (root, criteriaQuery, criteriaBuilder) -> {
+
+                //用于暂时存放查询条件的集合
+                List<Predicate> list = new ArrayList<>();
+                list.add(criteriaBuilder.like(root.get("specNameCh").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specNameEn").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specNameLd").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specNameOth").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specCode").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specBarCode").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specDna").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specDomestic").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specForeign").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
+                Predicate[] p = new Predicate[list.size()];
+                return criteriaBuilder.or(list.toArray(p));
+            }, pageable);
+        } else {
+            return specRepository.findAllQueryWithOutUnderstem(pageable);
+        }
     }
 
 }
