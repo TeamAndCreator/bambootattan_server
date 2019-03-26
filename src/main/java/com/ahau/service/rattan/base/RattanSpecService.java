@@ -15,9 +15,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  *  藤种服务层接口
@@ -146,5 +144,15 @@ public class RattanSpecService {
      */
     public void deleteByIds(List<Long> ids) {
         rattanSpecRepository.deleteBySpecIdIn(ids);
+    }
+
+    /**
+     * 查找RattanSpec中的文件
+     * @param id
+     * @return
+     */
+    public Set getFiles(Long id) {
+        Set filesSet=new HashSet(rattanSpecRepository.getFiles(id));
+        return filesSet;
     }
 }
