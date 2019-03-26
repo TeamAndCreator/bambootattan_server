@@ -218,6 +218,13 @@ public class SpecController {
         return ResultUtil.success();
     }
 
+    /**
+     * 分页有条件查找(不包含已有地下茎的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
     @ApiOperation(value = "分页有条件查找(不包含已有地下茎的数据)", notes = "分页有条件查找（不包含已有地下茎的数据）")
     @GetMapping("findAllQueryWithOutUnderstem")
     @ApiImplicitParams({
@@ -236,6 +243,425 @@ public class SpecController {
             return ResultUtil.error(500, e.getMessage());
         }
     }
+
+    /**
+     * 分页有条件查找(不包含已有竹秆的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有竹秆的数据)", notes = "分页有条件查找（不包含已有竹秆的数据）")
+    @GetMapping("findAllQueryWithOutCulm")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutCulm(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutCulm(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有花果形态的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有花果形态的数据)", notes = "分页有条件查找（不包含已有花果形态的数据）")
+    @GetMapping("findAllQueryWithOutFlowerfruit")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutFlowerfruit(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutFlowerfruit(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有竹叶的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有竹叶的数据)", notes = "分页有条件查找（不包含已有竹叶的数据）")
+    @GetMapping("findAllQueryWithOutLeaf")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutLeaf(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutLeaf(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有箨鞘的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有箨鞘的数据)", notes = "分页有条件查找（不包含已有箨鞘的数据）")
+    @GetMapping("findAllQueryWithOutSheath")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutSheath(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutSheath(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有箨耳的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有箨耳的数据)", notes = "分页有条件查找（不包含已有箨耳的数据）")
+    @GetMapping("findAllQueryWithOutSheathear")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutSheathear(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutSheathear(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有箨环的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有箨环的数据)", notes = "分页有条件查找（不包含已有箨环的数据）")
+    @GetMapping("findAllQueryWithOutSheathnode")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutSheathnode(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutSheathnode(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有箨片的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有箨片的数据)", notes = "分页有条件查找（不包含已有箨片的数据）")
+    @GetMapping("findAllQueryWithOutSheathshell")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutSheathshell(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutSheathshell(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有箨舌的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有箨舌的数据)", notes = "分页有条件查找（不包含已有箨舌的数据）")
+    @GetMapping("findAllQueryWithOutSheathtongue")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutSheathtongue(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutSheathtongue(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有解剖性质_导管形态特征的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有解剖性质_导管形态特征的数据)", notes = "分页有条件查找（不包含已有解剖性质_导管形态特征的数据）")
+    @GetMapping("findAllQueryWithOutCathermorphology")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutCathermorphology(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutCathermorphology(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有化学性质的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有化学性质的数据)", notes = "分页有条件查找（不包含已有化学性质的数据）")
+    @GetMapping("findAllQueryWithOutChemistry")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutChemistry(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutChemistry(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有解剖性质_纤维形态特征的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有解剖性质_纤维形态特征的数据)", notes = "分页有条件查找（不包含已有解剖性质_纤维形态特征的数据）")
+    @GetMapping("findAllQueryWithOutFibermorphology")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutFibermorphology(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutFibermorphology(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有力学性质的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有力学性质的数据)", notes = "分页有条件查找（不包含已有力学性质的数据）")
+    @GetMapping("findAllQueryWithOutMechanics")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutMechanics(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutMechanics(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有物理性质的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有物理性质的数据)", notes = "分页有条件查找（不包含已有物理性质的数据）")
+    @GetMapping("findAllQueryWithOutPhysics")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutPhysics(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutPhysics(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有结构性质的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有结构性质的数据)", notes = "分页有条件查找（不包含已有结构性质的数据）")
+    @GetMapping("findAllQueryWithOutStructure")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutStructure(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutStructure(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有解剖性质_组织比量的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有解剖性质_组织比量的数据)", notes = "分页有条件查找（不包含已有解剖性质_组织比量的数据）")
+    @GetMapping("findAllQueryWithOutTissueproportion")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTissueproportion(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutTissueproportion(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有解剖性质_维管束形态特征)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有解剖性质_维管束形态特征)", notes = "分页有条件查找（不包含已有解剖性质_维管束形态特征）")
+    @GetMapping("findAllQueryWithOutVascularbundelmorphology")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutVascularbundelmorphology(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<Spec> specPage = specService.findAllQueryWithOutVascularbundelmorphology(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+
+
 
 
 }
