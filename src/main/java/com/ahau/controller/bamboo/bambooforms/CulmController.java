@@ -82,6 +82,51 @@ public class CulmController {
         return ResultUtil.success(culmService.save(culm));
     }
 
+
+
+
+
+
+//    @ApiOperation(value = "查找种", notes = "根据Culm对象查找种")
+//    @GetMapping(value = "findBySpec/{specId}")
+//    public Result findBySpec(@ApiParam(name = "specId", value = "需要查找的种的Id", required = true) @PathVariable("specId") Long specId) {
+//        try {
+//            Culm culm = culmService.findBySpecId(specId);
+//            if (culm != null) {
+//                return ResultUtil.error(500, "已存在该种");
+//            } else {
+//                return ResultUtil.success();
+//            }
+//        }catch (Exception e) {
+//            e.printStackTrace();
+//            return ResultUtil.error(e.hashCode(), e.getMessage());
+//        }
+//    }
+
+//    @ApiOperation(value = "查找种", notes = "根据Culm对象查找种")
+//    @GetMapping("findBySpec/{spec}")
+//    public Result findBySpec(Spec spec) {
+//        Culm culm = culmService.findBySpec(spec);
+//        if (culm != null) {
+//            return ResultUtil.error(500, "已添加该种竹子的竹秆数据");
+//        }
+//        return ResultUtil.success(culmService.findBySpec(spec));
+//    }
+
+//    public Result findBySpec(Spec spec) {
+//        try {
+//            Culm culm = culmService.findBySpec(spec);
+//            if (culm != null)
+//                return ResultUtil.error(500, "已添加该种竹子的竹竿数据");
+//            return ResultUtil.success();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            return ResultUtil.error(e.hashCode(), e.getMessage());
+//        }
+//    }
+
+
+
     /**
      * 分页无条件查找
      * @param page

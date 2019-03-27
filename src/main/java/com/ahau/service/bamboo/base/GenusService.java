@@ -58,7 +58,7 @@ public class GenusService {
      * @param id
      * @return
      */
-    @Cacheable(value = "'findById'")
+    //@Cacheable(value = "'findById'")
     public Genus findById(Long id) {
 
         Optional<Genus> genusOptional = genusRepository.findById(id);
@@ -78,7 +78,7 @@ public class GenusService {
      * @param genus
      * @return
      */
-    @CachePut(key = "'genusCache'")
+    //@CachePut(key = "'genusCache'")
     public Genus update(Genus genus) {
         genusRepository.save(genus);
         return genus;
@@ -99,7 +99,7 @@ public class GenusService {
      *
      * @param id
      */
-    @CacheEvict(key = "'genusCache'")
+    //@CacheEvict(key = "'genusCache'")
     public void delete(Long id) {
         genusRepository.deleteById(id);
     }
