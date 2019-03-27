@@ -2,6 +2,7 @@ package com.ahau.service.bamboo.bambooforms;
 
 import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.bambooforms.Culm;
+import com.ahau.entity.bamboo.base.Spec;
 import com.ahau.repository.bamboo.bambooforms.CulmRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,9 +16,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 /**
  * 竹秆服务层接口
@@ -136,4 +135,28 @@ public class CulmService {
     public  void  deleteByIds(List<Long> ids){
         culmRepository.deleteByCulmIdIn(ids);
     }
+
+
+
+
+
+
+//    public Culm findBySpecId(Long specId){
+//        return culmRepository.findBySpecId(specId);
+//    }
+//    public Set findBySpec(Long id) {
+//        Set specSet=new HashSet(culmRepository.findBySpec(id));
+//        return specSet;
+//    }
+//    public Culm findBySpec(Long specId){
+//        return culmRepository.findBySpec(specId);
+//    }
+//    /**
+//     * 添加竹秆信息时查找种，判断是否重复
+//     * @param spec
+//     * @return
+//     */
+//    public Culm findBySpec(Spec spec){
+//        return culmRepository.findBySpec(spec);
+//    }
 }
