@@ -208,6 +208,17 @@ public class UserController {
         }
     }
 
+//    @ApiOperation(value = "更新激活状态")
+//    @GetMapping("updateActiveFlag")
+//    public Result updateActiveFlag(Long userId) {
+//        try {
+//            userService.updateActiveFlag(userId);
+//            return ResultUtil.success();
+//        }catch (Exception e) {
+//            return ResultUtil.error(500,e.getMessage());
+//        }
+//    }
+
 
 //    @ApiOperation(value = "登出")
 //    @PostMapping(value = "logout")
