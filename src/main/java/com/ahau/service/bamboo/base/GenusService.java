@@ -73,6 +73,15 @@ public class GenusService {
     }
 
     /**
+     * 根据属的中文名查找属
+     * @param genusNameCh
+     * @return
+     */
+    public Genus findByGenusNameCh(String genusNameCh){
+        return genusRepository.findByGenusNameCh(genusNameCh);
+    }
+
+    /**
      * 更新
      *
      * @param genus

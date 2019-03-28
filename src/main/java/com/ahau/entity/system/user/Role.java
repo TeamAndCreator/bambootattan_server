@@ -1,9 +1,8 @@
 package com.ahau.entity.system.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * 实体类：（角色）
@@ -16,6 +15,9 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private Set<Authority> authorities = new HashSet<>();
 
     /* 角色名称 */
     private String roleName;
@@ -66,10 +68,19 @@ public class Role {
         this.canDel = canDel;
     }
 
+    public Set<Authority> getAuthorities() {
+        return authorities;
+    }
+
+    public void setAuthorities(Set<Authority> authorities) {
+        this.authorities = authorities;
+    }
+
     @Override
     public String toString() {
         return "Role{" +
                 "roleId=" + roleId +
+                ", authorities=" + authorities +
                 ", roleName='" + roleName + '\'' +
                 ", remark='" + remark + '\'' +
                 ", sortNum=" + sortNum +

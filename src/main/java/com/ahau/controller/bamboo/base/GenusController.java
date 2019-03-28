@@ -92,7 +92,14 @@ public class GenusController {
     @ApiOperation(value = "创建属", notes = "根据Genus对象创建属")
     @PostMapping("save")
     public Result save(@ApiParam(name = "genus", value = "要添加的属详细实体genus", required = true) @RequestBody Genus genus) {
-        return ResultUtil.success(genusService.save(genus));
+        try {
+            if (genusService.findByGenusNameCh(genus.getGenusNameCh())!=null)
+                return ResultUtil.error(500,"该竹属已存在");
+            return ResultUtil.success(genusService.save(genus));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500,e.getMessage());
+        }
     }
 
     /**

@@ -73,6 +73,8 @@ public class SpecController {
     public Result update(@ApiParam(name = "spec", value = "要修改的属详细实体spec")
                                  Spec spec, MultipartFile[] multipartFiles) {
         try {
+            if (specService.IsNameChExisted(spec.getSpecNameCh(),spec.getSpecId()))
+                return ResultUtil.error(500, "该竹种已存在");
             //查出原文件并删除
             Set<Files> oldFilesSet = specService.getFiles(spec.getSpecId());
             if (multipartFiles != null) {
@@ -128,6 +130,8 @@ public class SpecController {
     @PostMapping(value = "save")
     public Result save(@ApiParam(name = "spec", value = "要添加的种详细实体spec", required = true) Spec spec, MultipartFile[] multipartFiles) {
         try {
+            if (specService.IsNameChExisted(spec.getSpecNameCh()))
+                return ResultUtil.error(500,"该竹种已存在");
             if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
                 if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
                     Set<Files> filesSet = filesService.fileSave(multipartFiles, "bamboo", spec.getGenus().getGenusId());

@@ -66,6 +66,33 @@ public class SpecService {
         return spec;
     }
 
+//    /**
+//     * 根据种的中文名查找种
+//     * @param specNameCh
+//     * @return
+//     */
+//    public Spec findBySpecNameCh(String specNameCh){
+//        return specRepository.findBySpecNameCh(specNameCh);
+//    }
+
+    /**
+     * 判断所有的数据中是否已经存在该中文名称
+     * @param nameCh 中文名称
+     * @return true-存在，false-不存在
+     */
+    public Boolean IsNameChExisted(String nameCh){
+        return specRepository.isNameChExisted(nameCh)>0;
+    }
+
+    /**
+     * 判断不包括指定种的其他数据中是否已经存在该中文名称
+     * @param nameCh 中文名称
+     * @return true-存在，false-不存在
+     */
+    public Boolean IsNameChExisted(String nameCh,Long specId){
+        return specRepository.isNameChExisted(nameCh,specId)>0;
+    }
+
     /**
      * 更新
      *
