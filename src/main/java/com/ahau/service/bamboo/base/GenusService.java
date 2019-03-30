@@ -162,4 +162,9 @@ public class GenusService {
     public void deleteByIds(List<Long> ids) {
         genusRepository.deleteByGenusIdIn(ids);
     }
+
+//    public boolean insertOrUpdateAllColum(Genus genus) {
+//        genusRepository.save(genus);
+//        return false;
+//    }
 }

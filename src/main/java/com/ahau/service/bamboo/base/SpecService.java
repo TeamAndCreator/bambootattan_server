@@ -162,6 +162,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -216,6 +218,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -251,6 +255,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -286,6 +292,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -321,6 +329,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -356,6 +366,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -391,6 +403,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -426,6 +440,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -461,6 +477,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -496,6 +514,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -531,6 +551,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -566,6 +588,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -601,6 +625,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -636,6 +662,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -671,6 +699,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -706,6 +736,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -741,6 +773,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
@@ -776,6 +810,8 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));

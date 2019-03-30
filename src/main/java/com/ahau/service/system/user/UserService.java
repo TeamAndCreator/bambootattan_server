@@ -126,6 +126,9 @@ public class UserService {
 
                 //用于暂时存放查询条件的集合
                 List<Predicate> list = new ArrayList<>();
+                list.add(criteriaBuilder.like(root.get("mailAcct").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("realName").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("userUnit").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("userAcct").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("userName").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("userPwd").as(String.class), "%" + search + "%"));
