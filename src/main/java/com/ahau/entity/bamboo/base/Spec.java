@@ -65,6 +65,12 @@ public class Spec {
     @Column(length = 100000)
     private String specDesc;
 
+    /* 地点 */
+    private String specLocation;
+
+    /* 时间 */
+    private String addTime;
+
     /* 排序序号 */
     private int specSortNum;
 
@@ -196,6 +202,22 @@ public class Spec {
         this.specSortNum = specSortNum;
     }
 
+    public String getSpecLocation() {
+        return specLocation;
+    }
+
+    public void setSpecLocation(String specLocation) {
+        this.specLocation = specLocation;
+    }
+
+    public String getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(String addTime) {
+        this.addTime = addTime;
+    }
+
     @Override
     public String toString() {
         return "Spec{" +
@@ -214,6 +236,8 @@ public class Spec {
                 ", specVidio='" + specVidio + '\'' +
                 ", specImgs='" + specImgs + '\'' +
                 ", specDesc='" + specDesc + '\'' +
+                ", specLocation='" + specLocation + '\'' +
+                ", addTime='" + addTime + '\'' +
                 ", specSortNum=" + specSortNum +
                 '}';
     }
