@@ -16,6 +16,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    /* 用户邮箱 */
+    private String mailAcct;
+    /* 用户真实姓名 */
+    private String realName;
+    /* 用户所在单位 */
+    private String userUnit;
     /* 登录账号 */
     private String userAcct;
     /* 用户姓名 */
@@ -46,6 +52,30 @@ public class User {
     private Set<Role> roles;
     /*激活码*/
     private String code;
+
+    public String getMailAcct() {
+        return mailAcct;
+    }
+
+    public void setMailAcct(String mailAcct) {
+        this.mailAcct = mailAcct;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
+    }
+
+    public String getUserUnit() {
+        return userUnit;
+    }
+
+    public void setUserUnit(String userUnit) {
+        this.userUnit = userUnit;
+    }
 
     public String getCode() {
         return code;
@@ -171,6 +201,9 @@ public class User {
     public String toString() {
         return "User{" +
                 "userId=" + userId +
+                ", mailAcct='" + mailAcct + '\'' +
+                ", realName='" + realName + '\'' +
+                ", userUnit='" + userUnit + '\'' +
                 ", userAcct='" + userAcct + '\'' +
                 ", userName='" + userName + '\'' +
                 ", userPwd='" + userPwd + '\'' +
