@@ -1,9 +1,8 @@
 package com.ahau.entity.system.user;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 
 /**
  * 实体类：（用户权限）
@@ -27,6 +26,12 @@ public class Authority {
     private int authEdit;
     /* 删除 */
     private int authDelete;
+
+    /* 角色标识 */
+    @ManyToOne
+    @JoinColumn(name = "role_id")
+    @JsonBackReference
+    private Role role;
 
     public Long getAuthId() {
         return authId;
@@ -76,10 +81,19 @@ public class Authority {
         this.authDelete = authDelete;
     }
 
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "Authority{" +
                 "authId=" + authId +
+                ", role="+role.toString()+
                 ", authName='" + authName + '\'' +
                 ", authView=" + authView +
                 ", authCreate=" + authCreate +

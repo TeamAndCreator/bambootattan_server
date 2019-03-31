@@ -1,6 +1,7 @@
 package com.ahau.service.system.user;
 
 import com.ahau.BambootattanServerApplication;
+import com.ahau.entity.system.user.Authority;
 import com.ahau.entity.system.user.Role;
 import com.ahau.repository.system.user.RoleRepository;
 import org.apache.logging.log4j.LogManager;
@@ -15,9 +16,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Transactional
 @Service
@@ -63,6 +62,10 @@ public class RoleService {
         return role;
     }
 
+    /**
+     * 删除
+     * @param id
+     */
     public void delete(int id) {
         roleRepository.deleteById(id);
     }
@@ -73,7 +76,20 @@ public class RoleService {
      * @return
      */
     public Role save(Role role) {
-        return roleRepository.save(role);
+        Set<Authority> authorities =role.getAuthorities();
+        Set<Authority> authoritiesEmpty=new HashSet<>();
+        role.setAuthorities(authoritiesEmpty);
+        roleRepository.save(role);
+        Authority[] arr=new  Authority[authorities.size()];
+        authorities.toArray(arr);
+        for (int i = 0; i <arr.length ; i++) {
+            Role iRole=new Role();
+            iRole.setRoleId(role.getRoleId());
+            arr[i].setRole(iRole);
+        }
+        role.setAuthorities(new HashSet<>(Arrays.asList(arr)));
+        update(role);
+        return role;
     }
 
     /**
