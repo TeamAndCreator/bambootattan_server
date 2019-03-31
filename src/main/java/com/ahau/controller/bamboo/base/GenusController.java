@@ -176,37 +176,37 @@ public class GenusController {
         return ResultUtil.success();
     }
 
-    @ApiOperation(value = "导出", notes = "导出竹属数据到Excel")
-    @PostMapping("exportExcel")
-    public Result addToExcel() throws Exception {
-        // 获取数据
-        List<Genus> list = genusService.findAll();
-
-        // excel标题
-        String[] title = {"属Id", "中文名", "英文名", "拉丁名", "别名", "描述"};
-
-        // sheet文件名
-        String sheetName = "竹属";
-
-        // 将数据库中数据存到String数组中
-        String[][] values = new String[list.size()][6];
-        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getGenusId() != null) {
-                values[i][0] = list.get(i).getGenusId().toString();
-            }
-            values[i][1] = list.get(i).getGenusNameCh();
-            values[i][2] = list.get(i).getGenusNameEn();
-            values[i][3] = list.get(i).getGenusNameLd();
-            values[i][4] = list.get(i).getGenusNameOth();
-            values[i][2] = list.get(i).getGenusDesc();
-        }
-        FileOutputStream fileOutputStream = new FileOutputStream("F:/竹属.xls");
-        HSSFWorkbook workbook = ExcelUtils.getHSSFWorkbook(sheetName, title, values);
-        workbook.write(fileOutputStream);
-        fileOutputStream.close();
-        return ResultUtil.success("导出成功");
-    }
+//    @ApiOperation(value = "导出", notes = "导出竹属数据到Excel")
+//    @PostMapping("exportExcel")
+//    public Result addToExcel() throws Exception {
+//        // 获取数据
+//        List<Genus> list = genusService.findAll();
+//
+//        // excel标题
+//        String[] title = {"属Id", "中文名", "英文名", "拉丁名", "别名", "描述"};
+//
+//        // sheet文件名
+//        String sheetName = "竹属";
+//
+//        // 将数据库中数据存到String数组中
+//        String[][] values = new String[list.size()][6];
+//        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//        for (int i = 0; i < list.size(); i++) {
+//            if (list.get(i).getGenusId() != null) {
+//                values[i][0] = list.get(i).getGenusId().toString();
+//            }
+//            values[i][1] = list.get(i).getGenusNameCh();
+//            values[i][2] = list.get(i).getGenusNameEn();
+//            values[i][3] = list.get(i).getGenusNameLd();
+//            values[i][4] = list.get(i).getGenusNameOth();
+//            values[i][2] = list.get(i).getGenusDesc();
+//        }
+//        FileOutputStream fileOutputStream = new FileOutputStream("F:/竹属.xls");
+//        HSSFWorkbook workbook = ExcelUtils.getHSSFWorkbook(sheetName, title, values);
+//        workbook.write(fileOutputStream);
+//        fileOutputStream.close();
+//        return ResultUtil.success("导出成功");
+//    }
 
 //    @ApiOperation(value = "导入", notes = "导入竹属Excel文件到数据库")
 //    @PostMapping("importExcel")
