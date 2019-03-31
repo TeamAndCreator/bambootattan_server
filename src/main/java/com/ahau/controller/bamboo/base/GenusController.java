@@ -4,22 +4,14 @@ import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Genus;
 import com.ahau.entity.bamboo.base.Result;
 import com.ahau.service.bamboo.base.GenusService;
-import com.ahau.service.bamboo.base.SpecService;
-import com.ahau.utils.ExcelUtils;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.Cacheable;
 
-import javax.servlet.http.HttpServletRequest;
-import java.io.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 
