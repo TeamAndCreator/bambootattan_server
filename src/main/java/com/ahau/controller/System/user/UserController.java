@@ -79,7 +79,18 @@ public class UserController {
 //                return Msg.fail();
             return ResultUtil.error(500, "验证未通过!");
         }
-        return ResultUtil.success(jsessionid);
+//        return ResultUtil.success(jsessionid);
+        User user=userService.findByUserName(userName);
+
+        class  Res{
+            public String getJsessionid(){
+                return jsessionid;
+            }
+            public User getUser(){
+                return user;
+            }
+        }
+        return ResultUtil.success(new Res());
     }
 
 
@@ -129,6 +140,9 @@ public class UserController {
     @ApiOperation(value = "更新用户信息", notes = "根据url的id来指定更新用户信息")
     @PutMapping("update")
     public Result update(@ApiParam(name = "user", value = "要修改的用户详细实体user", required = true) @RequestBody User user) {
+        //对密码进行md5两次加密，不加盐
+        Object password = new SimpleHash("MD5", user.getUserPwd(), null, 2);
+        user.setUserPwd(String.valueOf(password));
         return ResultUtil.success(userService.update(user));
     }
 
