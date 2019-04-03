@@ -3,6 +3,7 @@ package com.ahau.service.system.user;
 import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.system.user.Authority;
 import com.ahau.entity.system.user.Role;
+import com.ahau.repository.system.user.AuthorityRepository;
 import com.ahau.repository.system.user.RoleRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -16,6 +17,7 @@ import org.springframework.util.StringUtils;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
+import java.lang.reflect.Array;
 import java.util.*;
 
 @Transactional
@@ -26,7 +28,9 @@ public class RoleService {
     private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
 
     @Autowired
-    public RoleService(RoleRepository roleRepository) {this.roleRepository = roleRepository;}
+    public RoleService(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
+    }
 
     /**
      * 查询所有角色
@@ -58,14 +62,9 @@ public class RoleService {
      * @return
      */
     public Role update(Role role) {
-        roleRepository.save(role);
-        return role;
+        return  roleRepository.save(role);
     }
 
-    /**
-     * 删除
-     * @param id
-     */
     public void delete(int id) {
         roleRepository.deleteById(id);
     }
@@ -138,15 +137,7 @@ public class RoleService {
         roleRepository.deleteByRoleIdIn(ids);
     }
 
-    /**
-     * 批量查找
-     * @param roleIds
-     * @return
-     */
     public List<Role> findByRoleIdIn(List<Long> roleIds){
         return roleRepository.findByRoleIdIn(roleIds);
     }
 }
-
-
-
