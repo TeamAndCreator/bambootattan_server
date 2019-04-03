@@ -138,4 +138,15 @@ public class RoleService {
         roleRepository.deleteByRoleIdIn(ids);
     }
 
+    /**
+     * 批量查找
+     * @param roleIds
+     * @return
+     */
+    public List<Role> findByRoleIdIn(List<Long> roleIds){
+        return roleRepository.findByRoleIdIn(roleIds);
+    }
 }
+
+
+
