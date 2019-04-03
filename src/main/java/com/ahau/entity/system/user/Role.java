@@ -1,10 +1,10 @@
 package com.ahau.entity.system.user;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 /**
  * 实体类：（角色）
@@ -18,8 +18,7 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int roleId;
 
-    @OneToMany(mappedBy = "role",cascade =
-            {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REMOVE,CascadeType.MERGE,CascadeType.REFRESH},orphanRemoval = true)
+    @OneToMany(mappedBy = "role",cascade = {CascadeType.DETACH,CascadeType.PERSIST,CascadeType.REMOVE,CascadeType.MERGE,CascadeType.REFRESH},orphanRemoval = true)
     @JsonManagedReference
     private Set<Authority> authorities = new HashSet<>();
 
@@ -80,11 +79,11 @@ public class Role {
         this.authorities = authorities;
     }
 
+
     @Override
     public String toString() {
         return "Role{" +
                 "roleId=" + roleId +
-                ", authorities=" + authorities +
                 ", roleName='" + roleName + '\'' +
                 ", remark='" + remark + '\'' +
                 ", sortNum=" + sortNum +

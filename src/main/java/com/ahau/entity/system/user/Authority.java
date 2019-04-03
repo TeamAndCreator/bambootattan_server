@@ -1,9 +1,8 @@
 package com.ahau.entity.system.user;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import javax.persistence.*;
-
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 /**
  * 实体类：（用户权限）
  * Created by: zhangli
@@ -26,6 +25,7 @@ public class Authority {
     private int authEdit;
     /* 删除 */
     private int authDelete;
+
 
     /* 角色标识 */
     @ManyToOne
@@ -80,6 +80,7 @@ public class Authority {
     public void setAuthDelete(int authDelete) {
         this.authDelete = authDelete;
     }
+
 
     public Role getRole() {
         return role;
