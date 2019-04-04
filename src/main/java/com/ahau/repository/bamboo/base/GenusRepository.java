@@ -18,10 +18,10 @@ public interface GenusRepository extends JpaRepository<Genus, Long>, JpaSpecific
     void deleteByGenusIdIn(List<Long> ids);
     void findByGenusIdIn(List<Long> ids);
 
-    Genus findByGenusNameCh(String genusNameCh);
+//    Genus findByGenusNameCh(String genusNameCh);
 
-//    @Query(value = "SELECT COUNT(genusId) FROM Genus WHERE genusNameCh=?1")
-//    Integer isNameExisted(String namech);
-//    @Query(value = "SELECT COUNT(genusId) FROME Genus WHERE genusNamech=?1 AND genusId<>?2")
-//    Integer isNameChExisted(String nameCh,Long genusId);
+    @Query(value = "SELECT COUNT(genusId) FROM Genus WHERE genusNameCh=?1")
+    Integer isNameChExisted(String nameCh);
+    @Query(value = "SELECT COUNT(genusId) FROM Genus WHERE genusNameCh=?1 AND genusId<>?2")
+    Integer isNameChExisted(String nameCh,Long genusId);
 }

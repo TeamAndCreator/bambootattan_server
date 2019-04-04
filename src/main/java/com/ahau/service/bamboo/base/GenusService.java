@@ -72,13 +72,31 @@ public class GenusService {
         return genus;
     }
 
+//    /**
+//     * 根据属的中文名查找属
+//     * @param genusNameCh
+//     * @return
+//     */
+//    public Genus findByGenusNameCh(String genusNameCh){
+//        return genusRepository.findByGenusNameCh(genusNameCh);
+//    }
+
     /**
-     * 根据属的中文名查找属
-     * @param genusNameCh
-     * @return
+     * 判断所有的数据中是否已经存在该中文名称
+     * @param nameCh 中文名称
+     * @return true-存在，false-不存在
      */
-    public Genus findByGenusNameCh(String genusNameCh){
-        return genusRepository.findByGenusNameCh(genusNameCh);
+    public Boolean IsNameChExisted(String nameCh){
+        return genusRepository.isNameChExisted(nameCh)>0;
+    }
+
+    /**
+     * 判断不包括指定种的其他数据中是否已经存在该中文名称
+     * @param nameCh 中文名称
+     * @return true-存在，false-不存在
+     */
+    public Boolean IsNameChExisted(String nameCh,Long genusId){
+        return genusRepository.isNameChExisted(nameCh,genusId)>0;
     }
 
     /**
