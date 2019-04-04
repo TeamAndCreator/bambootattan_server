@@ -29,7 +29,7 @@ import java.util.Set;
 public class RattanSpecController {
     private final RattanSpecService rattanSpecService;
     private final FilesService filesService;
-    private static final Logger LOGGER = LogManager.getLogger(RattanSpec.class);
+    private static final Logger LOGGER = LogManager.getLogger(RattanSpecController.class);
 
     @Autowired
     public RattanSpecController(RattanSpecService rattanSpecService, FilesService filesService) {
