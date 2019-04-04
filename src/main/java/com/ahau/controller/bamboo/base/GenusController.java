@@ -61,9 +61,9 @@ public class GenusController {
     @ApiOperation(value = "更新属信息", notes = "根据url的id来指定更新属信息")
     @PutMapping("update")
     public Result update(@ApiParam(name = "genus", value = "要修改的属详细实体genus", required = true)
-                         @RequestBody Genus genus) {
+                                     Genus genus) {
         try {
-            if (genusService.findByGenusNameCh(genus.getGenusNameCh()) != null)
+            if (genusService.IsNameChExisted(genus.getGenusNameCh(),genus.getGenusId()))
                 return ResultUtil.error(500, "该竹属已存在");
             return ResultUtil.success(genusService.update(genus));
         } catch (Exception e) {
@@ -101,7 +101,7 @@ public class GenusController {
     @PostMapping("save")
     public Result save(@ApiParam(name = "genus", value = "要添加的属详细实体genus", required = true) @RequestBody Genus genus) {
         try {
-            if (genusService.findByGenusNameCh(genus.getGenusNameCh()) != null)
+            if (genusService.IsNameChExisted(genus.getGenusNameCh()))
                 return ResultUtil.error(500, "该竹属已存在");
             return ResultUtil.success(genusService.save(genus));
         } catch (Exception e) {

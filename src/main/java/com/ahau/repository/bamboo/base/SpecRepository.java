@@ -28,7 +28,7 @@ public interface SpecRepository extends JpaRepository<Spec, Long>, JpaSpecificat
     @Query(value = "SELECT COUNT(specId) FROM Spec WHERE specNameCh=?1")
     Integer isNameChExisted(String nameCh);
     @Query(value = "SELECT COUNT(specId) FROM Spec WHERE specNameCh=?1 AND specId<>?2")
-    Integer isNameChExisted(String namech,Long specId);
+    Integer isNameChExisted(String nameCh,Long specId);
 
     /**
      * 根据spec的id查找其files
