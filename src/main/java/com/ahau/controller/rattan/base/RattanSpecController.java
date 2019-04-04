@@ -71,6 +71,8 @@ public class RattanSpecController {
     public Result update(@ApiParam(name = "rattanSpec", value = "要修改的属详细实体rattanSpec", required = true)
                          @RequestBody RattanSpec rattanSpec, MultipartFile[] multipartFiles) {
         try {
+            if (rattanSpecService.IsNameChExisted(rattanSpec.getSpecNameCh(),rattanSpec.getSpecId()))
+                return ResultUtil.error(500,"该藤种已存在");
             Set<Files> oldFileSet = rattanSpecService.getFiles(rattanSpec.getSpecId());
             if (multipartFiles != null) {
                 if (multipartFiles.length != 0) {
@@ -83,7 +85,7 @@ public class RattanSpecController {
             rattanSpecService.update(rattanSpec);
             filesService.deleteDoubleFiles(oldFileSet);
             return ResultUtil.success();
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             return ResultUtil.error(500, e.getMessage());
         }
@@ -100,9 +102,17 @@ public class RattanSpecController {
     public Result delete(@ApiParam(name = "specId", value = "需删除种的ID", required = true)
                          @PathVariable("specId") Long specId) {
         try{
-            rattanSpecService.delete(specId);
+            RattanSpec rattanSpec = rattanSpecService.findById(specId);
+            Set<Files> filesSet = rattanSpec.getFiles();
+            filesService.deleteFiles(filesSet);
+            try {
+                rattanSpecService.delete(specId);
+            }catch (Exception e) {
+                return ResultUtil.error(1451, "提示：该藤种存在形态和性质信息，因此无法删除！");
+            }
         }catch (Exception e){
-            return ResultUtil.error(500,e.toString());
+            e.printStackTrace();
+            return ResultUtil.error(1451,"提示：该竹种存在形态和性质信息，因此无法删除！");
         }
         return ResultUtil.success();
     }
@@ -117,6 +127,8 @@ public class RattanSpecController {
     @PostMapping("save")
     public Result save(@ApiParam(name = "rattanSpec", value = "要添加的种详细实体rattanSpec",required = true) RattanSpec rattanSpec, MultipartFile[] multipartFiles){
         try{
+            if (rattanSpecService.IsNameChExisted(rattanSpec.getSpecNameCh()))
+                return ResultUtil.error(500,"该藤种已存在");
         if (multipartFiles.length != 0) {//ajax发过来没有文件时可以不用执行
             if (!multipartFiles[0].isEmpty()) {//form发过来没有文件时可以不用执行
                 Set<Files> filesSet = filesService.fileSave(multipartFiles, "rattan", rattanSpec.getRattanGenus().getGenusId());
@@ -183,12 +195,19 @@ public class RattanSpecController {
     @DeleteMapping("deleteByIds")
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除种的id数组", required = true) @RequestParam List<Long> ids) {
         try{
-            rattanSpecService.deleteByIds(ids);
+            for (Long specId : ids) {
+                RattanSpec rattanSpec = rattanSpecService.findById(specId);
+                Set<Files> filesSet = rattanSpec.getFiles();
+                filesService.deleteFiles(filesSet);
+            }
+            try {
+                rattanSpecService.deleteByIds(ids);
+            } catch (Exception e){
+                return ResultUtil.error(1451,"提示：该藤种存在形态和性质信息，因此无法删除！");
+            }
         }catch (Exception e){
-            return ResultUtil.error(500,e.toString());
+            return ResultUtil.error(1451,"提示：该竹种存在形态和性质信息，因此无法删除！");
         }
-
-
         return ResultUtil.success();
     }
 }

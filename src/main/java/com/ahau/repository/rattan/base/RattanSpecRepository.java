@@ -19,6 +19,11 @@ public interface RattanSpecRepository extends JpaRepository<RattanSpec, Long>, J
     void deleteBySpecIdIn(List<Long> ids);
     void findBySpecIdIn(List<Long> ids);
 
+    @Query(value = "SELECT COUNT(specId) FROM RattanSpec WHERE specNameCh=?1")
+    Integer isNameChExisted(String nameCh);
+    @Query(value = "SELECT COUNT(specId) FROM RattanSpec WHERE specNameCh=?1 AND specId<>?2")
+    Integer isNameChExisted(String nameCh,Long specId);
+
     /**
      * 根据RattanSpec的id查找其files
      * 用于更新文件

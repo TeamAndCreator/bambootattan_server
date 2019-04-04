@@ -60,6 +60,24 @@ public class RattanSpecService {
     }
 
     /**
+     * 判断所有的数据中是否已经存在该中文名称
+     * @param nameCh 中文名称
+     * @return true-存在，false-不存在
+     */
+    public Boolean IsNameChExisted(String nameCh){
+        return rattanSpecRepository.isNameChExisted(nameCh)>0;
+    }
+
+    /**
+     * 判断不包括指定种的其他数据中是否已经存在该中文名称
+     * @param nameCh 中文名称
+     * @return true-存在，false-不存在
+     */
+    public Boolean IsNameChExisted(String nameCh,Long specId){
+        return rattanSpecRepository.isNameChExisted(nameCh,specId)>0;
+    }
+
+    /**
      * 更新
      *
      * @param rattanSpec
@@ -116,19 +134,21 @@ public class RattanSpecService {
 
                 //用于暂时存放查询条件的集合
                 List<Predicate> list = new ArrayList<>();
-                list.add(criteriaBuilder.like(root.get("rattanSpecNameCh").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecNameEn").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecNameLd").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecNameOth").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecCode").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecBarCode").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecDna").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecDomestic").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecForeign").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecVidio").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecImgs").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecDesc").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanSpecSortNum").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specNameCh").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specNameEn").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specNameLd").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specNameOth").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specCode").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specBarCode").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specDna").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specDomestic").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specForeign").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
             }, pageable);
