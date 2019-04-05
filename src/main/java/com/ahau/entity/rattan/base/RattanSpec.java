@@ -61,7 +61,14 @@ public class RattanSpec {
     private String specImgs;
 
     /* 种描述 */
+    @Column(length = 100000)
     private String specDesc;
+
+    /* 地点 */
+    private String specLocation;
+
+    /* 时间 */
+    private String addTime;
 
     /* 排序序号 */
     private int specSortNum;
@@ -186,6 +193,22 @@ public class RattanSpec {
         this.specDesc = specDesc;
     }
 
+    public String getSpecLocation() {
+        return specLocation;
+    }
+
+    public void setSpecLocation(String specLocation) {
+        this.specLocation = specLocation;
+    }
+
+    public String getAddTime() {
+        return addTime;
+    }
+
+    public void setAddTime(String addTime) {
+        this.addTime = addTime;
+    }
+
     public int getSpecSortNum() {
         return specSortNum;
     }
@@ -212,6 +235,8 @@ public class RattanSpec {
                 ", specVidio='" + specVidio + '\'' +
                 ", specImgs='" + specImgs + '\'' +
                 ", specDesc='" + specDesc + '\'' +
+                ", specLocation='" + specLocation + '\'' +
+                ", addTime='" + addTime + '\'' +
                 ", specSortNum=" + specSortNum +
                 '}';
     }

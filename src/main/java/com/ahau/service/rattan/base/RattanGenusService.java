@@ -63,6 +63,25 @@ public class RattanGenusService {
     }
 
     /**
+     * 判断所有的数据中是否已经存在该中文名称
+     * @param nameCh 中文名称
+     * @return true-存在，false-不存在
+     */
+    public Boolean IsNameChExisted(String nameCh){
+        return rattanGenusRepository.isNameChExisted(nameCh)>0;
+    }
+
+    /**
+     * 判断不包括指定种的其他数据中是否已经存在该中文名称
+     * @param nameCh 中文名称
+     * @return true-存在，false-不存在
+     */
+    public Boolean IsNameChExisted(String nameCh,Long genusId){
+        return rattanGenusRepository.isNameChExisted(nameCh,genusId)>0;
+    }
+
+
+    /**
      * 更新
      *
      * @param rattanGenus
@@ -119,11 +138,11 @@ public class RattanGenusService {
 
                 //用于暂时存放查询条件的集合
                 List<Predicate> list = new ArrayList<>();
-                list.add(criteriaBuilder.like(root.get("rattanGenusNameCh").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanGenusNameEn").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanGenusNameLd").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanGenusNameOth").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("rattanGenusDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("genusNameCh").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("genusNameEn").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("genusNameLd").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("genusNameOth").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("genusDesc").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
             }, pageable);

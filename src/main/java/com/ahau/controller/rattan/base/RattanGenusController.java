@@ -18,7 +18,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/rattanGenus")
-@Api(description = "属")
+@Api(description = "藤属")
 public class RattanGenusController {
     private final RattanGenusService rattanGenusService;
 
@@ -59,8 +59,15 @@ public class RattanGenusController {
     @ApiOperation(value = "更新属信息", notes = "根据url的id来指定更新属信息")
     @PutMapping("update")
     public Result update(@ApiParam(name = "rattanGenus", value = "要修改的属详细实体rattanGenus", required = true)
-                         @RequestBody RattanGenus rattanGenus) {
-        return ResultUtil.success(rattanGenusService.update(rattanGenus));
+                                     RattanGenus rattanGenus) {
+        try{
+            if (rattanGenusService.IsNameChExisted(rattanGenus.getGenusNameCh(),rattanGenus.getGenusId()))
+                return ResultUtil.error(500,"该藤属已存在");
+            return ResultUtil.success(rattanGenusService.update(rattanGenus));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500,e.getMessage());
+        }
     }
 
     /**
@@ -72,7 +79,11 @@ public class RattanGenusController {
     @DeleteMapping("delete/{genusId}")
     public Result delete(@ApiParam(name = "genusId", value = "需删除属的ID", required = true)
                          @PathVariable("genusId") Long genusId) {
-        rattanGenusService.delete(genusId);
+        try {
+            rattanGenusService.delete(genusId);
+        } catch (Exception e) {
+            return ResultUtil.error(1451, "提示：该属存在藤种信息，因此无法删除！");
+        }
         return ResultUtil.success();
     }
 
@@ -85,7 +96,14 @@ public class RattanGenusController {
     @ApiOperation(value = "创建属", notes = "根据RattanGenus对象创建属")
     @PostMapping("save")
     public Result save(@ApiParam(name = "rattanGenus", value = "要添加的属详细实体rattanGenus", required = true) @RequestBody RattanGenus rattanGenus) {
-        return ResultUtil.success(rattanGenusService.save(rattanGenus));
+        try {
+            if (rattanGenusService.IsNameChExisted(rattanGenus.getGenusNameCh()))
+                return ResultUtil.error(500, "该藤属已存在");
+            return ResultUtil.success(rattanGenusService.save(rattanGenus));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
     }
 
     /**
@@ -138,7 +156,11 @@ public class RattanGenusController {
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除属")
     @DeleteMapping("deleteByIds")
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除属的id数组", required = true) @RequestParam List<Long> ids) {
-        rattanGenusService.deleteByIds(ids);
+        try {
+            rattanGenusService.deleteByIds(ids);
+        } catch (Exception e) {
+            return ResultUtil.error(1451, "提示：该属存在藤种信息，因此无法删除");
+        }
         return ResultUtil.success();
     }
 }
