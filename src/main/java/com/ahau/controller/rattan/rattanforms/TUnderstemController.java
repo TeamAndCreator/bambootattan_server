@@ -32,14 +32,14 @@ public class TUnderstemController {
 
     /**
      * 查询一个地下茎列表
-     * @param understemId
+     * @param underStemId
      * @return
      */
     @ApiOperation(value = "获取地下茎详细信息", notes = "根据url的id来获取地下茎详细信息")
-    @GetMapping("findId/{understemId}")
-    public Result findById(@ApiParam(name = "understemId", value = "需要查找的地下茎的id", required = true)
-                           @PathVariable("understemId") Long understemId) {
-        return ResultUtil.success(tUnderstemService.findById(understemId));
+    @GetMapping("findId/{underStemId}")
+    public Result findById(@ApiParam(name = "underStemId", value = "需要查找的地下茎的id", required = true)
+                           @PathVariable("underStemId") Long underStemId) {
+        return ResultUtil.success(tUnderstemService.findById(underStemId));
     }
 
     /**
@@ -56,14 +56,14 @@ public class TUnderstemController {
 
     /**
      * 删除
-     * @param tUnderstemId
+     * @param underStemId
      * @return
      */
     @ApiOperation(value = "删除地下茎", notes = "根据url的id来指定删除地下茎")
-    @DeleteMapping("delete/{tUnderstemId}")
-    public Result delete(@ApiParam(name = "tUnderstemId", value = "需删除地下茎的ID", required = true)
-                         @PathVariable("tUnderstemId") Long tUnderstemId) {
-        tUnderstemService.delete(tUnderstemId);
+    @DeleteMapping("delete/{underStemId}")
+    public Result delete(@ApiParam(name = "underStemId", value = "需删除地下茎的ID", required = true)
+                         @PathVariable("underStemId") Long underStemId) {
+        tUnderstemService.delete(underStemId);
         return ResultUtil.success();
     }
 

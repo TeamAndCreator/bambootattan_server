@@ -37,14 +37,14 @@ public class SheathtongueController {
 
     /**
      * 查询一个箨舌列表
-     * @param shetogId
+     * @param sheTogId
      * @return
      */
     @ApiOperation(value = "获取箨舌详细信息", notes = "根据url的id来获取箨舌详细信息")
-    @GetMapping("findId/{shetogId}")
-    public Result findById(@ApiParam(name = "shetogId", value = "需要查找的箨舌的id", required = true)
-                           @PathVariable("shetogId") Long shetogId) {
-        return ResultUtil.success(sheathtongueService.findById(shetogId));
+    @GetMapping("findId/{sheTogId}")
+    public Result findById(@ApiParam(name = "sheTogId", value = "需要查找的箨舌的id", required = true)
+                           @PathVariable("sheTogId") Long sheTogId) {
+        return ResultUtil.success(sheathtongueService.findById(sheTogId));
     }
 
     /**
@@ -61,14 +61,14 @@ public class SheathtongueController {
 
     /**
      * 删除
-     * @param shetogId
+     * @param sheTogId
      * @return
      */
     @ApiOperation(value = "删除箨舌", notes = "根据url的id来指定删除箨舌")
-    @DeleteMapping("delete/{shetogId}")
-    public Result delete(@ApiParam(name = "shetogId", value = "需删除箨舌的ID", required = true)
-                         @PathVariable("shetogId") Long shetogId) {
-        sheathtongueService.delete(shetogId);
+    @DeleteMapping("delete/{sheTogId}")
+    public Result delete(@ApiParam(name = "sheTogId", value = "需删除箨舌的ID", required = true)
+                         @PathVariable("sheTogId") Long sheTogId) {
+        sheathtongueService.delete(sheTogId);
         return ResultUtil.success();
     }
 

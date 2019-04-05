@@ -37,14 +37,14 @@ public class SheathearController {
 
     /**
      * 查询一个箨耳列表
-     * @param sheearId
+     * @param sheEarId
      * @return
      */
     @ApiOperation(value = "获取箨耳详细信息", notes = "根据url的id来获取箨耳详细信息")
-    @GetMapping("findId/{sheearId}")
-    public Result findById(@ApiParam(name = "sheearId", value = "需要查找的箨耳的id", required = true)
-                           @PathVariable("sheearId") Long sheearId) {
-        return ResultUtil.success(sheathearService.findById(sheearId));
+    @GetMapping("findId/{sheEarId}")
+    public Result findById(@ApiParam(name = "sheEarId", value = "需要查找的箨耳的id", required = true)
+                           @PathVariable("sheEarId") Long sheEarId) {
+        return ResultUtil.success(sheathearService.findById(sheEarId));
     }
 
     /**
@@ -61,14 +61,14 @@ public class SheathearController {
 
     /**
      * 删除
-     * @param sheearId
+     * @param sheEarId
      * @return
      */
     @ApiOperation(value = "删除箨耳", notes = "根据url的id来指定删除箨耳")
-    @DeleteMapping("delete/{sheearId}")
-    public Result delete(@ApiParam(name = "sheearId", value = "需删除箨耳的ID", required = true)
-                         @PathVariable("sheearId") Long sheearId) {
-        sheathearService.delete(sheearId);
+    @DeleteMapping("delete/{sheEarId}")
+    public Result delete(@ApiParam(name = "sheEarId", value = "需删除箨耳的ID", required = true)
+                         @PathVariable("sheEarId") Long sheEarId) {
+        sheathearService.delete(sheEarId);
         return ResultUtil.success();
     }
 

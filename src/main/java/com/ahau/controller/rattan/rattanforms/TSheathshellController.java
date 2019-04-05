@@ -32,14 +32,14 @@ public class TSheathshellController {
 
     /**
      * 查询一个箨片列表
-     * @param sheshellId
+     * @param sheShellId
      * @return
      */
     @ApiOperation(value = "获取箨片详细信息", notes = "根据url的id来获取箨片详细信息")
-    @GetMapping("findId/{sheshellId}")
-    public Result findById(@ApiParam(name = "sheshellId", value = "需要查找的箨片的id", required = true)
-                           @PathVariable("sheshellId") Long sheshellId) {
-        return ResultUtil.success(tSheathshellService.findById(sheshellId));
+    @GetMapping("findId/{sheShellId}")
+    public Result findById(@ApiParam(name = "sheShellId", value = "需要查找的箨片的id", required = true)
+                           @PathVariable("sheShellId") Long sheShellId) {
+        return ResultUtil.success(tSheathshellService.findById(sheShellId));
     }
 
     /**
@@ -56,14 +56,14 @@ public class TSheathshellController {
 
     /**
      * 删除
-     * @param sheshellId
+     * @param sheShellId
      * @return
      */
     @ApiOperation(value = "删除箨片", notes = "根据url的id来指定删除箨片")
-    @DeleteMapping("delete/{sheshellId}")
-    public Result delete(@ApiParam(name = "sheshellId", value = "需删除箨片的ID", required = true)
-                         @PathVariable("sheshellId") Long sheshellId) {
-        tSheathshellService.delete(sheshellId);
+    @DeleteMapping("delete/{sheShellId}")
+    public Result delete(@ApiParam(name = "sheShellId", value = "需删除箨片的ID", required = true)
+                         @PathVariable("sheShellId") Long sheShellId) {
+        tSheathshellService.delete(sheShellId);
         return ResultUtil.success();
     }
 
