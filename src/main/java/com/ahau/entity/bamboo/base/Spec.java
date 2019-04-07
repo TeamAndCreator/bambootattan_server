@@ -65,6 +65,10 @@ public class Spec {
     @Column(length = 100000)
     private String specDesc;
 
+    /* 种描述(无富文本标签） */
+    @Column(length = 100000)
+    private String specNotagDesc;
+
     /* 地点 */
     private String specLocation;
 
@@ -194,6 +198,14 @@ public class Spec {
         this.specDesc = specDesc;
     }
 
+    public String getSpecNotagDesc() {
+        return specNotagDesc;
+    }
+
+    public void setSpecNotagDesc(String specNotagDesc) {
+        this.specNotagDesc = specNotagDesc;
+    }
+
     public int getSpecSortNum() {
         return specSortNum;
     }
@@ -236,6 +248,7 @@ public class Spec {
                 ", specVidio='" + specVidio + '\'' +
                 ", specImgs='" + specImgs + '\'' +
                 ", specDesc='" + specDesc + '\'' +
+                ", specNotagDesc='" + specNotagDesc + '\'' +
                 ", specLocation='" + specLocation + '\'' +
                 ", addTime='" + addTime + '\'' +
                 ", specSortNum=" + specSortNum +
