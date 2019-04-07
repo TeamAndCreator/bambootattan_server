@@ -30,6 +30,10 @@ public class Genus {
     @Column(length = 100000)
     private String genusDesc;
 
+    /* 描述(无富文本标签) */
+    @Column(length = 100000)
+    private String genusNotagDesc;
+
     /* 排序序号 */
     private Integer sortNum;
 
@@ -81,6 +85,14 @@ public class Genus {
         this.genusDesc = genusDesc;
     }
 
+    public String getGenusNotagDesc() {
+        return genusNotagDesc;
+    }
+
+    public void setGenusNotagDesc(String genusNotagDesc) {
+        this.genusNotagDesc = genusNotagDesc;
+    }
+
     public Integer getSortNum() {
         return sortNum;
     }
@@ -98,6 +110,7 @@ public class Genus {
                 ", genusNameLd='" + genusNameLd + '\'' +
                 ", genusNameOth='" + genusNameOth + '\'' +
                 ", genusDesc='" + genusDesc + '\'' +
+                ", genusNotagDesc='" + genusNotagDesc + '\'' +
                 ", sortNum=" + sortNum +
                 '}';
     }
