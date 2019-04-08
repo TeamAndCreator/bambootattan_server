@@ -1,6 +1,7 @@
 package com.ahau.repository.bamboo.base;
 
 import com.ahau.entity.bamboo.base.Genus;
+import com.ahau.entity.echart.Visit;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
@@ -24,4 +25,7 @@ public interface GenusRepository extends JpaRepository<Genus, Long>, JpaSpecific
     Integer isNameChExisted(String nameCh);
     @Query(value = "SELECT COUNT(genusId) FROM Genus WHERE genusNameCh=?1 AND genusId<>?2")
     Integer isNameChExisted(String nameCh,Long genusId);
+
+    @Query(value = "SELECT new com.ahau.entity.echart.Visit(count(genusNameCh),genusNameCh) from Genus GROUP BY genusNameCh having genusNameCh IS not Null")
+    List<Visit> getGenus();
 }

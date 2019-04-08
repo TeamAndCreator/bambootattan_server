@@ -1,7 +1,9 @@
 package com.ahau.service.unit;
 
 import com.ahau.BambootattanServerApplication;
+import com.ahau.entity.echart.Visit;
 import com.ahau.entity.unit.Unit;
+import com.ahau.repository.bamboo.base.GenusRepository;
 import com.ahau.repository.unit.UnitRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,9 +12,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import javax.annotation.Resource;
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -24,6 +30,9 @@ import java.util.Optional;
 public class UnitService {
     private final UnitRepository unitRepository;
     private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
+
+    @Autowired
+    private GenusRepository genusRepository;
     @Autowired
     public UnitService(UnitRepository unitRepository) {this.unitRepository = unitRepository;}
 
@@ -121,4 +130,5 @@ public class UnitService {
     public void deleteByIds(List<Long> ids){
         unitRepository.deleteByUnitIdIn(ids);
     }
+
 }

@@ -1,6 +1,9 @@
 package com.ahau.controller.unit;
 
 import com.ahau.entity.bamboo.base.Result;
+import com.ahau.entity.echart.EchartData;
+import com.ahau.entity.echart.Series;
+import com.ahau.entity.echart.Visit;
 import com.ahau.entity.unit.Unit;
 import com.ahau.service.unit.UnitService;
 import com.ahau.utils.ResultUtil;
@@ -9,7 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/unit")
@@ -130,4 +136,10 @@ public class UnitController {
         unitService.deleteByIds(ids);
         return ResultUtil.success();
     }
+
+
+
+
+
+
 }
