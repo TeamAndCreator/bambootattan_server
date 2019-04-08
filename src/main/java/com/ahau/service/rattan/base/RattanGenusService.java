@@ -143,6 +143,7 @@ public class RattanGenusService {
                 list.add(criteriaBuilder.like(root.get("genusNameLd").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("genusNameOth").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("genusDesc").as(String.class), "%" + search + "%"));
+                list.add(criteriaBuilder.like(root.get("genusNotagDesc").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
             }, pageable);
