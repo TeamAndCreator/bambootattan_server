@@ -2,6 +2,7 @@ package com.ahau.service.bamboo.base;
 
 import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Genus;
+import com.ahau.entity.echart.Visit;
 import com.ahau.repository.bamboo.base.GenusRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -13,14 +14,19 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import springfox.documentation.annotations.Cacheable;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -36,6 +42,10 @@ public class GenusService {
 
     private final GenusRepository genusRepository;
     private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
 
     @Autowired
     public GenusService(GenusRepository genusRepository) {
@@ -163,7 +173,6 @@ public class GenusService {
                 list.add(criteriaBuilder.like(root.get("genusNameLd").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("genusNameOth").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("genusDesc").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("genusNotagDesc").as(String.class), "%" + search + "%"));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));
             }, pageable);
@@ -182,8 +191,17 @@ public class GenusService {
         genusRepository.deleteByGenusIdIn(ids);
     }
 
+    public List<Visit> getGenus() {
+        //return genusRepository.getGenus();
+
+         return genusRepository.getGenus();
+    }
+
+
 //    public boolean insertOrUpdateAllColum(Genus genus) {
 //        genusRepository.save(genus);
 //        return false;
 //    }
-}
+
+
+    }

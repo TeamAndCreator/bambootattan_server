@@ -1,6 +1,7 @@
 package com.ahau.service.bamboo.base;
 
 import com.ahau.BambootattanServerApplication;
+import com.ahau.entity.bamboo.base.Genus;
 import com.ahau.entity.bamboo.base.Spec;
 import com.ahau.entity.file.Files;
 import com.ahau.repository.bamboo.base.SpecRepository;
@@ -12,12 +13,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import springfox.documentation.annotations.Cacheable;
 
 import javax.persistence.criteria.Predicate;
 import javax.transaction.Transactional;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
@@ -32,6 +37,9 @@ public class SpecService {
     private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
 
     private final SpecRepository specRepository;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     @Autowired
     public SpecService(SpecRepository specRepository) {
@@ -162,7 +170,6 @@ public class SpecService {
                 list.add(criteriaBuilder.like(root.get("specVidio").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specImgs").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specDesc").as(String.class), "%" + search + "%"));
-                list.add(criteriaBuilder.like(root.get("specNotagDesc").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specLocation").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("addTime").as(String.class), "%" + search + "%"));
                 list.add(criteriaBuilder.like(root.get("specSortNum").as(String.class), "%" + search + "%"));
@@ -822,4 +829,16 @@ public class SpecService {
         }
     }
 
+    public List<String> findGenQuery(Genus genusId) {
+        String sql="SELECT spec_name_ch from spec where genus_id="+genusId.getGenusId();
+
+                List<String> data = jdbcTemplate.query(sql, new RowMapper<String>(){
+
+                    @Override
+                    public String mapRow(ResultSet rs, int i) throws SQLException {
+                        return rs.getString(1);
+                    }
+                });
+                return data;
+    }
 }

@@ -1,5 +1,6 @@
 package com.ahau.repository.bamboo.base;
 
+import com.ahau.entity.bamboo.base.Genus;
 import com.ahau.entity.bamboo.base.Spec;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -245,11 +246,5 @@ public interface SpecRepository extends JpaRepository<Spec, Long>, JpaSpecificat
 
     @Query(value = "SELECT A FROM Spec AS A WHERE NOT EXISTS( SELECT B.spec FROM Vascularbundelmorphology AS B WHERE A.specId=B.spec)")
     Page<Spec> findAllQueryWithOutVascularbundelmorphology(Pageable pageable);
-
-
-
-
-
-
 
 }
