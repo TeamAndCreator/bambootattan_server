@@ -3,7 +3,11 @@ package com.ahau.controller.bamboo.base;
 import com.ahau.BambootattanServerApplication;
 import com.ahau.entity.bamboo.base.Genus;
 import com.ahau.entity.bamboo.base.Result;
+import com.ahau.entity.echart.EchartData;
+import com.ahau.entity.echart.Series;
+import com.ahau.entity.echart.Visit;
 import com.ahau.service.bamboo.base.GenusService;
+import com.ahau.service.bamboo.base.SpecService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.apache.logging.log4j.LogManager;
@@ -12,14 +16,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
 @RequestMapping("/genus")
 @Api(description = "属")
 public class GenusController {
+    @Autowired
     private final GenusService genusService;
+    @Autowired
+    private  SpecService specService;
 
     private static final Logger LOGGER = LogManager.getLogger(BambootattanServerApplication.class);
 
@@ -263,5 +273,63 @@ public class GenusController {
 //            return ResultUtil.error(500,"导入失败");
 //        }
 //    }
+
+    @GetMapping("/showEchartPie")
+    @ApiOperation(value = "饼图", notes = "饼图")
+    public EchartData PieData() {
+        List<String> legend = new ArrayList<String>();
+        List<Map> serisData=new ArrayList<Map>();
+        List<Visit> list = genusService.getGenus();
+        for (Visit visit : list) {
+            Map map =new HashMap();
+            legend.add(visit.getName());
+            map.put("value", visit.getValue());
+            map.put("name",visit.getName());
+            serisData.add(map);
+        }
+        List<Series> series = new ArrayList<Series>();// 纵坐标
+        series.add(new Series("总数比较", "pie",serisData));
+        EchartData data = new EchartData(legend,null, series);
+        return data;
+    }
+
+
+    @GetMapping("/showEchartTree")
+    @ApiOperation(value = "树形", notes = "树形")
+    public Map<String,Object> showEchartTree() {
+        Map<String,Object> map =new HashMap<>();
+        List<Map> map_child=new ArrayList<Map>();
+        map.put("name","属");
+        map.put("children",map_child);
+
+        List<Genus> list = genusService.findAll();
+        for (Genus genus : list) {
+            Map<String,Object> map_child2 =new HashMap<>();
+            map_child2.put("name",genus.getGenusNameCh());
+            List<String> list1=specService.findGenQuery(genus);
+            List<Map> map_child3=new ArrayList<Map>();
+            map_child2.put("children",map_child3);
+            for (String s : list1) {
+                Map<String,Object> map3 =new HashMap<>();
+                map3.put("name",s);
+                map_child3.add(map3);
+            }
+
+            map_child.add(map_child2);
+        }
+
+
+   /*     for (Visit visit : list) {
+            Map map =new HashMap();
+            legend.add(visit.getName());
+            map.put("value", visit.getValue());
+            map.put("name",visit.getName());
+            serisData.add(map);
+        }
+        List<Series> series = new ArrayList<Series>();// 纵坐标
+        series.add(new Series("总数比较", "pie",serisData));
+        EchartData data = new EchartData(legend,null, series);*/
+        return map;
+    }
 }
 
