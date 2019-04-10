@@ -210,4 +210,446 @@ public class RattanSpecController {
         }
         return ResultUtil.success();
     }
+
+    /**
+     * 分页有条件查找(不包含已有地下茎的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有地下茎的数据)", notes = "分页有条件查找（不包含已有地下茎的数据）")
+    @GetMapping("findAllQueryWithOutTUnderstem")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTUnderstem(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTUnderstem(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有藤秆的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有藤秆的数据)", notes = "分页有条件查找（不包含已有藤秆的数据）")
+    @GetMapping("findAllQueryWithOutTCulm")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTCulm(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTCulm(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有花果形态的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有花果形态的数据)", notes = "分页有条件查找（不包含已有花果形态的数据）")
+    @GetMapping("findAllQueryWithOutTFlowerfruit")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTFlowerfruit(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTFlowerfruit(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有藤叶的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有藤叶的数据)", notes = "分页有条件查找（不包含已有藤叶的数据）")
+    @GetMapping("findAllQueryWithOutTLeaf")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTLeaf(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTLeaf(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有箨鞘的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有箨鞘的数据)", notes = "分页有条件查找（不包含已有箨鞘的数据）")
+    @GetMapping("findAllQueryWithOutTSheath")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTSheath(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTSheath(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有箨耳的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有箨耳的数据)", notes = "分页有条件查找（不包含已有箨耳的数据）")
+    @GetMapping("findAllQueryWithOutTSheathear")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTSheathear(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTSheathear(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有箨环的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有箨环的数据)", notes = "分页有条件查找（不包含已有箨环的数据）")
+    @GetMapping("findAllQueryWithOutTSheathnode")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTSheathnode(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTSheathnode(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有箨片的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有箨片的数据)", notes = "分页有条件查找（不包含已有箨片的数据）")
+    @GetMapping("findAllQueryWithOutTSheathshell")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTSheathshell(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTSheathshell(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有箨舌的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有箨舌的数据)", notes = "分页有条件查找（不包含已有箨舌的数据）")
+    @GetMapping("findAllQueryWithOutTSheathtongue")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTSheathtongue(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTSheathtongue(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有解剖性质_导管形态特征的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有解剖性质_导管形态特征的数据)", notes = "分页有条件查找（不包含已有解剖性质_导管形态特征的数据）")
+    @GetMapping("findAllQueryWithOutTCathermorphology")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTCathermorphology(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTCathermorphology(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有化学性质的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有化学性质的数据)", notes = "分页有条件查找（不包含已有化学性质的数据）")
+    @GetMapping("findAllQueryWithOutTChemistry")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTChemistry(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTChemistry(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有解剖性质_纤维形态特征的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有解剖性质_纤维形态特征的数据)", notes = "分页有条件查找（不包含已有解剖性质_纤维形态特征的数据）")
+    @GetMapping("findAllQueryWithOutTFibermorphology")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTFibermorphology(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTFibermorphology(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有力学性质的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有力学性质的数据)", notes = "分页有条件查找（不包含已有力学性质的数据）")
+    @GetMapping("findAllQueryWithOutTMechanics")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTMechanics(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTMechanics(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有物理性质的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有物理性质的数据)", notes = "分页有条件查找（不包含已有物理性质的数据）")
+    @GetMapping("findAllQueryWithOutTPhysics")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTPhysics(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTPhysics(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有结构性质的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有结构性质的数据)", notes = "分页有条件查找（不包含已有结构性质的数据）")
+    @GetMapping("findAllQueryWithOutTStructure")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTStructure(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTStructure(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有解剖性质_组织比量的数据)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有解剖性质_组织比量的数据)", notes = "分页有条件查找（不包含已有解剖性质_组织比量的数据）")
+    @GetMapping("findAllQueryWithOutTTissueproportion")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTTissueproportion(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTTissueproportion(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
+
+    /**
+     * 分页有条件查找(不包含已有解剖性质_维管束形态特征)
+     * @param page
+     * @param size
+     * @param search
+     * @return
+     */
+    @ApiOperation(value = "分页有条件查找(不包含已有解剖性质_维管束形态特征)", notes = "分页有条件查找（不包含已有解剖性质_维管束形态特征）")
+    @GetMapping("findAllQueryWithOutTVascularbundelmorphology")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
+            @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
+            @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
+    })
+    public Result findAllQueryWithOutTVascularbundelmorphology(@RequestParam Integer page, @RequestParam Integer size, String search) {
+        try {
+            Page<RattanSpec> specPage = rattanSpecService.findAllQueryWithOutTVascularbundelmorphology(page, size, search);
+
+            return ResultUtil.success(specPage);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResultUtil.error(500, e.getMessage());
+        }
+    }
 }
