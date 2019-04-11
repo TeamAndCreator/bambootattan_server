@@ -65,7 +65,7 @@ public class UnderstemController {
      * @return
      */
     @ApiOperation(value = "删除地下茎", notes = "根据url的id来指定删除地下茎")
-    @DeleteMapping("delete/{understemId}")
+    @DeleteMapping("delete/{underStemId}")
     public Result delete(@ApiParam(name = "underStemId", value = "需删除地下茎的ID", required = true)
                          @PathVariable("underStemId") Long underStemId) {
         understemService.delete(underStemId);
