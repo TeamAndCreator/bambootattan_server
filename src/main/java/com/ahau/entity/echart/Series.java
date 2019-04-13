@@ -1,8 +1,9 @@
 package com.ahau.entity.echart;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Series<T> {
+public class Series<T> implements Serializable {
     public String name;
 
     public String type;

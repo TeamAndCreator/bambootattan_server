@@ -28,4 +28,7 @@ public interface GenusRepository extends JpaRepository<Genus, Long>, JpaSpecific
 
     @Query(value = "SELECT new com.ahau.entity.echart.Visit(count(genusNameCh),genusNameCh) from Genus GROUP BY genusNameCh having genusNameCh IS not Null")
     List<Visit> getGenus();
+//
+//    @Query(value = "SELECT COUNT(genusNameCh) from Genus")
+//    Long findTotalGenus(String genusNameCh);
 }

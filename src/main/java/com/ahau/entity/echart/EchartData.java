@@ -1,9 +1,10 @@
 package com.ahau.entity.echart;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EchartData {
+public class EchartData implements Serializable {
 
     public List<String> legend = new ArrayList<String>();// 数据分组
     public List<String> category = new ArrayList<String>();// 横坐标
