@@ -13,6 +13,10 @@ import io.swagger.annotations.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,6 +29,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/genus")
 @Api(description = "属")
+@CacheConfig(cacheNames = "genus")
 public class GenusController {
     @Autowired
     private final GenusService genusService;
@@ -45,6 +50,7 @@ public class GenusController {
      */
     @ApiOperation(value = "获取所有属列表", notes = "获取所有属列表")
     @GetMapping("findAll")
+    @Cacheable(value = "genus-findAll")
     public Result findAll() {
         return ResultUtil.success(genusService.findAll());
     }
@@ -57,7 +63,7 @@ public class GenusController {
      */
     @ApiOperation(value = "获取属详细信息", notes = "根据url的id来获取属详细信息")
     @GetMapping("findId/{genusId}")
-    //@Cacheable(value = "genus-key")
+    @Cacheable(value = "genus-findById")
     public Result findById(@ApiParam(name = "genusId", value = "需要查找的属的id", required = true) @PathVariable("genusId") Long genusId) {
         return ResultUtil.success(genusService.findById(genusId));
     }
@@ -70,6 +76,7 @@ public class GenusController {
      */
     @ApiOperation(value = "更新属信息", notes = "根据url的id来指定更新属信息")
     @PutMapping("update")
+    @CachePut(value = "genus-update")
     public Result update(@ApiParam(name = "genus", value = "要修改的属详细实体genus", required = true)
                                      Genus genus) {
         try {
@@ -90,6 +97,7 @@ public class GenusController {
      */
     @ApiOperation(value = "删除属", notes = "根据url的id来指定删除属")
     @DeleteMapping("delete/{genusId}")
+    @CacheEvict(value = "genus-delete")
     public Result delete(@ApiParam(name = "genusId", value = "需删除属的ID", required = true)
                          @PathVariable("genusId") Long genusId) {
         try {
@@ -133,6 +141,7 @@ public class GenusController {
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
     })
+    @Cacheable(value = "genus-findGenusNoQuery")
     public Result findGenusNoQuery(@RequestParam Integer page, @RequestParam Integer size) {
 
         Page<Genus> genusPage = genusService.findGenusNoQuery(page, size);
@@ -155,6 +164,7 @@ public class GenusController {
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
             @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
+    @Cacheable(value = "genus-findGenusQuery")
     public Result findGenusQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
         Page<Genus> genusPage = genusService.findGenusQuery(page, size, search);
 
@@ -169,6 +179,7 @@ public class GenusController {
      */
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除属")
     @DeleteMapping("deleteByIds")
+    @CacheEvict(value = "genus-deleteByIds")
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除属的id数组", required = true) @RequestParam List<Long> ids) {
         try {
             genusService.deleteByIds(ids);
@@ -276,6 +287,7 @@ public class GenusController {
 
     @GetMapping("/showEchartPie")
     @ApiOperation(value = "饼图", notes = "饼图")
+    @Cacheable(value = "genus-showEchartPie")
     public EchartData PieData() {
         List<String> legend = new ArrayList<String>();
         List<Map> serisData=new ArrayList<Map>();
@@ -296,6 +308,7 @@ public class GenusController {
 
     @GetMapping("/showEchartTree")
     @ApiOperation(value = "树形", notes = "树形")
+    @Cacheable(value = "genus-showEchartTree")
     public Map<String,Object> showEchartTree() {
         Map<String,Object> map =new HashMap<>();
         List<Map> map_child=new ArrayList<Map>();
@@ -331,5 +344,15 @@ public class GenusController {
         EchartData data = new EchartData(legend,null, series);*/
         return map;
     }
+//
+//    @ApiOperation(value = "获取所有属数量", notes = "获取所有属数量")
+//    @GetMapping("findTotalGenus")
+//    public Result findTotalGenus() {
+//        ModelAndView modelAndView = new ModelAndView();
+//        Long sum = genusService.findTotalGenus();
+//        System.out.println(sum+"..........................");
+//        modelAndView.addObject("sum",sum);
+//        return ResultUtil.success(sum);
+//    }
 }
 

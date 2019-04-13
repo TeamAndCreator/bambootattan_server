@@ -1,6 +1,7 @@
 package com.ahau.entity.bamboo.base;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 实体类：（属表）
@@ -8,7 +9,7 @@ import javax.persistence.*;
  * 2018-10-26 12：00
  */
 @Entity
-public class Genus {
+public class Genus implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
