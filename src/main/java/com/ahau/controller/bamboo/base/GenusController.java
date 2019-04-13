@@ -164,7 +164,7 @@ public class GenusController {
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
             @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
-    //@Cacheable(value = "genus-findGenusQuery")
+    @Cacheable(value = "genus-findGenusQuery", key = "#search")
     public Result findGenusQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
         Page<Genus> genusPage = genusService.findGenusQuery(page, size, search);
 
