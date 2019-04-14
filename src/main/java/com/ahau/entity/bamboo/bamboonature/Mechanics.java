@@ -16,7 +16,7 @@ public class Mechanics {
     private Long mechId;
 
     /* 外键：种标识 */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "spec_id")
     private Spec spec;
 

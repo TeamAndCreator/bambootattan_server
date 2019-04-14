@@ -16,7 +16,7 @@ public class Cathermorphology {
     private Long chmId;
 
     /* 种的标识 */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "spec_id")
     private Spec spec;
 

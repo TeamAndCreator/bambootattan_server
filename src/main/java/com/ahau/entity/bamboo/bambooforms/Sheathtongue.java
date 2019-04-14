@@ -17,7 +17,7 @@ public class Sheathtongue {
     private Long sheTogId;
 
     /* 种标识 */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "spec_id")
     private Spec spec;
 
