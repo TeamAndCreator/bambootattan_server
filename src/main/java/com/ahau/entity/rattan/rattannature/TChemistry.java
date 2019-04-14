@@ -17,7 +17,7 @@ public class TChemistry {
     private Long chemId;
 
     /* 种标识 */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "spec_id")
     private RattanSpec rattanSpec;
 

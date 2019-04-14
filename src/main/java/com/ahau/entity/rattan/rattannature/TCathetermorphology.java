@@ -17,7 +17,7 @@ public class TCathetermorphology {
     private Long chmId;
 
     /* 种的标识 */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "spec_id")
     private RattanSpec rattanSpec;
 
