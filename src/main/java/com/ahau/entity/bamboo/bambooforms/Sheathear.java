@@ -16,7 +16,7 @@ public class Sheathear {
     private Long sheEarId;
 
     /* 种标识 */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "spec_id")
     private Spec spec;
 

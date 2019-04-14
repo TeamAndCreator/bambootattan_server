@@ -17,7 +17,7 @@ public class Culm {
     private Long culmId;
 
     /* 种标识 */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "spec_id")
     private Spec spec;
 

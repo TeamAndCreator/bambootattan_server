@@ -16,7 +16,7 @@ public class Physics {
     private Long phyId;
 
     /* 种标识 */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "spec_id")
     private Spec spec;
 

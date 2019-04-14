@@ -17,7 +17,7 @@ public class Sheath {
     private Long sheId;
 
     /* 种标识 */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "spec_id")
     private Spec spec;
 

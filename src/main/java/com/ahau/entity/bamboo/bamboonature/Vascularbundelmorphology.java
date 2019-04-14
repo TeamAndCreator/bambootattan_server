@@ -16,7 +16,7 @@ public class Vascularbundelmorphology {
     private Long vbmId;
 
     /* 外键：是种的标识 */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "spec_id")
     private Spec spec;
 
