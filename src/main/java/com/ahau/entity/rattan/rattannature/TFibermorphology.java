@@ -18,7 +18,7 @@ public class TFibermorphology {
     private Long fmId;
 
     /* 外键：种标识 */
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "spec_id")
     private RattanSpec rattanSpec;
 
