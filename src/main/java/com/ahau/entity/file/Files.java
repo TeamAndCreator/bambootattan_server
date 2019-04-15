@@ -1,9 +1,10 @@
 package com.ahau.entity.file;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
-public class Files {
+public class Files implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  Long id ;
