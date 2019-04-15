@@ -63,7 +63,7 @@ public class GenusController {
      */
     @ApiOperation(value = "获取属详细信息", notes = "根据url的id来获取属详细信息")
     @GetMapping("findId/{genusId}")
-    @Cacheable(value = "genus-findById")
+    @Cacheable(value = "genus-findById",key = "#genusId")
     public Result findById(@ApiParam(name = "genusId", value = "需要查找的属的id", required = true) @PathVariable("genusId") Long genusId) {
         return ResultUtil.success(genusService.findById(genusId));
     }
@@ -76,7 +76,7 @@ public class GenusController {
      */
     @ApiOperation(value = "更新属信息", notes = "根据url的id来指定更新属信息")
     @PutMapping("update")
-    @CachePut(value = "genus-update")
+    @CacheEvict(value = "genus-findById", key = "#genus.genusId", allEntries = true)
     public Result update(@ApiParam(name = "genus", value = "要修改的属详细实体genus", required = true)
                                      Genus genus) {
         try {
@@ -164,7 +164,7 @@ public class GenusController {
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
             @ApiImplicitParam(name = "search", value = "查询关键字", paramType = "query"),
     })
-    //@Cacheable(value = "genus-findGenusQuery", key = "#search")
+    //@Cacheable(value = "genus-findGenusQuery")
     public Result findGenusQuery(@RequestParam Integer page, @RequestParam Integer size, String search) {
         Page<Genus> genusPage = genusService.findGenusQuery(page, size, search);
 
