@@ -64,7 +64,7 @@ public class SpecController {
      */
     @ApiOperation(value = "获取种详细信息", notes = "根据url的id来获取种详细信息")
     @GetMapping("findId/{specId}")
-    @Cacheable(value = "spec-findById")
+    @Cacheable(value = "spec-findById",key = "#specId")
     public Result findById(@ApiParam(name = "specId", value = "需要查找的种的id", required = true) @PathVariable("specId") Long specId) {
         return ResultUtil.success(specService.findById(specId));
     }
@@ -78,6 +78,7 @@ public class SpecController {
     @ApiOperation(value = "更新种信息", notes = "根据url的id来指定更新种信息")
     @PutMapping("update")
     @CachePut(value = "spec-update")
+    @CacheEvict(value = "spec-findById", key = "#spec.specId", allEntries = true)
     public Result update(@ApiParam(name = "spec", value = "要修改的属详细实体spec")
                                  Spec spec, MultipartFile[] multipartFiles) {
         try {
@@ -110,7 +111,7 @@ public class SpecController {
      */
     @ApiOperation(value = "删除种", notes = "根据url的id来指定删除种")
     @DeleteMapping("delete/{specId}")
-    @CacheEvict(value = "spec-delete")
+    @CacheEvict(value = "spec-findAll", allEntries = true)
     public Result delete(@ApiParam(name = "specId", value = "需删除种的ID", required = true)
                          @PathVariable("specId") Long specId) {
         try {
@@ -137,6 +138,7 @@ public class SpecController {
      */
     @ApiOperation(value = "创建种", notes = "根据Spec对象创建种")
     @PostMapping(value = "save")
+    @CacheEvict(value = "spec-findAll", allEntries = true)
     public Result save(@ApiParam(name = "spec", value = "要添加的种详细实体spec", required = true) Spec spec, MultipartFile[] multipartFiles) {
         try {
             if (specService.IsNameChExisted(spec.getSpecNameCh()))
@@ -211,7 +213,7 @@ public class SpecController {
      */
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除种")
     @DeleteMapping("deleteByIds")
-    @CacheEvict(value = "spec-deleteByIds")
+    @CacheEvict(value = "spec-findAll", allEntries = true)
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除种的id数组", required = true) @RequestParam List<Long> ids) {
         try {
             for (Long specId : ids) {
