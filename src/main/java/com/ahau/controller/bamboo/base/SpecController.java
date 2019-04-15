@@ -10,6 +10,10 @@ import io.swagger.annotations.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -27,6 +31,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/spec")
 @Api(description = "种")
+@CacheConfig(cacheNames = "spec")
 public class SpecController {
     private static final Logger LOGGER = LogManager.getLogger(SpecController.class);
     private final SpecService specService;
@@ -45,6 +50,7 @@ public class SpecController {
      */
     @ApiOperation(value = "获取所有种列表", notes = "获取所有种列表")
     @GetMapping("findAll")
+    @Cacheable(value = "spec-findAll")
     public Result findAll() {
         LOGGER.info(specService.findAll().toString());
         return ResultUtil.success(specService.findAll());
@@ -58,6 +64,7 @@ public class SpecController {
      */
     @ApiOperation(value = "获取种详细信息", notes = "根据url的id来获取种详细信息")
     @GetMapping("findId/{specId}")
+    @Cacheable(value = "spec-findById")
     public Result findById(@ApiParam(name = "specId", value = "需要查找的种的id", required = true) @PathVariable("specId") Long specId) {
         return ResultUtil.success(specService.findById(specId));
     }
@@ -70,6 +77,7 @@ public class SpecController {
      */
     @ApiOperation(value = "更新种信息", notes = "根据url的id来指定更新种信息")
     @PutMapping("update")
+    @CachePut(value = "spec-update")
     public Result update(@ApiParam(name = "spec", value = "要修改的属详细实体spec")
                                  Spec spec, MultipartFile[] multipartFiles) {
         try {
@@ -102,6 +110,7 @@ public class SpecController {
      */
     @ApiOperation(value = "删除种", notes = "根据url的id来指定删除种")
     @DeleteMapping("delete/{specId}")
+    @CacheEvict(value = "spec-delete")
     public Result delete(@ApiParam(name = "specId", value = "需删除种的ID", required = true)
                          @PathVariable("specId") Long specId) {
         try {
@@ -159,6 +168,7 @@ public class SpecController {
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
     })
+    @Cacheable(value = "spec-findAllNoQuery")
     public Result findSpecNoQuery(@RequestParam Integer page, @RequestParam Integer size) {
 
         Page<Spec> specPage = specService.findSpecNoQuery(page, size);
@@ -201,6 +211,7 @@ public class SpecController {
      */
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除种")
     @DeleteMapping("deleteByIds")
+    @CacheEvict(value = "spec-deleteByIds")
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除种的id数组", required = true) @RequestParam List<Long> ids) {
         try {
             for (Long specId : ids) {
