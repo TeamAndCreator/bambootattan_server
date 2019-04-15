@@ -97,7 +97,7 @@ public class GenusController {
      */
     @ApiOperation(value = "删除属", notes = "根据url的id来指定删除属")
     @DeleteMapping("delete/{genusId}")
-    @CacheEvict(value = "genus-delete")
+    @CacheEvict(value = "genus-findAll", allEntries = true)
     public Result delete(@ApiParam(name = "genusId", value = "需删除属的ID", required = true)
                          @PathVariable("genusId") Long genusId) {
         try {
@@ -117,6 +117,7 @@ public class GenusController {
      */
     @ApiOperation(value = "创建属", notes = "根据Genus对象创建属")
     @PostMapping("save")
+    @CacheEvict(value = "genus-findAll", allEntries = true)
     public Result save(@ApiParam(name = "genus", value = "要添加的属详细实体genus", required = true) @RequestBody Genus genus) {
         try {
             if (genusService.IsNameChExisted(genus.getGenusNameCh()))
@@ -179,7 +180,7 @@ public class GenusController {
      */
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除属")
     @DeleteMapping("deleteByIds")
-    @CacheEvict(value = "genus-deleteByIds")
+    @CacheEvict(value = "genus-findAll", allEntries = true)
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除属的id数组", required = true) @RequestParam List<Long> ids) {
         try {
             genusService.deleteByIds(ids);
