@@ -4,6 +4,7 @@ import com.ahau.entity.file.Files;
 import org.springframework.data.elasticsearch.annotations.Document;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,9 @@ import java.util.Set;
  */
 @Entity
 @Document(indexName = "bambootattan",type = "spec")
-public class Spec {
+public class Spec implements Serializable {
+
+    private static final long serialVersionUID = -9023222759597971761L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -77,6 +80,16 @@ public class Spec {
 
     /* 排序序号 */
     private int specSortNum;
+
+    public Spec(Set<Files> files, String specNameCh, String genusNameCh) {
+        this.genus = new Genus(genusNameCh);
+        this.files = files;
+        this.specNameCh = specNameCh;
+    }
+
+    public Spec() {
+
+    }
 
     public Long getSpecId() {
         return specId;
