@@ -11,6 +11,8 @@ import java.io.Serializable;
 @Entity
 public class Genus implements Serializable {
 
+    private static final long serialVersionUID = 3853257456260189692L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long genusId; //属标识
@@ -37,6 +39,14 @@ public class Genus implements Serializable {
 
     /* 排序序号 */
     private Integer sortNum;
+
+    public Genus(String genusNameCh) {
+        this.genusNameCh = genusNameCh;
+    }
+
+    public Genus() {
+
+    }
 
     public Long getGenusId() {
         return genusId;
