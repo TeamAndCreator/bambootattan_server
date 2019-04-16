@@ -6,6 +6,9 @@ import com.ahau.service.bamboo.bambooforms.FlowerfruitService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/flowerfruit")
 @Api(description = "花果形态")
+@CacheConfig(cacheNames = "flowerfruit")
 public class FlowerfruitController {
     private final FlowerfruitService flowerfruitService;
 
@@ -31,6 +35,7 @@ public class FlowerfruitController {
      */
     @ApiOperation(value = "获取所有花果形态列表", notes = "获取所有花果形态列表")
     @GetMapping("findAll")
+    @Cacheable(value = "flowerfruit-findAll")
     public Result findAll() {
         return ResultUtil.success(flowerfruitService.findAll());
     }
@@ -42,6 +47,7 @@ public class FlowerfruitController {
      */
     @ApiOperation(value = "获取花果形态详细信息", notes = "根据url的id来获取花果形态详细信息")
     @GetMapping("findId/{flofruitId}")
+    @Cacheable(value = "flowerfruit-findById",key = "#flofruitId")
     public Result findById(@ApiParam(name = "flofruitId", value = "需要查找的花果形态的id", required = true)
                                @PathVariable("flofruitId") Long flofruitId) {
         return ResultUtil.success(flowerfruitService.findById(flofruitId));
@@ -54,6 +60,7 @@ public class FlowerfruitController {
      */
     @ApiOperation(value = "更新花果形态信息", notes = "根据url的id来指定更新花果形态信息")
     @PutMapping("update")
+    @CacheEvict(value = "flowerfruit-findById", key = "#flowerfruit.floFruitId", allEntries = true)
     public Result update(@ApiParam(name = "flowerfruit", value = "要修改的属详细实体flowerfruit", required = true)
                          @RequestBody Flowerfruit flowerfruit) {
         return ResultUtil.success(flowerfruitService.update(flowerfruit));
@@ -66,6 +73,7 @@ public class FlowerfruitController {
      */
     @ApiOperation(value = "删除花果形态", notes = "根据url的id来指定删除花果形态")
     @DeleteMapping("delete/{flofruitId}")
+    @CacheEvict(value = "flowerfruit-findAll", allEntries = true)
     public Result delete(@ApiParam(name = "flofruitId", value = "需删除花果形态的ID", required = true)
                          @PathVariable("flofruitId") Long flofruitId) {
         flowerfruitService.delete(flofruitId);
@@ -79,6 +87,7 @@ public class FlowerfruitController {
      */
     @ApiOperation(value = "创建花果形态", notes = "根据Flowerfruit对象创建花果形态")
     @PostMapping("save")
+    @CacheEvict(value = "flowerfruit-findAll", allEntries = true)
     public Result save(@ApiParam(name = "flowerfruit", value = "要添加的花果形态详细实体flowerfruit", required = true)
                            @RequestBody Flowerfruit flowerfruit) {
         return ResultUtil.success(flowerfruitService.save(flowerfruit));
@@ -96,6 +105,7 @@ public class FlowerfruitController {
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
     })
+    @Cacheable(value = "flowerfruit-findGenusNoQuery")
     public Result findFlowerfruitNoQuery(@RequestParam Integer page, @RequestParam Integer size) {
 
         Page<Flowerfruit> flowerfruitPage = flowerfruitService.findFlowerfruitNoQuery(page, size);
@@ -131,6 +141,7 @@ public class FlowerfruitController {
      */
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除花果形态")
     @DeleteMapping("deleteByIds")
+    @CacheEvict(value = "flowerfruit-findAll", allEntries = true)
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除花果形态的id数组", required = true) @RequestParam List<Long> ids) {
         flowerfruitService.deleteByIds(ids);
         return ResultUtil.success();
