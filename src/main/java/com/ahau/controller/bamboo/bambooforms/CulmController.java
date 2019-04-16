@@ -6,6 +6,9 @@ import com.ahau.service.bamboo.bambooforms.CulmService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/culm")
 @Api(description = "竹秆")
+@CacheConfig(cacheNames = "culm")
 public class CulmController {
     private final CulmService culmService;
 
@@ -31,6 +35,7 @@ public class CulmController {
      */
     @ApiOperation(value = "获取所有竹秆列表", notes = "获取所有竹秆列表")
     @GetMapping("findAll")
+    @Cacheable(value = "culm-findAll")
     public Result findAll() {
         return ResultUtil.success(culmService.findAll());
     }
@@ -42,6 +47,7 @@ public class CulmController {
      */
     @ApiOperation(value = "获取竹秆详细信息", notes = "根据url的id来获取竹秆详细信息")
     @GetMapping("findId/{culmId}")
+    @Cacheable(value = "culm-findById",key = "#culmId")
     public Result findById(@ApiParam(name = "culmId", value = "需要查找的竹秆的id", required = true) @PathVariable("culmId") Long culmId) {
         return ResultUtil.success(culmService.findById(culmId));
     }
@@ -53,6 +59,7 @@ public class CulmController {
      */
     @ApiOperation(value = "更新竹秆信息", notes = "根据url的id来指定更新竹秆信息")
     @PutMapping("update")
+    @CacheEvict(value = "culm-findById", key = "#culm.culmId", allEntries = true)
     public Result update(@ApiParam(name = "culm", value = "要修改的属详细实体culm", required = true)
                          @RequestBody Culm culm) {
         return ResultUtil.success(culmService.update(culm));
@@ -65,6 +72,7 @@ public class CulmController {
      */
     @ApiOperation(value = "删除竹秆", notes = "根据url的id来指定删除竹秆")
     @DeleteMapping("delete/{culmId}")
+    @CacheEvict(value = "culm-findAll", allEntries = true)
     public Result delete(@ApiParam(name = "culmId", value = "需删除竹秆的ID", required = true)
                          @PathVariable("culmId") Long culmId) {
         culmService.delete(culmId);
@@ -78,6 +86,7 @@ public class CulmController {
      */
     @ApiOperation(value = "创建竹秆", notes = "根据Culm对象创建竹秆")
     @PostMapping("save")
+    @CacheEvict(value = "culm-findAll", allEntries = true)
     public Result save(@ApiParam(name = "culm", value = "要添加的竹秆详细实体culm", required = true) @RequestBody Culm culm) {
         return ResultUtil.success(culmService.save(culm));
     }
@@ -139,6 +148,7 @@ public class CulmController {
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
     })
+    @Cacheable(value = "culm-findGenusNoQuery")
     public Result findCulmNoQuery(@RequestParam Integer page, @RequestParam Integer size) {
 
         Page<Culm> culmPage = culmService.findCulmNoQuery(page, size);
@@ -174,6 +184,7 @@ public class CulmController {
      */
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除竹秆")
     @DeleteMapping("deleteByIds")
+    @CacheEvict(value = "culm-findAll", allEntries = true)
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除竹秆的id数组", required = true) @RequestParam List<Long> ids) {
         culmService.deleteByIds(ids);
         return ResultUtil.success();
