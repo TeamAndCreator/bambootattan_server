@@ -6,6 +6,9 @@ import com.ahau.service.bamboo.bambooforms.UnderstemService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/understem")
 @Api(description = "地下茎")
+@CacheConfig(cacheNames = "understem")
 public class UnderstemController {
     private final UnderstemService understemService;
 
@@ -31,6 +35,7 @@ public class UnderstemController {
      */
     @ApiOperation(value = "获取所有地下茎列表", notes = "获取所有地下茎列表")
     @GetMapping("findAll")
+    @Cacheable(value = "understem-findAll")
     public Result findAll() {
         return ResultUtil.success(understemService.findAll());
     }
@@ -42,6 +47,7 @@ public class UnderstemController {
      */
     @ApiOperation(value = "获取地下茎详细信息", notes = "根据url的id来获取地下茎详细信息")
     @GetMapping("findId/{underStemId}")
+    @Cacheable(value = "understem-findById",key = "#underStemId")
     public Result findById(@ApiParam(name = "underStemId", value = "需要查找的地下茎的id", required = true)
                            @PathVariable("underStemId") Long underStemId) {
         return ResultUtil.success(understemService.findById(underStemId));
@@ -54,6 +60,7 @@ public class UnderstemController {
      */
     @ApiOperation(value = "更新地下茎信息", notes = "根据url的id来指定更新地下茎信息")
     @PutMapping("update")
+    @CacheEvict(value = "understem-findById", key = "#understem.underStemId", allEntries = true)
     public Result update(@ApiParam(name = "understem", value = "要修改的属详细实体understem", required = true)
                          @RequestBody Understem understem) {
         return ResultUtil.success(understemService.update(understem));
@@ -66,6 +73,7 @@ public class UnderstemController {
      */
     @ApiOperation(value = "删除地下茎", notes = "根据url的id来指定删除地下茎")
     @DeleteMapping("delete/{underStemId}")
+    @CacheEvict(value = "understem-findAll", allEntries = true)
     public Result delete(@ApiParam(name = "underStemId", value = "需删除地下茎的ID", required = true)
                          @PathVariable("underStemId") Long underStemId) {
         understemService.delete(underStemId);
@@ -79,6 +87,7 @@ public class UnderstemController {
      */
     @ApiOperation(value = "创建地下茎", notes = "根据Understem对象创建地下茎")
     @PostMapping("save")
+    @CacheEvict(value = "understem-findAll", allEntries = true)
     public Result save(@ApiParam(name = "understem", value = "要添加的地下茎详细实体understem", required = true)
                        @RequestBody Understem understem) {
         return ResultUtil.success(understemService.save(understem));
@@ -96,6 +105,7 @@ public class UnderstemController {
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
     })
+    @Cacheable(value = "understem-findUnderstemNoQuery")
     public Result findUnderstemNoQuery(@RequestParam Integer page, @RequestParam Integer size) {
 
         Page<Understem> understemPage = understemService.findUnderstemNoQuery(page, size);
@@ -131,6 +141,7 @@ public class UnderstemController {
      */
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除地下茎")
     @DeleteMapping("deleteByIds")
+    @CacheEvict(value = "understem-findAll", allEntries = true)
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除地下茎的id数组", required = true) @RequestParam List<Long> ids) {
         understemService.deleteByIds(ids);
         return ResultUtil.success();

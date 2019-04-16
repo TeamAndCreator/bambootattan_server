@@ -6,6 +6,9 @@ import com.ahau.service.bamboo.bambooforms.LeafService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/leaf")
 @Api(description = "竹叶")
+@CacheConfig(cacheNames = "leaf")
 public class LeafController {
     private final LeafService leafService;
 
@@ -31,6 +35,7 @@ public class LeafController {
      */
     @ApiOperation(value = "获取所有竹叶列表", notes = "获取所有竹叶列表")
     @GetMapping("findAll")
+    @Cacheable(value = "leaf-findAll")
     public Result findAll() {
         return ResultUtil.success(leafService.findAll());
     }
@@ -42,6 +47,7 @@ public class LeafController {
      */
     @ApiOperation(value = "获取竹叶详细信息", notes = "根据url的id来获取竹叶详细信息")
     @GetMapping("findId/{leafId}")
+    @Cacheable(value = "leaf-findById",key = "#leafId")
     public Result findById(@ApiParam(name = "leafId", value = "需要查找的竹叶的id", required = true)
                            @PathVariable("leafId") Long leafId) {
         return ResultUtil.success(leafService.findById(leafId));
@@ -54,6 +60,7 @@ public class LeafController {
      */
     @ApiOperation(value = "更新竹叶信息", notes = "根据url的id来指定更新竹叶信息")
     @PutMapping("update")
+    @CacheEvict(value = "leaf-findById", key = "#leaf.leafId", allEntries = true)
     public Result update(@ApiParam(name = "leaf", value = "要修改的属详细实体leaf", required = true)
                          @RequestBody Leaf leaf) {
         return ResultUtil.success(leafService.update(leaf));
@@ -66,6 +73,7 @@ public class LeafController {
      */
     @ApiOperation(value = "删除竹叶", notes = "根据url的id来指定删除竹叶")
     @DeleteMapping("delete/{leafId}")
+    @CacheEvict(value = "leaf-findAll", allEntries = true)
     public Result delete(@ApiParam(name = "leafId", value = "需删除竹叶的ID", required = true)
                          @PathVariable("leafId") Long leafId) {
         leafService.delete(leafId);
@@ -79,6 +87,7 @@ public class LeafController {
      */
     @ApiOperation(value = "创建竹叶", notes = "根据Leaf对象创建竹叶")
     @PostMapping("save")
+    @CacheEvict(value = "leaf-findAll", allEntries = true)
     public Result save(@ApiParam(name = "leaf", value = "要添加的竹叶详细实体leaf", required = true)
                        @RequestBody Leaf leaf) {
         return ResultUtil.success(leafService.save(leaf));
@@ -96,6 +105,7 @@ public class LeafController {
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
     })
+    @Cacheable(value = "leaf-findLeafNoQuery")
     public Result findLeafNoQuery(@RequestParam Integer page, @RequestParam Integer size) {
 
         Page<Leaf> leafPage = leafService.findLeafNoQuery(page, size);
@@ -131,6 +141,7 @@ public class LeafController {
      */
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除竹叶")
     @DeleteMapping("deleteByIds")
+    @CacheEvict(value = "leaf-findAll", allEntries = true)
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除竹叶的id数组", required = true) @RequestParam List<Long> ids) {
         leafService.deleteByIds(ids);
         return ResultUtil.success();

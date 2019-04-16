@@ -2,6 +2,7 @@ package com.ahau.entity.bamboo.bamboonature;
 
 import com.ahau.entity.bamboo.base.Spec;
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 实体类：（解剖性质_导管形态特征表）
@@ -9,7 +10,7 @@ import javax.persistence.*;
  * 2018-11-3 14：32
  */
 @Entity
-public class Cathermorphology {
+public class Cathermorphology implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
