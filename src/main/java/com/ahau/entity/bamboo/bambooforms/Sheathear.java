@@ -2,6 +2,7 @@ package com.ahau.entity.bamboo.bambooforms;
 
 import com.ahau.entity.bamboo.base.Spec;
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 实体类：（箨耳表）
@@ -9,7 +10,7 @@ import javax.persistence.*;
  * 2018-11-2 18：43
  */
 @Entity
-public class Sheathear {
+public class Sheathear implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

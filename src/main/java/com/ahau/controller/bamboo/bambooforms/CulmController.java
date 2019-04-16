@@ -148,7 +148,7 @@ public class CulmController {
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
     })
-    @Cacheable(value = "culm-findGenusNoQuery")
+    @Cacheable(value = "culm-findCulmNoQuery")
     public Result findCulmNoQuery(@RequestParam Integer page, @RequestParam Integer size) {
 
         Page<Culm> culmPage = culmService.findCulmNoQuery(page, size);

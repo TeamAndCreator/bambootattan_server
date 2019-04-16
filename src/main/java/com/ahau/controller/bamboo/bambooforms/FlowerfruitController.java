@@ -105,7 +105,7 @@ public class FlowerfruitController {
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
     })
-    @Cacheable(value = "flowerfruit-findGenusNoQuery")
+    @Cacheable(value = "flowerfruit-findFlowerfruitNoQuery")
     public Result findFlowerfruitNoQuery(@RequestParam Integer page, @RequestParam Integer size) {
 
         Page<Flowerfruit> flowerfruitPage = flowerfruitService.findFlowerfruitNoQuery(page, size);

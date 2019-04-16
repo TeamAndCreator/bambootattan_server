@@ -6,6 +6,9 @@ import com.ahau.service.bamboo.bambooforms.SheathtongueService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sheathtongue")
 @Api(description = "箨舌")
+@CacheConfig(cacheNames = "sheathtongue")
 public class SheathtongueController {
     private final SheathtongueService sheathtongueService;
 
@@ -31,6 +35,7 @@ public class SheathtongueController {
      */
     @ApiOperation(value = "获取所有箨舌列表", notes = "获取所有箨舌列表")
     @GetMapping("findAll")
+    @Cacheable(value = "sheathtongue-findAll")
     public Result findAll() {
         return ResultUtil.success(sheathtongueService.findAll());
     }
@@ -42,6 +47,7 @@ public class SheathtongueController {
      */
     @ApiOperation(value = "获取箨舌详细信息", notes = "根据url的id来获取箨舌详细信息")
     @GetMapping("findId/{sheTogId}")
+    @Cacheable(value = "sheathtongue-findById",key = "#sheTogId")
     public Result findById(@ApiParam(name = "sheTogId", value = "需要查找的箨舌的id", required = true)
                            @PathVariable("sheTogId") Long sheTogId) {
         return ResultUtil.success(sheathtongueService.findById(sheTogId));
@@ -54,6 +60,7 @@ public class SheathtongueController {
      */
     @ApiOperation(value = "更新箨舌信息", notes = "根据url的id来指定更新箨舌信息")
     @PutMapping("update")
+    @CacheEvict(value = "sheathtongue-findById", key = "#sheathtongue.sheTogId", allEntries = true)
     public Result update(@ApiParam(name = "sheathtongue", value = "要修改的属详细实体sheathtongue", required = true)
                          @RequestBody Sheathtongue sheathtongue) {
         return ResultUtil.success(sheathtongueService.update(sheathtongue));
@@ -66,6 +73,7 @@ public class SheathtongueController {
      */
     @ApiOperation(value = "删除箨舌", notes = "根据url的id来指定删除箨舌")
     @DeleteMapping("delete/{sheTogId}")
+    @CacheEvict(value = "sheathtongue-findAll", allEntries = true)
     public Result delete(@ApiParam(name = "sheTogId", value = "需删除箨舌的ID", required = true)
                          @PathVariable("sheTogId") Long sheTogId) {
         sheathtongueService.delete(sheTogId);
@@ -79,6 +87,7 @@ public class SheathtongueController {
      */
     @ApiOperation(value = "创建箨舌", notes = "根据Sheathtongue对象创建箨舌")
     @PostMapping("save")
+    @CacheEvict(value = "sheathtongue-findAll", allEntries = true)
     public Result save(@ApiParam(name = "sheathtongue", value = "要添加的箨舌详细实体sheathtongue", required = true)
                        @RequestBody Sheathtongue sheathtongue) {
         return ResultUtil.success(sheathtongueService.save(sheathtongue));
@@ -96,6 +105,7 @@ public class SheathtongueController {
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
     })
+    @Cacheable(value = "sheathtongue-findSheathtongueNoQuery")
     public Result findSheathtongueNoQuery(@RequestParam Integer page, @RequestParam Integer size) {
 
         Page<Sheathtongue> sheathtonguePage = sheathtongueService.findSheathtongueNoQuery(page, size);
@@ -131,6 +141,7 @@ public class SheathtongueController {
      */
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除箨舌")
     @DeleteMapping("deleteByIds")
+    @CacheEvict(value = "sheathtongue-findAll", allEntries = true)
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除箨舌的id数组", required = true) @RequestParam List<Long> ids) {
         sheathtongueService.deleteByIds(ids);
         return ResultUtil.success();

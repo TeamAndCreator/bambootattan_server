@@ -3,6 +3,7 @@ package com.ahau.entity.bamboo.bambooforms;
 import com.ahau.entity.bamboo.base.Spec;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 实体类：（竹叶表）
@@ -10,7 +11,7 @@ import javax.persistence.*;
  * 2018-11-2 17：07
  */
 @Entity
-public class Leaf {
+public class Leaf implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

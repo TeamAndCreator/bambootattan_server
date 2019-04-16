@@ -6,6 +6,9 @@ import com.ahau.service.bamboo.bambooforms.SheathService;
 import com.ahau.utils.ResultUtil;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +22,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/sheath")
 @Api(description = "箨鞘")
+@CacheConfig(cacheNames = "sheath")
 public class SheathController {
     private final SheathService sheathService;
 
@@ -31,6 +35,7 @@ public class SheathController {
      */
     @ApiOperation(value = "获取所有箨鞘列表", notes = "获取所有箨鞘列表")
     @GetMapping("findAll")
+    @Cacheable(value = "sheath-findAll")
     public Result findAll() {
         return ResultUtil.success(sheathService.findAll());
     }
@@ -42,6 +47,7 @@ public class SheathController {
      */
     @ApiOperation(value = "获取箨鞘详细信息", notes = "根据url的id来获取箨鞘详细信息")
     @GetMapping("findId/{sheId}")
+    @Cacheable(value = "sheath-findById",key = "#sheId")
     public Result findById(@ApiParam(name = "sheId", value = "需要查找的箨鞘的id", required = true)
                            @PathVariable("sheId") Long sheId) {
         return ResultUtil.success(sheathService.findById(sheId));
@@ -54,6 +60,7 @@ public class SheathController {
      */
     @ApiOperation(value = "更新箨鞘信息", notes = "根据url的id来指定更新箨鞘信息")
     @PutMapping("update")
+    @CacheEvict(value = "sheath-findById", key = "#sheath.sheId", allEntries = true)
     public Result update(@ApiParam(name = "sheath", value = "要修改的属详细实体sheath", required = true)
                          @RequestBody Sheath sheath) {
         return ResultUtil.success(sheathService.update(sheath));
@@ -66,6 +73,7 @@ public class SheathController {
      */
     @ApiOperation(value = "删除箨鞘", notes = "根据url的id来指定删除箨鞘")
     @DeleteMapping("delete/{sheId}")
+    @CacheEvict(value = "sheath-findAll", allEntries = true)
     public Result delete(@ApiParam(name = "sheId", value = "需删除箨鞘的ID", required = true)
                          @PathVariable("sheId") Long sheId) {
         sheathService.delete(sheId);
@@ -79,6 +87,7 @@ public class SheathController {
      */
     @ApiOperation(value = "创建箨鞘", notes = "根据Sheath对象创建箨鞘")
     @PostMapping("save")
+    @CacheEvict(value = "sheath-findAll", allEntries = true)
     public Result save(@ApiParam(name = "sheath", value = "要添加的箨鞘详细实体sheath", required = true)
                        @RequestBody Sheath sheath) {
         return ResultUtil.success(sheathService.save(sheath));
@@ -96,6 +105,7 @@ public class SheathController {
             @ApiImplicitParam(name = "page", required = true, value = "页数", paramType = "query"),
             @ApiImplicitParam(name = "size", required = true, value = "条数", paramType = "query"),
     })
+    @Cacheable(value = "sheath-findSheathNoQuery")
     public Result findSheathNoQuery(@RequestParam Integer page, @RequestParam Integer size) {
 
         Page<Sheath> sheathPage = sheathService.findSheathNoQuery(page, size);
@@ -131,6 +141,7 @@ public class SheathController {
      */
     @ApiOperation(value = "批量删除", notes = "根据id数组来批量删除箨鞘")
     @DeleteMapping("deleteByIds")
+    @CacheEvict(value = "sheath-findAll", allEntries = true)
     public Result deleteByIds(@ApiParam(name = "ids", value = "需删除箨鞘的id数组", required = true) @RequestParam List<Long> ids) {
         sheathService.deleteByIds(ids);
         return ResultUtil.success();
