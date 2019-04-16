@@ -3,6 +3,7 @@ package com.ahau.entity.bamboo.bambooforms;
 import com.ahau.entity.bamboo.base.Spec;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * 实体类：（花果形态表）
@@ -10,7 +11,7 @@ import javax.persistence.*;
  * 2018-11-2 16：59
  */
 @Entity
-public class Flowerfruit {
+public class Flowerfruit implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
