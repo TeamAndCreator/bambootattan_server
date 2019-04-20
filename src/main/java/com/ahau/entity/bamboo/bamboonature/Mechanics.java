@@ -39,8 +39,26 @@ public class Mechanics implements Serializable {
     /* 冲击韧性 */
     private Double mechImpactDuctilityUnitRenxiang;
 
-    /* 柔量: */
+    /* 柔量 */
     private Double mechComplianceUnitRouliang;
+
+    /* 顺纹拉伸弹性模量 */
+    private Double mechStretchElasticModulus;
+
+    /* 顺纹压缩弹性模量 */
+    private Double mechCompressiveElasticModulus;
+
+    /* 弯曲模量 */
+    private Double mechFlexuralModulus;
+
+    /* 顺纹抗剪强度 */
+    private Double mechShearStrength;
+
+    /* 剪切模量 */
+    private Double mechShearModulus;
+
+    /* 绝对含水率 */
+    private Double phyAbsoluteUnitPercent;
 
     public Long getMechId() {
         return mechId;
@@ -114,6 +132,54 @@ public class Mechanics implements Serializable {
         this.mechComplianceUnitRouliang = mechComplianceUnitRouliang;
     }
 
+    public Double getMechStretchElasticModulus() {
+        return mechStretchElasticModulus;
+    }
+
+    public void setMechStretchElasticModulus(Double mechStretchElasticModulus) {
+        this.mechStretchElasticModulus = mechStretchElasticModulus;
+    }
+
+    public Double getMechCompressiveElasticModulus() {
+        return mechCompressiveElasticModulus;
+    }
+
+    public void setMechCompressiveElasticModulus(Double mechCompressiveElasticModulus) {
+        this.mechCompressiveElasticModulus = mechCompressiveElasticModulus;
+    }
+
+    public Double getMechFlexuralModulus() {
+        return mechFlexuralModulus;
+    }
+
+    public void setMechFlexuralModulus(Double mechFlexuralModulus) {
+        this.mechFlexuralModulus = mechFlexuralModulus;
+    }
+
+    public Double getMechShearStrength() {
+        return mechShearStrength;
+    }
+
+    public void setMechShearStrength(Double mechShearStrength) {
+        this.mechShearStrength = mechShearStrength;
+    }
+
+    public Double getMechShearModulus() {
+        return mechShearModulus;
+    }
+
+    public void setMechShearModulus(Double mechShearModulus) {
+        this.mechShearModulus = mechShearModulus;
+    }
+
+    public Double getPhyAbsoluteUnitPercent() {
+        return phyAbsoluteUnitPercent;
+    }
+
+    public void setPhyAbsoluteUnitPercent(Double phyAbsoluteUnitPercent) {
+        this.phyAbsoluteUnitPercent = phyAbsoluteUnitPercent;
+    }
+
     @Override
     public String toString() {
         return "Mechanics{" +
@@ -126,6 +192,12 @@ public class Mechanics implements Serializable {
                 ", mechTensileStrenghtUnitMpa=" + mechTensileStrenghtUnitMpa +
                 ", mechImpactDuctilityUnitRenxiang=" + mechImpactDuctilityUnitRenxiang +
                 ", mechComplianceUnitRouliang=" + mechComplianceUnitRouliang +
+                ", mechStretchElasticModulus=" + mechStretchElasticModulus +
+                ", mechCompressiveElasticModulus=" + mechCompressiveElasticModulus +
+                ", mechFlexuralModulus=" + mechFlexuralModulus +
+                ", mechShearStrength=" + mechShearStrength +
+                ", mechShearModulus=" + mechShearModulus +
+                ", phyAbsoluteUnitPercent=" + phyAbsoluteUnitPercent +
                 '}';
     }
 }
