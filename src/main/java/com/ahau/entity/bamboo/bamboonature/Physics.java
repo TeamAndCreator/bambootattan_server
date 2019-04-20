@@ -24,8 +24,8 @@ public class Physics implements Serializable {
     /* 相对含水率 */
     private Double phyRelativeUnitPercent;
 
-    /* 绝对含水率 */
-    private Double phyAbsoluteUnitPercent;
+    /* 生材含水率 */
+    private Double phyRawUnitPercent;
 
     /* 生材密度 */
     private Double phyGreenDensityUnitMidu;
@@ -102,12 +102,12 @@ public class Physics implements Serializable {
         this.phyRelativeUnitPercent = phyRelativeUnitPercent;
     }
 
-    public Double getPhyAbsoluteUnitPercent() {
-        return phyAbsoluteUnitPercent;
+    public Double getPhyRawUnitPercent() {
+        return phyRawUnitPercent;
     }
 
-    public void setPhyAbsoluteUnitPercent(Double phyAbsoluteUnitPercent) {
-        this.phyAbsoluteUnitPercent = phyAbsoluteUnitPercent;
+    public void setPhyRawUnitPercent(Double phyRawUnitPercent) {
+        this.phyRawUnitPercent = phyRawUnitPercent;
     }
 
     public Double getPhyGreenDensityUnitMidu() {
@@ -252,7 +252,7 @@ public class Physics implements Serializable {
                 "phyId=" + phyId +
                 ", spec=" + spec +
                 ", phyRelativeUnitPercent=" + phyRelativeUnitPercent +
-                ", phyAbsoluteUnitPercent=" + phyAbsoluteUnitPercent +
+                ", phyRawUnitPercent=" + phyRawUnitPercent +
                 ", phyGreenDensityUnitMidu=" + phyGreenDensityUnitMidu +
                 ", phyBasicDensityUnitMidu=" + phyBasicDensityUnitMidu +
                 ", phyAirDryDensityUnitMidu=" + phyAirDryDensityUnitMidu +

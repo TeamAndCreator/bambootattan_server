@@ -114,6 +114,14 @@ public class MechanicsService {
                 list.add(criteriaBuilder.equal(root.get("mechTensileStrenghtUnitMpa").as(Double.class),Double.valueOf(search)));
                 list.add(criteriaBuilder.equal(root.get("mechImpactDuctilityUnitRenxiang").as(Double.class),Double.valueOf(search)));
                 list.add(criteriaBuilder.equal(root.get("mechComplianceUnitRouliang").as(Double.class),Double.valueOf(search)));
+                list.add(criteriaBuilder.equal(root.get("mechStretchElasticModulus").as(Double.class),Double.valueOf(search)));
+                list.add(criteriaBuilder.equal(root.get("mechCompressiveElasticModulus").as(Double.class),Double.valueOf(search)));
+                list.add(criteriaBuilder.equal(root.get("mechFlexuralModulus").as(Double.class),Double.valueOf(search)));
+                list.add(criteriaBuilder.equal(root.get("mechShearStrength").as(Double.class),Double.valueOf(search)));
+                list.add(criteriaBuilder.equal(root.get("mechShearModulus").as(Double.class),Double.valueOf(search)));
+                list.add(criteriaBuilder.equal(root.get("phyAbsoluteUnitPercent").as(Double.class),Double.valueOf(search)));
+
+
 
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.or(list.toArray(p));

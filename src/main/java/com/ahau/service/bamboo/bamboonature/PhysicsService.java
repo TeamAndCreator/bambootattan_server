@@ -108,7 +108,7 @@ public class PhysicsService {
                 //用于暂时存放查询条件的集合
                 List<Predicate> list = new ArrayList<>();
                 list.add(criteriaBuilder.equal(root.get("phyRelativeUnitPercent").as(Double.class),Double.valueOf(search)));
-                list.add(criteriaBuilder.equal(root.get("phyAbsoluteUnitPercent").as(Double.class),Double.valueOf(search)));
+                list.add(criteriaBuilder.equal(root.get("phyRawUnitPercent").as(Double.class),Double.valueOf(search)));
                 list.add(criteriaBuilder.equal(root.get("phyGreenDensityUnitMidu").as(Double.class),Double.valueOf(search)));
                 list.add(criteriaBuilder.equal(root.get("phyBasicDensityUnitMidu").as(Double.class),Double.valueOf(search)));
                 list.add(criteriaBuilder.equal(root.get("phyAirDryDensityUnitMidu").as(Double.class),Double.valueOf(search)));
