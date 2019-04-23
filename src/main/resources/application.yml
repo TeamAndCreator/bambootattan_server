@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://172.26.100.100:3306/bambootattan?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
+    url: jdbc:mysql://47.104.26.79:3306/bambootattan?createDatabaseIfNotExist=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false&zeroDateTimeBehavior=convertToNull&transformedBitIsBoolean=true
     username : root
     password : 46132205092017
     driverClassName : com.mysql.cj.jdbc.Driver
@@ -37,7 +37,7 @@ spring :
       repositories :
         enabled : true
       cluster-name : elasticsearch
-      cluster-nodes : 172.26.100.100:9300
+      cluster-nodes : 47.104.26.79:9300
 ---
 logging :
   level:
@@ -50,7 +50,7 @@ logging :
 spring:
   redis:
     database: 0
-    host: 172.26.100.100
+    host: 47.104.26.79
     port: 6379
     password:
     jedis:
