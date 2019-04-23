@@ -22,7 +22,7 @@ public class ElasticSearchConfig {
         LOGGER.info("初始化开始中...");
         TransportClient client = null;
         try {
-            TransportAddress transportAddress = new TransportAddress(InetAddress.getByName("172.26.100.100"),
+            TransportAddress transportAddress = new TransportAddress(InetAddress.getByName("47.104.26.79"),
                     9300);
             // 配置信息
             Settings esSetting = Settings.builder()
