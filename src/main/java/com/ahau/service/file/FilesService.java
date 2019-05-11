@@ -45,7 +45,7 @@ public class FilesService {
     }
 
     /**
-     *  保存一个文件（file）到服务器指定处（例如到http://47.104.26.79:8081//file/55/image路径下等）
+     *  保存一个文件（file）到服务器指定处（例如到http://114.112.125.51:8081//file/55/image路径下等）
      *  并返回一个实体类（Files）用于在上一层（例如SpecController等）将file保存到数据库
      * @param multipartFiles
      * @param content
